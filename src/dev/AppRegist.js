@@ -1,12 +1,13 @@
+import {Link} from 'react-router-dom';
+
 const AppRegist = () => {
     return (
         <div>
             <div>
                 <ul>
-                    <li>앱 등록</li>
-                    <li>앱 관리</li>
-                    <li>설정</li>
-                    <li>모든 앱</li>
+                    <li><Link to='/dev/appregist'>앱 등록</Link></li>
+                    <li><Link to='/dev/applist'>앱 관리</Link></li>
+                    <li><Link to='/dev/setting'>설정</Link></li>
                 </ul>
             </div>
             <div>
