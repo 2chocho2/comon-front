@@ -13,7 +13,7 @@ const AppListDev = () => {
         // const decode_token = jwt_decode(token);
         // setUserIdx(decode_token.sub);
         // let userIdx = decode_token.sub;
-        axios.get(`http://localhost:8080/api/dev/applist/${userIdx}`)
+        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/applist/${userIdx}`)
             .then(res => {
                 setData(res.data);
             })
@@ -24,7 +24,7 @@ const AppListDev = () => {
     
     // 삭제 신청 요청
     const handlerClickDelete = (i) => {
-        axios.put(`http://localhost:8080/api/dev/registdelete/${i}`)
+        axios.put(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/registdelete/${i}`)
             .then(res => {
                 console.log(res.data);
             })

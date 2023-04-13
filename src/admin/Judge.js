@@ -7,7 +7,7 @@ const Judge = () => {
     const [ data, setData ] = useState([]);
     
     useEffect(() => {
-        axios.get('http://localhost:8080/api/admin/applist/regist')
+        axios.get('http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist/regist')
             .then(res => {
                 setData(res.data);
             })

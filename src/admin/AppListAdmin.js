@@ -7,7 +7,7 @@ const AppListAdmin = () => {
     const [ data, setData ] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/admin/applist')
+        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist`)
             .then(res => {
                 setData(res.data);
             })
@@ -51,7 +51,7 @@ const AppListAdmin = () => {
 
     // 전체 앱 리스트 조회
     const handlerClickAll = () => {
-        axios.get(`http://localhost:8080/api/admin/applist`)
+        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist`)
             .then(res => {
                 console.log(res.data);
                 setData(res.data);
@@ -63,7 +63,7 @@ const AppListAdmin = () => {
 
     // 서비스 중인 앱 리스트 조회
     const handlerClickOnService = () => {
-        axios.get(`http://localhost:8080/api/admin/applist/onservice`)
+        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist/onservice`)
             .then(res => {
                 console.log(res.data);
                 setData(res.data);
@@ -75,7 +75,7 @@ const AppListAdmin = () => {
 
     // 삭제 신청 상태의 앱 리스트 조회
     const handlerClickRegistDelete = () => {
-        axios.get(`http://localhost:8080/api/admin/applist/registdelete`)
+        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist/registdelete`)
             .then(res => {
                 console.log(res.data);
                 setData(res.data);
@@ -87,7 +87,7 @@ const AppListAdmin = () => {
 
     // 삭제된 앱 리스트 조회
     const handlerClickDeleteService = () => {
-        axios.get(`http://localhost:8080/api/admin/deleteapplist`)
+        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/deleteapplist`)
             .then(res => {
                 console.log(res.data);
                 setData(res.data);
