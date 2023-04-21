@@ -12,6 +12,9 @@ import Judge from './admin/Judge';
 import JudgeDetail from './admin/JudgeDetail';
 import AdminAppDetail from './admin/AdminAppDetail';
 import AdminSetting from './admin/AdminSetting';
+import Main from './main/Main';
+import AppList from './main/AppList';
+import AppDetail from './main/AppDetail';
 
 function App() {
   return (
@@ -33,10 +36,18 @@ function App() {
       
 
       {/* 사용자용 */}
+      <Route path='/main' render={(props) => <Main {...props} /> } exact={true} />
+      <Route path='/user/applist' render={(props) => <AppList {...props} />} exact={true} />
+      <Route path='/user/appdetail/:imageIdx' render={(props) => <AppDetail {...props} /> } exact={true} />
+      
+      
+      
+      
+{/*       
       <Route path='/list' component={ImageList} exact={true} />
       <Route path='/image/write' component={ImageWrite} exact={true} />
       <Route path='/image/detail/:id' render={(props) => <ImageDetail {...props}/>} exact={true}/>
-      
+       */}
       
     </>
   );

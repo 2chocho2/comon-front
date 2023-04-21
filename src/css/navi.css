@@ -6,7 +6,7 @@
 }
 
 .menu {
-    background-color: black;
+    background-color: rgba(0, 0, 0 );
     box-sizing: border-box;
     padding: 0px;
     width: 100%;
@@ -14,9 +14,11 @@
     line-height: 60px;
     float: left;
     font-family: 'TheJamsil5Bold';
+    z-index: 1;
+    
 }
 
-.menu::after {
+#navi::after, menu::after {
     content: '';
     display: block;
     clear: both;
@@ -51,4 +53,67 @@
     float: left;
     padding: 0px 10px;
     list-style: none;
+}
+
+.main-navi {
+    background-color: black;
+    box-sizing: border-box;
+    padding: 0px;
+    width: 100%;
+    height: 220px;
+    line-height: 60px;
+    font-family: 'TheJamsil5Bold';
+    color: white;
+    text-align: center;
+}
+
+.main-home {
+    color: white;
+    height: 80px;
+    width: 300px;
+    box-sizing: content-box;
+    line-height: 80px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: bold;
+    padding-top: 50px;
+    font-size: 45px;
+}
+
+.loginButton {
+    float: right;
+    margin-right: 30px;
+}
+
+.loginButton::after {
+    display: block;
+    clear: both;
+    content: '';
+}
+
+.login-btn {
+    background-color: black;
+    border: none;
+    color: white;
+    width: 70px;
+}
+
+.main-link {
+    height: 80px;
+    line-height: 80px;
+    display: inline-block;
+}
+
+.main-link li {
+    width: 150px;
+    margin: 0 50px;
+    float: left;
+    text-align: center;
+}
+
+.main-link li::after {
+    display: block;
+    clear: both;
+    content: '';
 }
