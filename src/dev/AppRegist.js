@@ -263,7 +263,7 @@ const AppRegist = ({ history }) => {
                         </li>
                         <li className='form-each'>
                             <p className='form-title'>자세한 설명</p>
-                            <input type="textarea"
+                            <textarea
                                 className='text-inputbox-description'
                                 value={imageDetail}
                                 onChange={handlerChangeImageDetail}

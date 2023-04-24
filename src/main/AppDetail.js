@@ -4,7 +4,8 @@ import '../css/appdetail.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa"
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+import { BsStarFill, BsStarHalf } from "react-icons/bs";
 
 function SampleNextArrow(props) {
     const { className, style, onClick } = props;
@@ -31,6 +32,8 @@ function SamplePrevArrow(props) {
 const AppDetail = ({ match, history }) => {
 
     const [data, setData] = useState([]);
+    const [star, setStar] = useState(5);
+    const [reviewList, setReviewList] = useState([]);
 
     const { imageIdx } = match.params;
 
@@ -38,7 +41,9 @@ const AppDetail = ({ match, history }) => {
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/detail/${imageIdx}`)
             .then(res => {
                 console.log(res.data);
-                setData(res.data);
+                setData(res.data.imageDto);
+                setStar(res.data.reviewAvg);
+                setReviewList(res.data.reviewList);
             })
             .catch(err => {
                 console.log(err);
@@ -49,46 +54,79 @@ const AppDetail = ({ match, history }) => {
 
     const iconImage = `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/icon/${data.iconImage}`;
 
-    const handlerClickDownload = () => {
+    // TODO.하드 코딩 상태! 수정 필요
+    const imageUserDto = {
+        userId: 'chocho',
+        imageIdx: imageIdx
+    };
 
+    const handlerClickDownload = () => {
+        axios({
+            method: 'POST',
+            url: `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/downloadapp`,
+            data: imageUserDto
+        })
+            .then(res => {
+                console.log(res.data);
+                alert(`앱 다운로드가 완료되었습니다.`);
+            })
+            .catch(err => {
+                console.log(err);
+            })
     };
 
     const imgArr = [data.screenshotImage1,
-                    data.screenshotImage2,
-                    data.screenshotImage3,
-                    data.screenshotImage4,
-                    data.screenshotImage5,
-                    data.screenshotImage6].filter(img => img !== null);
-
-    // 스크린샷 개수에 맞춰 이미지 출력
-    // const getScreenshotImage = () => {
-
-    //     const img1 = data.screenshotImage1;
-    //     const img2 = data.screenshotImage2;
-    //     const img3 = data.screenshotImage3;
-    //     const img4 = data.screenshotImage4;
-    //     const img5 = data.screenshotImage5;
-    //     const img6 = data.screenshotImage6;
-
-    //     const imgArr = [img1, img2, img3, img4, img5, img6];
-
-    //     // return imgArr.map((img, index) =>
-    //     //     img && <img src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/screenshot/${img}`} key={index} />
-    //     // );
-    // };
+    data.screenshotImage2,
+    data.screenshotImage3,
+    data.screenshotImage4,
+    data.screenshotImage5,
+    data.screenshotImage6].filter(img => img !== null);
 
     const settings = {
         dots: true,
         infinite: true,
         slidesToShow: 1,
         slidesToScroll: 1,
-        autoplay: true,
+        autoplay: false,
         speed: 2,
         autoplaySpeed: 3000,
         nextArrow: <SampleNextArrow />,
         prevArrow: <SamplePrevArrow />
     };
 
+    const settings2 = {
+        dots: true,
+        infinite: true,
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        autoplay: false,
+        speed: 2,
+        autoplaySpeed: 3000,
+        nextArrow: <SampleNextArrow />,
+        prevArrow: <SamplePrevArrow />
+    };
+
+
+    // 별점 출력
+    const starRating = (rating, color = "#000000") => {
+        return (
+            <>
+                <div className="review-star-icon">
+                    {Array(parseInt(rating))
+                        .fill(2)
+                        .map((el, i) => (
+                            <BsStarFill key={i} size="30" color={color} />
+                        ))}
+                    {rating % 1 !== 0 && <BsStarHalf size="30" color={color} />}
+                    {Array(Math.floor(5 - rating))
+                        .fill(2)
+                        .map((el, i) => (
+                            <BsStarFill key={i} size="30" color="#E3E3E3" />
+                        ))}
+                </div>
+            </>
+        );
+    };
 
     return (
         <>
@@ -123,40 +161,73 @@ const AppDetail = ({ match, history }) => {
                             <p className="screenshot-title">스크린샷</p>
                             <div className="appdetail-slider-box">
                                 <Slider className='appdetail-slider' {...settings}>
-                                
+
                                     {
                                         imgArr
                                         &&
                                         imgArr.map((img, index) =>
-                                        <div className='appdetail-slider-each'>
-                                        <img className='appdetail-slider-screenshot' src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/screenshot/${img}`} key={index} />
-                                        </div>) 
+                                            <div className='appdetail-slider-each'>
+                                                <img className='appdetail-slider-screenshot' src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/screenshot/${img}`} key={index} />
+                                            </div>)
                                     }
                                 </Slider>
                             </div>
                         </div>
                         <div className='detail-image-description'>
-                            <div className='detail-image-staravg'>
-
-                            </div>
-                            <div className='detail-image-registdt'>
-
-                            </div>
-                            <div className='detail-image-devinfo'>
-
+                            <div className='detail-image-description-inner'>
+                                <div className='detail-image-staravg'>
+                                    <p className="detail-title">평가</p>
+                                    <div className="star-score">점수</div>
+                                    <div className="stars">{star.toFixed(1)}</div>
+                                </div>
+                                <div className='detail-image-registdt'>
+                                    <p className="detail-title">업로드 날짜</p>
+                                    <div className="registdt">2023-04-30</div>
+                                </div>
+                                <div className='detail-image-devinfo'>
+                                    <p className="detail-title">개발자</p>
+                                    <div className="dev-icon"></div>
+                                    <div className="dev-name">COM:ON</div>
+                                </div>
                             </div>
                         </div>
 
                         <div className='detail-how-to-use'>
-
+                            <p className="how-to-use-title">서비스 이용</p>
+                            <div className="how-to-use-detail">
+                                {data.imageDetail}
+                            </div>
                         </div>
 
                         <div className='detail-image-review'>
-                            <div className='detail-image-review-star'>
+                            <p className="review-title">리뷰</p>
+                            <div className='review-box'>
+                                <div className='review-box-inner'>
+                                    <div className='review-star-avg'>
+                                        <div id="star-box">
+                                            <p className='review-star-avg-score'>{star.toFixed(1)}</p>
+                                            <p className='review-star-avg-score-fix'>(최고 5점)</p>
+                                        </div>
+                                    </div>
+                                    <div className='review-star'>
+                                        {starRating(star)}
+                                    </div>
+                                    <div className='review-score-total'>
 
+                                    </div>
+                                </div>
                             </div>
                             <div className='detail-image-review-slider'>
-
+                                <Slider className='review-slider-box' {...settings2}>
+                                    {
+                                        reviewList
+                                        &&
+                                        reviewList.map((review, index) => 
+                                        <div className='review-slider-each'>
+                                            <p>{review.reviewTitle}</p>
+                                        </div>)
+                                    }
+                                </Slider>
                             </div>
                         </div>
 

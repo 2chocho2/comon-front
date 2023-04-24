@@ -90,6 +90,10 @@ const AppList = ({ history }) => {
             })
     };
 
+    const handlerClickAppDetail = (e) => {
+        history.push(`/user/appdetail/${e}`)
+    }
+
     return (
         <>
             <Navi history={history} />
@@ -106,7 +110,7 @@ const AppList = ({ history }) => {
                         &&
                         data.map((data =>
                             <>
-                                <div className='applist-each'>
+                                <div className='applist-each' onClick={ () => handlerClickAppDetail(data.imageIdx) }>
                                     <div className='applist-image-box'>
                                         <img className='applist-each-thumbnail' src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/thumbnail/${data.thumbnailImage}`} />
                                     </div>
