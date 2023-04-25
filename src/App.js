@@ -15,6 +15,10 @@ import AdminSetting from './admin/AdminSetting';
 import Main from './main/Main';
 import AppList from './main/AppList';
 import AppDetail from './main/AppDetail';
+import MyService from './mypage/MyService';
+import MyQnaList from './mypage/MyQnaList';
+import QnaDetail from './mypage/QnaDetail';
+import WriteQna from './mypage/WriteQna';
 
 function App() {
   return (
@@ -35,13 +39,16 @@ function App() {
       <Route path="/dev/setting" render={(props) => <DevSetting {...props}/> } exact={true} />
       
 
-      {/* 사용자용 */}
+      {/* 사용자용 - 메인 */}
       <Route path='/main' render={(props) => <Main {...props} /> } exact={true} />
       <Route path='/user/applist' render={(props) => <AppList {...props} />} exact={true} />
       <Route path='/user/appdetail/:imageIdx' render={(props) => <AppDetail {...props} /> } exact={true} />
       
-      
-      
+      {/* 사용자용 - 마이페이지 */}
+      <Route path='/mypage' render={(props) => <MyService {...props} /> } exact={true} />
+      <Route path='/mypage/qna' render={(props) => <MyQnaList {...props} /> } exact={true} />
+      <Route path='/mypage/qna/:qnaidx' render={(props) => <QnaDetail {...props} /> } exact={true} />
+      <Route path='/mypage/qna/write' render={(props) => <WriteQna {...props} /> } exact={true} />
       
 {/*       
       <Route path='/list' component={ImageList} exact={true} />

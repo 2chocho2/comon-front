@@ -129,8 +129,6 @@
 .detail-right {
     width: 50%;
     height: 100vh;
-    /* 여기 때문인데 왜지? */
-    background-color: lightblue;
     padding: 100px;
     overflow-y: scroll;
     font-family: 'GongGothicMedium';
@@ -141,7 +139,6 @@
 }
 
 .detail-right-content {
-    background-color: pink;
     width: 100%;
     height: 2000px;
 }
@@ -155,15 +152,11 @@
 }
 
 .detail-image-review {
-    border: 1px solid yellow;
-    height: 300px;
+    height: 500px;
+    
 }
 
-.detail-image-download-app {
-    background-color: rgb(204, 204, 204);
-    height: 300px;
-    border-radius: 20px;
-}
+
 
 /* 스크린샷 슬라이더 */
 .screenshot-title, .how-to-use-title, .review-title {
@@ -292,7 +285,6 @@
 }
 
 .detail-how-to-use {
-    border: 1px solid green;
     height: auto;
 }
 
@@ -322,16 +314,14 @@
 
 /* 리뷰 평가 정보 */
 .review-star-avg {float: left;}
+.detail-image-review-slider,
 .review-star-avg,
 .review-star,
 .review-score-total {
-    height: 100%;
-    height: 140px;
     padding: 20px 0px;
     position: relative;
     text-align: center;
     margin: auto;
-    border: 1px solid black;
 }
 
 #star-box {
@@ -340,6 +330,12 @@
     left: 50%;
     transform: translate(-50%, -50%);      
 }
+
+.review-box {
+    height: 40%;
+    padding: 10px 10px 10px 10px;
+}
+
 .review-box-inner {
     width: 100%;
     height: 100%;
@@ -348,6 +344,7 @@
     display: flex;
     justify-content: space-around;
     vertical-align: middle;
+    background-color: white;
 }
 
 .review-star-avg {
@@ -379,16 +376,20 @@
     transform: translate(-50%, -50%);   
 }
 
+.review-star-icon svg {
+    width: 2em;
+    height: 2em;
+}
+
 
 /* 리뷰 슬라이더 */
 .detail-image-review-slider {
     position: relative;
-    height: 90%;
+    height: 50%;
     width: 100%;
 }
 
 .review-slider-box {
-    background-color: #005DCB;
     position: absolute;
     top: 50%;
     left:50%;
@@ -399,8 +400,7 @@
 }
 
 .review-slider-box .slick-list {
-    background-color: #D9D9D9;
-    width: 80%;
+    width: 85%;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
@@ -408,14 +408,85 @@
     vertical-align: middle;
     border: none;
     border-radius: 10px;
+    
 }
 
 .detail-image-review-slider .slick-dots {
-    display: none;
+    display: none !important;
 }
 
 .review-slider-each {
-    width: 50%;
-    height: 100%;
-    border: 1px solid green;
+    
+    background-color: #D9D9D9;
+    /* margin-left: 10px; */
+    width: 95% !important;
+    border-radius: 10px;
+}
+
+.review-slider-each-title,
+.review-slider-each-content,
+.review-slider-each-star {
+    height: 50px;
+    line-height: 40px;
+    padding: 5px 5px 5px 5px;
+}
+
+.review-slider-each-title {
+    width: 60%;
+    float: left;
+    line-height: 40px;
+    height: 50px;
+    text-align: left;
+    padding: 5px 5px 5px 5px;
+    font-weight: bold;
+}
+
+.review-slider-each-title::after {
+    display: block;
+    content: '';
+    clear: both;
+}
+
+.review-slider-each-content {
+    text-align: left;
+    height: 150px;
+}
+
+/* 오른쪽 마지막 다운로드 박스 */
+.detail-image-download-app {
+    background-color: rgb(204, 204, 204);
+    height: 350px;
+    border-radius: 20px;
+    text-align: center;
+    padding: 30px;
+    margin-top: 30px;
+}
+
+.detail-image-download-app-icon {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    box-shadow: 3px 3px 3px #a8a8a8;
+}
+
+.detail-image-download-app-name {
+    color: #005DCB;
+    font-size: 35px;
+    margin: 20px 0 10px 0;
+}
+
+.detail-image-download-app-description {
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.detail-image-download-button {
+    background-color: #005DCB;
+    border: none;
+    width: 100px;
+    height: 25px;
+    border-radius: 20px;
+    color: white;
+    font-family: 'GongGothicMedium';
+    font-size: 15px;
 }

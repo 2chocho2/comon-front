@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-import { BsStarFill, BsStarHalf } from "react-icons/bs";
+import { BsStarFill, BsStarHalf, BsStar } from "react-icons/bs";
 
 function SampleNextArrow(props) {
     const { className, style, onClick } = props;
@@ -44,6 +44,7 @@ const AppDetail = ({ match, history }) => {
                 setData(res.data.imageDto);
                 setStar(res.data.reviewAvg);
                 setReviewList(res.data.reviewList);
+                console.log(res.data.reviewList);
             })
             .catch(err => {
                 console.log(err);
@@ -69,6 +70,7 @@ const AppDetail = ({ match, history }) => {
             .then(res => {
                 console.log(res.data);
                 alert(`앱 다운로드가 완료되었습니다.`);
+                window.location.reload();
             })
             .catch(err => {
                 console.log(err);
@@ -90,13 +92,12 @@ const AppDetail = ({ match, history }) => {
         autoplay: false,
         speed: 2,
         autoplaySpeed: 3000,
-        nextArrow: <SampleNextArrow />,
-        prevArrow: <SamplePrevArrow />
+        nextArrow: <SampleNextArrow />
     };
 
     const settings2 = {
         dots: true,
-        infinite: true,
+        infinite: false,
         slidesToShow: 2,
         slidesToScroll: 1,
         autoplay: false,
@@ -108,22 +109,20 @@ const AppDetail = ({ match, history }) => {
 
 
     // 별점 출력
-    const starRating = (rating, color = "#000000") => {
+    const starRating = (rating, color = "#000000", size) => {
         return (
             <>
-                <div className="review-star-icon">
                     {Array(parseInt(rating))
                         .fill(2)
                         .map((el, i) => (
-                            <BsStarFill key={i} size="30" color={color} />
+                            <BsStarFill key={i} color={color} />
                         ))}
-                    {rating % 1 !== 0 && <BsStarHalf size="30" color={color} />}
+                    {rating % 1 !== 0 && <BsStarHalf color={color} />}
                     {Array(Math.floor(5 - rating))
                         .fill(2)
                         .map((el, i) => (
-                            <BsStarFill key={i} size="30" color="#E3E3E3" />
+                            <BsStar key={i} color={color} />
                         ))}
-                </div>
             </>
         );
     };
@@ -210,7 +209,9 @@ const AppDetail = ({ match, history }) => {
                                         </div>
                                     </div>
                                     <div className='review-star'>
-                                        {starRating(star)}
+                                        <div className="review-star-icon">
+                                            {starRating(star)}
+                                        </div>
                                     </div>
                                     <div className='review-score-total'>
 
@@ -224,15 +225,27 @@ const AppDetail = ({ match, history }) => {
                                         &&
                                         reviewList.map((review, index) => 
                                         <div className='review-slider-each'>
-                                            <p>{review.reviewTitle}</p>
+                                            <div className='review-slider-each-title'>{review.reviewTitle}</div>
+                                            <div className='review-slider-each-star'>
+                                                <div className="review-slider-each-star-icon">{starRating(review.scoreCount)}</div>
+                                            </div>
+                                            <div className='review-slider-each-content'>{review.reviewContent}</div>
+                                            
                                         </div>)
                                     }
                                 </Slider>
                             </div>
                         </div>
+                        <hr />
 
                         <div className='detail-image-download-app'>
-
+                            <img className='detail-image-download-app-icon' src={iconImage} />
+                            <div>
+                                <p className='detail-image-download-app-name'>{data.imageName}</p>
+                                <p className='detail-image-download-app-description'>{data.imageDescription}</p>
+                            </div>
+                            <button onClick={handlerClickDownload}
+                                        className='detail-image-download-button'>받기</button>
                         </div>
                     </div>
 
