@@ -57,10 +57,11 @@ const AppDetail = ({ match, history }) => {
 
     // TODO.하드 코딩 상태! 수정 필요
     const imageUserDto = {
-        userId: 'chocho',
+        userId: 'chochocho',
         imageIdx: imageIdx
     };
 
+    // 다운로드 로직
     const handlerClickDownload = () => {
         axios({
             method: 'POST',
@@ -112,20 +113,29 @@ const AppDetail = ({ match, history }) => {
     const starRating = (rating, color = "#000000", size) => {
         return (
             <>
-                    {Array(parseInt(rating))
-                        .fill(2)
-                        .map((el, i) => (
-                            <BsStarFill key={i} color={color} />
-                        ))}
-                    {rating % 1 !== 0 && <BsStarHalf color={color} />}
-                    {Array(Math.floor(5 - rating))
-                        .fill(2)
-                        .map((el, i) => (
-                            <BsStar key={i} color={color} />
-                        ))}
+                {Array(parseInt(rating))
+                    .fill(2)
+                    .map((el, i) => (
+                        <BsStarFill key={i} color={color} />
+                    ))}
+                {rating % 1 !== 0 && <BsStarHalf color={color} />}
+                {Array(Math.floor(5 - rating))
+                    .fill(2)
+                    .map((el, i) => (
+                        <BsStar key={i} color={color} />
+                    ))}
             </>
         );
     };
+
+    // 출시 일자 출력
+    const registDt = () => {
+        let appRegistDt = '';
+        if (data.registDt != null) {
+            appRegistDt = data.registDt.substring(0, 10);
+        }
+        return <p>{appRegistDt}</p>;
+    }
 
     return (
         <>
@@ -181,7 +191,7 @@ const AppDetail = ({ match, history }) => {
                                 </div>
                                 <div className='detail-image-registdt'>
                                     <p className="detail-title">업로드 날짜</p>
-                                    <div className="registdt">2023-04-30</div>
+                                    <div className="registdt">{registDt()}</div>
                                 </div>
                                 <div className='detail-image-devinfo'>
                                     <p className="detail-title">개발자</p>
@@ -223,15 +233,15 @@ const AppDetail = ({ match, history }) => {
                                     {
                                         reviewList
                                         &&
-                                        reviewList.map((review, index) => 
-                                        <div className='review-slider-each'>
-                                            <div className='review-slider-each-title'>{review.reviewTitle}</div>
-                                            <div className='review-slider-each-star'>
-                                                <div className="review-slider-each-star-icon">{starRating(review.scoreCount)}</div>
-                                            </div>
-                                            <div className='review-slider-each-content'>{review.reviewContent}</div>
-                                            
-                                        </div>)
+                                        reviewList.map((review, index) =>
+                                            <div className='review-slider-each'>
+                                                <div className='review-slider-each-title'>{review.reviewTitle}</div>
+                                                <div className='review-slider-each-star'>
+                                                    <div className="review-slider-each-star-icon">{starRating(review.scoreCount)}</div>
+                                                </div>
+                                                <div className='review-slider-each-content'>{review.reviewContent}</div>
+
+                                            </div>)
                                     }
                                 </Slider>
                             </div>
@@ -245,7 +255,7 @@ const AppDetail = ({ match, history }) => {
                                 <p className='detail-image-download-app-description'>{data.imageDescription}</p>
                             </div>
                             <button onClick={handlerClickDownload}
-                                        className='detail-image-download-button'>받기</button>
+                                className='detail-image-download-button'>받기</button>
                         </div>
                     </div>
 

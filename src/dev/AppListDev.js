@@ -12,6 +12,9 @@ const AppListDev = ({ history }) => {
     const [data, setData] = useState([]);
     const [denyList, setDenyList] = useState([]);
 
+    //TODO! 하드 코딩 상태. 이후 수정 필요
+    const devName='chocho';
+
     useEffect(() => {
         // const token = sessionStorage.getItem('token');
         // const decode_token = jwt_decode(token);
@@ -23,7 +26,7 @@ const AppListDev = ({ history }) => {
             .then(res => {
                 setData(res.data.list1);
                 setDenyList(res.data.list2);
-                console.log(res.data.list2);
+                console.log(res.data.list1);
             })
             .catch(err => {
                 console.log(err);
@@ -123,7 +126,7 @@ const AppListDev = ({ history }) => {
             <div className='body'>
                 <p className='body_title'>모든 앱</p>
 
-                <p className='userName'><FaUserAstronaut className='userIcon' title='유저 아이디입니다.'/>{userId}</p>
+                <p className='userName'><FaUserAstronaut className='userIcon' title='유저 아이디입니다.'/>{devName}</p>
                 <table className='AppTable'>
                     <thead>
                         <tr>

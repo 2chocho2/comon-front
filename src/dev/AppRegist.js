@@ -348,7 +348,7 @@ const AppRegist = ({ history }) => {
                                         데이터 서버의 경우, 영속적인 데이터 저장이 필요하다면 볼륨 설정을 해 주시기 바랍니다.
                                     </li>
                                     <li>
-                                        사용자의 디렉터리 형식은 <span style={{ fontSize: 12, color: 'blue' }}>[c:\comon\&#36;&#123;userId&#125;\개발자 아이디\앱 이름]</span> 의 형식으로 작성해 주시기 바랍니다.
+                                        사용자의 디렉터리 형식은 <span style={{ fontSize: 12, color: 'blue' }}>[c\comon\OUR_APP_USER_ID\앱 이름]</span> 의 형식으로 작성해 주시기 바랍니다.
                                     </li>
                                     <li>
                                         등록 전 실행되어야 하는 포트를 확인해 주시기 바랍니다.

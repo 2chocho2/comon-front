@@ -44,7 +44,7 @@ const Recommend = ({ recommendList }) => {
     return (
         <>
             <div>
-                <Slider {...settings}>
+                <Slider className='recommend-slider' {...settings}>
                     {
                         recommendList
                         &&

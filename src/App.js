@@ -16,10 +16,9 @@ import Main from './main/Main';
 import AppList from './main/AppList';
 import AppDetail from './main/AppDetail';
 import MyService from './mypage/MyService';
-import MyQnaList from './mypage/MyQnaList';
-import QnaDetail from './mypage/QnaDetail';
-import WriteQna from './mypage/WriteQna';
 import EditUserInfo from './mypage/EditUserInfo';
+import Login from './login/Login';
+import Regist from './login/Regist';
 
 function App() {
   return (
@@ -48,12 +47,13 @@ function App() {
       {/* 사용자용 - 마이페이지 */}
       <Route path='/mypage' render={(props) => <MyService {...props} /> } exact={true} />
       <Route path='/mypage/edit' render={(props) => <EditUserInfo {...props} /> } exact={true} />
-      <Route path='/mypage/qna' render={(props) => <MyQnaList {...props} /> } exact={true} />
-      <Route path='/mypage/qna/:qnaidx' render={(props) => <QnaDetail {...props} /> } exact={true} />
-      <Route path='/mypage/qna/write' render={(props) => <WriteQna {...props} /> } exact={true} />
       
-{/*       
+      <Route path='/login' render={(props) => <Login {...props} /> } exact={true} />
+      <Route path='/regist' render={(props) => <Regist {...props} /> } exact={true} />
+      
+      
       <Route path='/list' component={ImageList} exact={true} />
+      {/* 
       <Route path='/image/write' component={ImageWrite} exact={true} />
       <Route path='/image/detail/:id' render={(props) => <ImageDetail {...props}/>} exact={true}/>
        */}

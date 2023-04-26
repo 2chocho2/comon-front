@@ -82,7 +82,7 @@ const ImageList = ({ history }) => {
                             datas && datas.map(data => {
                                 const c = JSON.parse(data);
                                 const port = c.Ports.split('-')[0].split(':')[1];
-                                
+                                { console.log(c.Labels.includes("테스트 이름-yamlfile-1-docker-compose-chochocho"))}
                                 return (
                                 <tr key={c.ID}>
                                     <td>

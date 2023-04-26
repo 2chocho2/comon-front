@@ -27,7 +27,7 @@
 }
 
 /* 추천 앱 슬라이더 */
-.slick-slider{
+.recommend-slider {
     font-family: 'TheJamsil5Bold';
     width: 60%;
     margin-top: 150px;
@@ -42,7 +42,7 @@
 }
 
 /* 슬라이더 내부 박스 */
-.slick-list{
+.recommend-slider slick-list{
     border: 3px solid black;
     width: 90%;
     text-align: center;

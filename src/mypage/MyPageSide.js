@@ -6,7 +6,7 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 const MyPageSide = () => {
 
     const [name, setName] = useState('');
-    const userId = 'chocho';
+    const userId = 'chochocho';
     
     useEffect(() => {
         // TODO! 현재 하드 코딩
