@@ -19,6 +19,7 @@ import MyService from './mypage/MyService';
 import MyQnaList from './mypage/MyQnaList';
 import QnaDetail from './mypage/QnaDetail';
 import WriteQna from './mypage/WriteQna';
+import EditUserInfo from './mypage/EditUserInfo';
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
       
       {/* 사용자용 - 마이페이지 */}
       <Route path='/mypage' render={(props) => <MyService {...props} /> } exact={true} />
+      <Route path='/mypage/edit' render={(props) => <EditUserInfo {...props} /> } exact={true} />
       <Route path='/mypage/qna' render={(props) => <MyQnaList {...props} /> } exact={true} />
       <Route path='/mypage/qna/:qnaidx' render={(props) => <QnaDetail {...props} /> } exact={true} />
       <Route path='/mypage/qna/write' render={(props) => <WriteQna {...props} /> } exact={true} />

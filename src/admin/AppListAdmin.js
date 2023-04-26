@@ -4,7 +4,7 @@ import axios from 'axios';
 import NaviAdmin from '../Navi/NaviAdmin';
 import '../css/dev.css';
 
-const AppListAdmin = ({history}) => {
+const AppListAdmin = ({ history }) => {
 
     const [data, setData] = useState([]);
     const [filterActive, setFilterActive] = useState(1);
@@ -38,7 +38,7 @@ const AppListAdmin = ({history}) => {
     const createTable = () => {
         if (!Array.isArray(data)) {
             return null;
-          }
+        }
         return data.map((d, index) => {
             let statusName = '';
             if (d.statusIdx == '1') {
@@ -81,9 +81,9 @@ const AppListAdmin = ({history}) => {
                     </td>
                     <td>{d.devName}</td>
                     <td>
-                        { d.statusIdx === 5 ?
-                        <p>삭제 요청 접수됨</p>
-                        : null }
+                        {d.statusIdx === 5 ?
+                            <p>삭제 요청 접수됨</p>
+                            : null}
                     </td>
                 </tr>
             )
@@ -198,20 +198,20 @@ const AppListAdmin = ({history}) => {
         <div>
             <NaviAdmin />
             <div className='sidemenu'>
+                <div className='main_logo'></div>
                 <ul className='sidemenu_link'>
-                <li><Link to='/dev/appregist'>앱 등록</Link></li>
-                        <li><Link to='/dev/applist'>앱 관리</Link></li>
-                        <li><Link to='/admin/setting'>회원 관리</Link></li>
-                        <li><Link to='/admin'>모든 앱</Link></li>
-                        <li><Link to='/admin/judge'>심사</Link></li>
+                    <li><Link to='/dev/appregist'>앱 등록</Link></li>
+                    <li><Link to='/dev/applist'>앱 관리</Link></li>
+                    <li><Link to='/admin/setting'>회원 관리</Link></li>
+                    <li id='setting'><Link to='/admin'>모든 앱</Link></li>
+                    <li><Link to='/admin/judge'>심사</Link></li>
                 </ul>
             </div>
             <div className='body'>
                 <p className='body_title'>모든 앱</p>
-                <hr />
-                <div className='filterButton'>
-                    { filterButton() }
-                    
+                <div className='filterAppButton'>
+                    {filterButton()}
+
                 </div>
                 <table className='AppTable'>
                     <thead>
@@ -224,7 +224,7 @@ const AppListAdmin = ({history}) => {
                         </tr>
                     </thead>
                     <tbody>
-                        { createTable() }
+                        {createTable()}
                     </tbody>
 
                 </table>

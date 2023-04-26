@@ -49,17 +49,17 @@ const Judge = ({ history }) => {
         <div>
             <NaviAdmin />
             <div className='sidemenu'>
+                <div className='main_logo'></div>
                 <ul className='sidemenu_link'>
-                <li><Link to='/dev/appregist'>앱 등록</Link></li>
-                        <li><Link to='/dev/applist'>앱 관리</Link></li>
-                        <li><Link to='/admin/setting'>회원 관리</Link></li>
-                        <li><Link to='/admin'>모든 앱</Link></li>
-                        <li><Link to='/admin/judge'>심사</Link></li>
+                    <li><Link to='/dev/appregist'>앱 등록</Link></li>
+                    <li><Link to='/dev/applist'>앱 관리</Link></li>
+                    <li><Link to='/admin/setting'>회원 관리</Link></li>
+                    <li><Link to='/admin'>모든 앱</Link></li>
+                    <li id='setting'><Link to='/admin/judge'>심사</Link></li>
                 </ul>
             </div>
             <div className='body'>
                 <p className='body_title'>심사 요청</p>
-                <hr />
                 <p className='body_subtitle'>심사 요청 앱 리스트</p>
                 <table className='AppTable'>
                     <colgroup>

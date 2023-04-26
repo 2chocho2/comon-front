@@ -1,10 +1,10 @@
 import Navi from "../Navi/Navi";
 import MyPageSide from "./MyPageSide";
 
-const WriteQna = () => {
+const WriteQna = ({ history }) => {
     return (
         <>
-        <Navi />
+        <Navi history={ history }/>
         <MyPageSide />
         </>
     );

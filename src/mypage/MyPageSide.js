@@ -28,9 +28,9 @@ const MyPageSide = () => {
             <p className='mypage-name'>{name}'s Profile</p>
             <div className='mypage-image'></div>
             <ul className='mypage-side-link'>
-                <li><Link to='/'>회원 정보 변경</Link></li>
-                <li><Link to='/'>나의 문의 내역</Link></li>
-                <li><Link to='/'>사용 중인 서비스</Link></li>
+                <li><Link to='/mypage/edit'>회원 정보 변경</Link></li>
+                <li><Link to='/mypage/qna'>나의 문의 내역</Link></li>
+                <li><Link to='/mypage'>사용 중인 서비스</Link></li>
             </ul>
         </div>
         </>

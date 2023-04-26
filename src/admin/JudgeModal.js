@@ -40,7 +40,7 @@ const JudgeModal = (props) => {
         justify-content: center;
         width: 100vw;
         height: 100vh;
-        background-color: #ffffffe2;
+        background-color: #00000080;
     `;
 
     const ModalBox = styled.div`

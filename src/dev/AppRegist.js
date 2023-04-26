@@ -228,15 +228,15 @@ const AppRegist = ({ history }) => {
         <div>
             <NaviAdmin />
             <div className='sidemenu'>
+                <div className='dev_logo'></div>
                 <ul className='sidemenu_link'>
-                    <li><Link to='/dev/appregist'>앱 등록</Link></li>
+                    <li id='setting'><Link to='/dev/appregist'>앱 등록</Link></li>
                     <li><Link to='/dev/applist'>앱 관리</Link></li>
                     <li><Link to='/dev/setting'>설정</Link></li>
                 </ul>
             </div>
             <div className='body'>
                 <p className='body_title'>앱 등록</p>
-                <hr />
                 <p className='body_subtitle'>앱 세부 정보</p>
                 <div className='form'>
                     <ol>
@@ -269,83 +269,97 @@ const AppRegist = ({ history }) => {
                                 onChange={handlerChangeImageDetail}
                                 placeholder="앱의 기능 및 특징에 대해 자세히 설명해 주세요." />
                         </li>
-                        <li className='form-each'>
-                            <p className='form-title'>앱 아이콘 이미지 등록<span>(512 px * 512 px)</span></p>
-                            <div>
-                            {iconImage &&
-                                    iconImage.map((image, id) => (
-                                        <div key={id}>
-                                            <img src={image} style={{ maxWidth: '100px' }} />
-                                        </div>
-                                    ))}
-                                <input type="file"
-                                    name="iconimage"
-                                    ref={inputFiles1}
-                                    onChange={handleChangeFile}
-                                    accept="image/*" />
-                            </div>
-                            <p className='description'>PNG 또는 JPEG, 최대 1MB</p>
-                        </li>
-                        <li className='form-each'>
-                            <p className='form-title'>썸네일 이미지 등록<span>(1024 px * 500 px)</span></p>
-                            <div>
-                            {thumbnailImage &&
-                                    thumbnailImage.map((image, id) => (
-                                        <div key={id}>
-                                            <img src={image} style={{ maxWidth: '100px' }} />
-                                        </div>
-                                    ))}
-                                <input type="file"
-                                    name="thumbnailimage"
-                                    ref={inputFiles2}
-                                    onChange={handleChangeFile}
-                                    accept="image/*" />
-                            </div>
-                            <p className='description'>PNG 또는 JPEG, 최대 1MB</p>
-                        </li>
-                        <li className='form-each'>
-                            <p className='form-title'>스크린샷 이미지<span>(1024 px * 500 px)</span></p>
-                            <div>
-                                {screenshotImgs &&
-                                    screenshotImgs.map((image, id) => (
-                                        <div key={id}>
-                                            <img src={image} style={{ maxWidth: '100px' }} />
-                                        </div>
-                                    ))}
-                                <input type="file"
-                                    name="screenshotimage"
-                                    ref={inputFiles3}
-                                    onChange={handleChangeFile}
-                                    multiple
-                                    accept="image/*" />
-                            </div>
-                            <p className='description'>PNG 또는 JPEG, 스크린 샷당 최대 1MB</p>
-                        </li>
-                        <li className='form-each'>
-                            <p className='form-title'>실행 파일 등록</p>
-                            <div>
-                                <input type="file"
-                                    name="yamlFile"
-                                    ref={inputFiles4}
-                                    onChange={handleChangeYamlFile} />
-                            </div>
-                            <ul style={{ fontSize: 12, color: 'gray' }}>
-                                <li>
-                                    실행되야 하는 컨테이너가 1개더라도 yaml 파일 형식으로 등록되어야 합니다.
-                                </li>
-                                <li>
-                                    데이터 서버의 경우, 영속적인 데이터 저장이 필요하다면 볼륨 설정을 해 주시기 바랍니다.
-                                </li>
-                                <li>
-                                    사용자의 디렉터리 형식은 [c:\comon\&#36;&#123;userId&#125;\개발자 아이디\앱 이름] 의 형식으로 작성해 주시기 바랍니다.
-                                </li>
-                                <li>
-                                    등록 전 실행되어야 하는 포트를 확인해 주시기 바랍니다.
-                                </li>
-                            </ul>
-                        </li>
+                        <div className='registerImg-box'>
+                            <li className='form-each'>
+                                <p className='form-title'>앱 아이콘 이미지 등록<span>(512 px * 512 px)</span></p>
+                                <div >
+                                    {iconImage &&
+                                        iconImage.map((image, id) => (
+                                            <div className='registerImg-submit' key={id}>
+                                                <img src={image} style={{ width: '100px', objectFit: 'cover', borderRadius: '20px', border: '1px solid #e6e6e6', verticalAlign: 'middle' }} />
+                                            </div>
+                                        ))}
+                                    <input className='registerImg-submit-button'
+                                        type="file"
+                                        name="iconimage"
+                                        ref={inputFiles1}
+                                        onChange={handleChangeFile}
+                                        accept="image/*" />
+                                </div>
+                                <p className='description'>PNG 또는 JPEG, 최대 1MB</p>
+                            </li>
+                            <li className='form-each'>
+                                <p className='form-title'>썸네일 이미지 등록<span>(1024 px * 500 px)</span></p>
+                                <div>
+                                    {thumbnailImage &&
+                                        thumbnailImage.map((image, id) => (
+                                            <div className='registerImg-submit' key={id}>
+                                                <img src={image} style={{ width: '100px', objectFit: 'contain', border: '1px solid #e6e6e6', verticalAlign: 'middle' }} />
+                                            </div>
+                                        ))}
+                                    <input className='registerImg-submit-button'
+                                        type="file"
+                                        name="thumbnailimage"
+                                        ref={inputFiles2}
+                                        onChange={handleChangeFile}
+                                        accept="image/*" />
+                                </div>
+                                <p className='description'>PNG 또는 JPEG, 최대 1MB</p>
+                            </li>
+                            <li className='form-each'>
+                                <p className='form-title'>스크린샷 이미지<span>(1024 px * 500 px)</span></p>
+                                <div>
+                                    <div>
+                                        {screenshotImgs &&
+                                            <div className='thumbnailImg-submit'>
+                                                {screenshotImgs.map((image, id) => (
+                                                    <div key={id}>
+                                                        <img className='register-thumbnail' src={image} />
+                                                    </div>
+                                                ))}
+                                            </div>}
+                                    </div>
+                                    <input className='registerImg-submit-button'
+                                        type="file"
+                                        name="screenshotimage"
+                                        ref={inputFiles3}
+                                        onChange={handleChangeFile}
+                                        multiple
+                                        accept="image/*" />
+                                </div>
+                                <p className='description'>PNG 또는 JPEG, 스크린 샷당 최대 1MB</p>
+                            </li>
+                        </div>
+                        <div className='registerFile-box'>
+                            <li className='form-each'>
+                                <p className='form-title'>실행 파일 등록</p>
+                                <div>
+                                    <input className='registerImg-submit-button'
+                                        type="file"
+                                        name="yamlFile"
+                                        ref={inputFiles4}
+                                        onChange={handleChangeYamlFile} />
+                                </div>
+                                <ul style={{ fontSize: 12, color: 'gray', lineHeight: 2, marginTop: 15 }}>
+                                    <li>
+                                        실행되야 하는 컨테이너가 1개더라도 yaml 파일 형식으로 등록되어야 합니다.
+                                    </li>
+                                    <li>
+                                        데이터 서버의 경우, 영속적인 데이터 저장이 필요하다면 볼륨 설정을 해 주시기 바랍니다.
+                                    </li>
+                                    <li>
+                                        사용자의 디렉터리 형식은 <span style={{ fontSize: 12, color: 'blue' }}>[c:\comon\&#36;&#123;userId&#125;\개발자 아이디\앱 이름]</span> 의 형식으로 작성해 주시기 바랍니다.
+                                    </li>
+                                    <li>
+                                        등록 전 실행되어야 하는 포트를 확인해 주시기 바랍니다.
+                                    </li>
+                                </ul>
+                            </li>
+                        </div>
                     </ol>
-                    <button type='button' onClick={handlerOnSubmit}> 등록 </button>
+                    <div className='button-box'>
+                        <button id='blackButton' type='button' onClick={handlerOnSubmit}> 등록 </button>
+                    </div>
                 </div>
             </div>
         </div>

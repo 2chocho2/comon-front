@@ -8,6 +8,7 @@ const AdminSetting = () => {
 
     const [userData, setUserData] = useState([]);
     const [devData, setDevData] = useState([]);
+    const [filterActive, setFilterActive] = useState(1);
 
     useEffect(() => {
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/setting`)
@@ -22,50 +23,107 @@ const AdminSetting = () => {
             })
     }, [])
 
-    const handlerClickDev = () => {
-        setUserData(null);
-        setDevData(null);
+    // const handlerClickDev = () => {
+    //     setUserData(null);
+    //     setDevData(null);
 
-        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/setting`)
-            .then(res => {
-                setDevData(res.data.devList);
-            })
-            .catch(err => {
-                console.log(err);
-            })
+    //     axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/setting`)
+    //         .then(res => {
+    //             setDevData(res.data.devList);
+    //         })
+    //         .catch(err => {
+    //             console.log(err);
+    //         })
+    // };
+
+    // const handlerClickUser = () => {
+    //     setUserData(null);
+    //     setDevData(null);
+
+    //     axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/setting`)
+    //         .then(res => {
+    //             setUserData(res.data.userList);
+    //         })
+    //         .catch(err => {
+    //             console.log(err);
+    //         })
+    // };
+
+    const filterList = ['', '전체', '사용자', '개발자'];
+
+    const filterButton = () => {
+        const result = [];
+        for (let i = 1; i < filterList.length; i++) {
+            result.push(
+                <>
+                    <button className={filterActive == i ? 'filterActive' : 'filterUnActive'}
+                        onClick={toggleFilterButton}
+                        id={i} >{filterList[i]}</button>
+                </>
+            )
+        } return result;
     };
 
-    const handlerClickUser = () => {
-        setUserData(null);
-        setDevData(null);
+    const toggleFilterButton = (e) => {
 
-        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/setting`)
-            .then(res => {
-                setUserData(res.data.userList);
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    };
+        setFilterActive(e.target.id);
+        console.log(filterActive);
+
+        if (e.target.id == 1) {
+            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/setting`)
+                .then(res => {
+                    console.log(res.data);
+                    setUserData(res.data.userList);
+                    setDevData(res.data.devList);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        } else if (e.target.id == 2) {
+            setUserData(null);
+            setDevData(null);
+            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/setting`)
+                .then(res => {
+                    console.log(res.data);
+                    setUserData(res.data.userList);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        } else if (e.target.id == 3) {
+            setUserData(null);
+            setDevData(null);
+            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/setting`)
+                .then(res => {
+                    console.log(res.data);
+                    setDevData(res.data.devList);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+    }
 
     return (
         <>
-            <div>
+            <div className='dev-container'>
                 <NaviAdmin />
                 <div className='sidemenu'>
+                    <div className='main_logo'></div>
                     <ul className='sidemenu_link'>
                         <li><Link to='/dev/appregist'>앱 등록</Link></li>
                         <li><Link to='/dev/applist'>앱 관리</Link></li>
-                        <li><Link to='/admin/setting'>회원 관리</Link></li>
+                        <li id='setting'><Link to='/admin/setting'>회원 관리</Link></li>
                         <li><Link to='/admin'>모든 앱</Link></li>
                         <li><Link to='/admin/judge'>심사</Link></li>
                     </ul>
                 </div>
                 <div className='body'>
-                    <button type='button'
-                        onClick={handlerClickUser}> 사용자 </button>
-                    <button type='button'
-                        onClick={handlerClickDev}> 개발자 </button>
+                <p className='body_title'>회원 관리</p>
+                    <div className='filterSetButton'>
+                        {filterButton()}
+
+                    </div>
                     <table className='AppTable'>
                         <thead>
                             <tr>

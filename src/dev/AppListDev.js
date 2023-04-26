@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
 import NaviAdmin from '../Navi/NaviAdmin';
+import { FaUserAstronaut } from "react-icons/fa";
 import '../css/dev.css';
 
 const AppListDev = ({ history }) => {
@@ -16,7 +17,7 @@ const AppListDev = ({ history }) => {
         // const decode_token = jwt_decode(token);
         // setUserId(decode_token.sub);
         // let userId = decode_token.sub;
-        
+
         //TODO! 하드 코딩 상태. 이후 수정 필요
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/applist/chocho`)
             .then(res => {
@@ -90,12 +91,12 @@ const AppListDev = ({ history }) => {
                     <td><img src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/icon/${d.iconImage}`} /></td>
                     <td>{d.imageName}</td>
                     <td>
-                        {statusName} <br />
+                        <p style={{ fontSize: 16, height: 20}}>{statusName}</p>
                         <p className="denyCode">{denyName}</p>
                     </td>
                     <td>
                         {d.statusIdx === 4 ? (
-                            <button onClick={() => handlerClickDelete(d.imageIdx)}>삭제 요청</button>
+                            <button id='deleteRqButton' onClick={() => handlerClickDelete(d.imageIdx)}>삭제 요청</button>
                         ) : d.statusIdx === 5 ? (
                             <p>삭제 신청 진행 중</p>
                         ) : d.statusIdx === 6 ? (
@@ -107,20 +108,22 @@ const AppListDev = ({ history }) => {
         })
     };
 
+    
     return (
         <div>
             <NaviAdmin />
             <div className='sidemenu'>
+                <div className='dev_logo'></div>
                 <ul className='sidemenu_link'>
                     <li><Link to='/dev/appregist'>앱 등록</Link></li>
-                    <li><Link to='/dev/applist'>앱 관리</Link></li>
+                    <li id='setting'><Link to='/dev/applist'>앱 관리</Link></li>
                     <li><Link to='/dev/setting'>설정</Link></li>
                 </ul>
             </div>
             <div className='body'>
                 <p className='body_title'>모든 앱</p>
-                <hr />
-                <p>{userId}</p>
+
+                <p className='userName'><FaUserAstronaut className='userIcon' title='유저 아이디입니다.'/>{userId}</p>
                 <table className='AppTable'>
                     <thead>
                         <tr>

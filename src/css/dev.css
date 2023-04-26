@@ -12,55 +12,109 @@
 /* 사이드메뉴 */
 .sidemenu {
     width: 17%;
-    min-height: 960px;
-    height: 100vh;
+    height: 93.6vh;
     float: left;
     clear: both;
+    padding: 80px 25px;
     background-color: lightgray;
-    padding-top: 50px;
-    border-right: 2px solid black;
+    border-right: 3px solid black;
     font-family: 'TheJamsil5Bold';
 }
 
-.sidemenu .sidemenu_link {
-    line-height: 50px;
+.main_logo {
+    background-image: url('../img/logo_main.png');
+    background-size: 130px;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100px;
+    margin-bottom: 50px;
+}
+
+.dev_logo {
+    background-image: url('../img/logo_dev.png');
+    background-size: 130px;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100px;
+    margin-bottom: 50px;
+}
+
+.sidemenu .sidemenu_link li {
+    line-height: 70px;
     text-align: center;
+    width: 250px;
+    margin: auto;
+}
+
+.sidemenu .sidemenu_link li:first-child {
+    border-top: 3px solid black;
+}
+
+.sidemenu .sidemenu_link li:last-child {
+    border-bottom: 3px solid black;
 }
 
 .sidemenu .sidemenu_link li a {
     text-decoration: none;
     color: black;
     font-size: 18px;
-    font-weight: lighter;
+    padding: 5px 0px;
+    transition: all .1s ease;
+    display: inline-block;
+    width: 250px;
+}
+
+.sidemenu .sidemenu_link li a:hover {
+    background-color: black;
+    color: white;
+}
+
+#setting {
+    background-color: #f0f0f0;
 }
 
 /* 본문 */
 .body {
+    display: inline-block;
     width: 83%;
-    /* padding-left: 18%; */
-    height: auto;
-    padding-top: 50px;
-    line-height: 30px;
-    overflow: scroll;
-    height: 960px;
-    margin-right: auto;
-    margin-left: auto;
-    padding-left: 50px;
+    height: 90vh;
+    padding: 80px 180px;
+    overflow-y: scroll;
     font-family: 'TheJamsil5Bold';
+}
+
+/* 스크롤바css */
+.body::-webkit-scrollbar {
+    width: 13px;
+}
+
+.body::-webkit-scrollbar-thumb {
+    background-color: gray;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 4px solid transparent;
+    transition: width 0.2s ease-in-out;
+}
+
+.body::-webkit-scrollbar-thumb:hover {
+    background-color: black;
 }
 
 .body .body_title {
     font-weight: bold;
-    font-size: 18px;
+    font-size: 26px;
+    padding-bottom: 15px;
+    border-bottom: 3px solid black;
 }
 
 .body .body_subtitle {
+    margin: 20px 0px 60px 0px;
     color: gray;
 }
 
 /* 앱 등록 form */
 .body .form {
-    width: 90%;
+    width: 100%;
     line-height: 40px;
     margin: 50px auto 0 auto;
 }
@@ -70,21 +124,27 @@
 }
 
 .body .text-inputbox {
+    border: 2px solid black;
     width: 100%;
-    height: 30px;
+    height: 50px;
+    padding: 10px;
     font-family: 'TheJamsil5Bold';
+    font-size: 16px;
 }
 
 .description {
-    font-size: 13px;
+    font-size: 12px;
+    color: gray;
 }
 
 .form-each .text-inputbox-description {
-    font-size: 13px;
-    min-height: 30px;
-    height: auto;
-    font-family: 'TheJamsil5Bold';
+    border: 2px solid black;
     width: 100%;
+    height: 50px;
+    line-height: 46px;
+    padding: 0px 10px;
+    font-family: 'TheJamsil5Bold';
+    font-size: 16px;
     white-space: pre-wrap;
 }
 
@@ -99,6 +159,74 @@
     font-weight: lighter;
 }
 
+/* 이미지 등록 */
+.registerImg-box {
+    border-top: 3px solid black;
+    border-bottom: 3px solid black;
+    padding: 30px 0px;
+    margin: 10px 0px 30px 0px;
+}
+
+.registerImg-submit {
+    border-top: 2px solid black;
+    border-right: 2px solid black;
+    border-left: 2px solid black;
+    padding: 0px 30px;
+    height: 140px;
+    line-height: 136px;
+}
+
+.registerImg-submit-button {
+    border: 2px solid black;
+    width: 100%;
+    font-family: 'TheJamsil5Bold';
+    color: gray;
+    font-size: 12px;
+}
+
+.registerImg-submit-button::-webkit-file-upload-button {
+    font-family: 'TheJamsil5Bold';
+    font-size: 16px;
+    color: white;
+    height: 40px;
+    padding: 8px 20px;
+    margin-right: 15px;
+    background-color: black;
+    border: none;
+    cursor: pointer;
+}
+
+/* 썸네일 */
+.thumbnailImg-submit {
+    border-top: 2px solid black;
+    border-right: 2px solid black;
+    border-left: 2px solid black;
+    padding: 0px 30px;
+    padding: 30px;
+}
+
+.thumbnailImg-submit::after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.register-thumbnail {
+    width: 180px;
+    height: 100px;
+    object-fit: contain;
+    border: 1px solid #e6e6e6;
+    vertical-align: middle;
+    float: left;
+    margin: 0px 10px;
+}
+
+/* 파일 */
+/* .registerFile-box {
+    border-bottom: 3px solid black;
+    padding: 10px 0px;
+} */
+
 /* 카테고리 토글 */
 .body .categoryUnActive {
     width: 180px;
@@ -107,6 +235,9 @@
     background-color: white;
     margin-right: 20px;
     border-radius: 20px;
+    border: 3px solid black;
+    font-family: 'TheJamsil5Bold';
+    font-size: 16px;
 }
 
 .body .categoryActive {
@@ -117,79 +248,398 @@
     color: white;
     margin-right: 20px;
     border-radius: 20px;
+    border: 3px solid black;
+    font-family: 'TheJamsil5Bold';
+    font-size: 16px;
 }
 
 /* admin 앱 리스트 필터 버튼 */
 .filterButton {
-    margin-bottom: 20px;
+    margin: 30px 0px 50px 0px;
+    font-family: 'TheJamsil5Bold';
+}
+
+.filterSetButton {
+    margin: 30px 0px 80px 0px;
+    font-family: 'TheJamsil5Bold';
+}
+
+.filterAppButton {
+    margin: 30px 0px 40px 0px;
     font-family: 'TheJamsil5Bold';
 }
 
 .filterActive {
     width: 100px;
     height: 35px;
+    font-family: 'TheJamsil5Bold';
     font-size: 14px;
     background-color: black;
+    border: 3px solid black;
     color: white;
-    margin-right: 10px;
-    border-radius: 20px;
+    margin-right: 15px;
+    border-radius: 50px;
+    cursor: pointer;
 }
 
 .filterUnActive {
     width: 100px;
     height: 35px;
+    font-family: 'TheJamsil5Bold';
     font-size: 14px;
     background-color: white;
-    margin-right: 10px;
-    border-radius: 20px;
+    border: 3px solid black;
+    margin-right: 15px;
+    border-radius: 50px;
+    cursor: pointer;
 }
 
 /* 심사 테이블 */
 .AppTable,
 .AppTable tbody {
-    margin-top: 30px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
-    padding: 10px;
+    width: 100%;
     text-align: center;
-    vertical-align: middle;
-    line-height: 100px;
-    font-size: 13px;
     font-family: 'TheJamsil5Bold';
-    
+    font-size: 14px;
 }
 
+.AppTable tbody tr td:nth-child(1),
+.AppTable tbody tr td:nth-child(3) {
+    width: 15%;
+}
+
+.AppTable tbody tr td:nth-child(2),
+.AppTable tbody tr td:nth-child(4),
+.AppTable tbody tr td:nth-child(5) {
+    width: calc(70%/3);
+}
+
+/* 테이블 헤더  */
+.AppTable thead tr:nth-child(1) {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    font-size: 18px;
+    height: 60px;
+    line-height: 60px;
+}
+
+/* 테이블 리스트 */
 .AppTable tbody tr {
-    height: 100px;
-    border-bottom: 1px solid rgba(163, 163, 163, 0.514);
+    height: 120px;
+    line-height: 120px;
+    border-bottom: 1px dashed #c7c7c7;
 }
 
-.AppTable thead tr {
-    height: 50px;
-    line-height: 50px;
-    border-bottom: 1px solid rgba(128, 128, 128, 0.514);
-    font-weight: bold;
-    font-size: 15px;
+.AppTable tbody tr:last-child {
+    border-bottom: 1px solid black;
 }
 
+.AppTable tbody tr td:last-child {
+    color: gray;
+}
+
+/* 테이블 이미지 */
 .AppTable tbody tr td img {
     vertical-align: middle;
+    border: 1px solid #e6e6e6;
+    border-radius: 10px;
     width: 80px;
     height: 80px;
 }
 
 .AppTable .denyCode {
     font-size: 8px;
+    height: 10px;
+}
+
+/* 심사 폼 */
+.detailform-each,
+.sh-imgform-each {
+    height: auto;
+    font-family: 'TheJamsil5Bold';
+    font-size: 16px;
+    width: 100%;
+    white-space: pre-wrap;
+    margin-bottom: 40px;
+}
+
+.detailform-each:nth-child(1),
+.imgform-each:nth-child(1) {
+    float: left;
+    margin-right: 10px;
+    width: calc(50% - 10px);
+}
+
+.detailform-each:nth-child(2),
+.imgform-each:nth-child(2) {
+    margin-left: 10px;
+    float: left;
+    width: calc(50% - 10px);
+}
+
+.img-container::after,
+#img-box::after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+/* 타이틀 */
+.detailform-title {
+    margin: 20px 0px;
+}
+
+.imgform-title1 {
+    margin-top: 30px;
+    background-color: black;
+    color: white;
+    padding: 15px 15px;
+}
+
+.imgform-title2 {
+    margin-top: 20px;
+    background-color: black;
+    color: white;
+    padding: 15px 15px;
+}
+
+.detailtext-inputbox {
+    border: 2px solid black;
+    width: 100%;
+    height: 50px;
+    padding: 10px;
+    font-family: 'TheJamsil5Bold';
+    font-size: 16px;
 }
 
 /* 폼 내부 사진 */
-.form-each img {
-    width: 50px;
-    height: 50px;
+.img-container {
+    border-top: 3px solid black;
+    border-bottom: 3px solid black;
+    margin: 80px 0px 30px 0px;
 }
 
-.form-each .screenshot img {
+.icon-img-box {
+    border: 2px solid black;
+    position: relative;
+    height: 600px;
+}
+
+.iconImg {
+    width: 200px;
+    height: 200px;
+    border-radius: 20px;
+    border: 1px solid #e6e6e6;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.thumbnailImg {
+    width: 500px;
+    height: 500px;
+    object-fit: cover;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 1px solid #e6e6e6;
+    transform: translate(-50%, -50%);
+}
+
+.sh-img-box {
+    overflow-x: auto;
+    white-space: nowrap;
+    border: 2px solid black;
+    position: relative;
+    padding: 30px 30px;
+}
+
+/* 스크롤바css */
+.sh-img-box::-webkit-scrollbar {
+    height: 6px;
+}
+
+.sh-img-box::-webkit-scrollbar-thumb {
+    background-color: rgb(0, 0, 0);
+    border-radius: 10px;
+    transition: width 0.2s ease-in-out;
+}
+
+.sh-img-box::-webkit-scrollbar-thumb:hover {
+    background-color: white;
+}
+
+.sh-img-box::-webkit-scrollbar-track {
+    background-color: grey;
+    box-shadow: inset 0px 0px 5px white;
+
+}
+
+.screenshot-detail {
+    width: 3100px;
+    min-width: 1152px;
+    max-width: 3100px;
+}
+
+.screenshotImg {
+    object-fit: contain;
+    width: 500px;
+    height: 300px;
+    max-height: 300px;
+    float: left;
+    border: 1px solid #e6e6e6;
+}
+
+.screenshotImg:not(:last-child) {
+    margin-right: 15px;
+}
+
+/* 파일 다운로드 */
+.fileform-title {
+    background-color: white;
+    border: 3px solid black;
+    color: black;
+    float: left;
+    width: calc(20% - 10px);
+    margin-right: 10px;
+    height: 50px;
+    line-height: 44px;
+    text-align: center;
+}
+
+.file-button {
+    background-color: #e6e6e6;
+    border: 3px dashed gray;
+    width: 80%;
+    height: 50px;
+    line-height: 42px;
+    text-align: center;
+    font-family: 'TheJamsil5Bold';
+    font-size: 18px;
+    color: gray;
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+.file-button:hover {
+    background-color: black;
+    border: 3px solid black;
+    color: white;
+}
+
+/* /dev */
+.userName {
+    margin: 30px;
+    font-size: 20px;
+    vertical-align: middle;
+    color: rgb(92, 120, 211);
+}
+
+.userIcon {
+    width: 25px;
+    height: 25px;
+    margin-right: 8px;
+    vertical-align: bottom;
+}
+
+/* /dev Setting*/
+.devSetting-container {
+    /* background-color: #c7c7c7; */
+    width: 80%;
+    margin: auto;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.devSetting-box {
+    padding: 40px 0px;
+    margin: auto;
+    width: 95%;
+}
+
+.devSetting-box:not(:last-child) {
+    border-bottom: 1px dotted black;
+}
+.devSetting-title {
+    margin-bottom: 10px;
+}
+.devSetting-input {
+    border: 2px solid black;
+    width: 100%;
+    height: 50px;
+    padding: 10px 15px;
+    font-family: 'TheJamsil5Bold';
+    font-size: 16px;
+}
+.devSetting-input:focus {
+    background-color: #e7e7e7;
+    border-radius: none;
+}
+
+/* 삭제 요청 버튼 */
+#deleteRqButton {
+    background-color: lightgray;
+    border: 3px solid black;
+    padding: 10px;
+    text-align: center;
+    font-family: 'TheJamsil5Bold';
+    font-size: 14px;
+    color: black;
+    cursor: pointer;
+}
+
+#deleteRqButton:hover {
+    background-color: black;
+    border: 3px solid black;
+    color: white;
+}
+
+/* 마지막 버튼 */
+/* 심사 버튼 */
+.button-box {
+    text-align: center;
+    margin-top: 30px;
+    padding: 50px;
+    border-top: 3px solid black;
+}
+.button-box-noborder {
+    text-align: center;
+    margin-top: 30px;
+}
+
+#noJudge-button {
+    background-color: #ce1e1e;
+    border: none;
     width: 100px;
     height: 50px;
+    line-height: 50px;
+    margin-right: 20px;
+    text-align: center;
+    font-family: 'TheJamsil5Bold';
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+#blackButton {
+    background-color: black;
+    border: 3px solid black;
+    border: none;
+    width: 100px;
+    height: 50px;
+    line-height: 42px;
+    margin-top: 40px;
+    text-align: center;
+    font-family: 'TheJamsil5Bold';
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+}
+
+#blackButton:hover {
+    background-color: #c7c7c7;
+    border: 3px solid black;
+    color: black;
 }

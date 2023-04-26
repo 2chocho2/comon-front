@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import NaviAdmin from '../Navi/NaviAdmin';
 import '../css/dev.css';
 import axios from 'axios';
@@ -6,11 +6,11 @@ import { useEffect, useState } from 'react';
 
 const DevSetting = ({ history }) => {
 
-    const [ data, setData ] = useState('');
-    const [ devId, setDevId ] = useState('');
-    const [ devName, setDevName ] = useState('');
-    const [ devEmail, setDevEmail ] = useState('');
-    
+    const [data, setData] = useState('');
+    const [devId, setDevId] = useState('');
+    const [devName, setDevName] = useState('');
+    const [devEmail, setDevEmail] = useState('');
+
 
     useEffect(() => {
         //TODO! 현재 하드 코딩 상태. 수정 필요.
@@ -60,42 +60,48 @@ const DevSetting = ({ history }) => {
 
     return (
         <>
-        <div>
-        <NaviAdmin />
-            <div className='sidemenu'>
-                <ul className='sidemenu_link'>
-                    <li><Link to='/dev/appregist'>앱 등록</Link></li>
-                    <li><Link to='/dev/applist'>앱 관리</Link></li>
-                    <li><Link to='/dev/setting'>설정</Link></li>
-                </ul>
-            </div>
-            <div className='body'>
-                <p>아이디</p>
-                <input type='text'
-                        value={devId}
-                        readOnly />
-                <hr />
-                <p>이름</p>
-                <input type='text'
-                        value={devName}
-                        onChange={ handlerChangeDevName } />
-                <hr />
-                <p>이메일</p>
-                <input type='text'
-                        value={devEmail}
-                        onChange={ handlerChangeDevEmail } />
-                <hr />
-                <p>주소</p>
-                <p>{data.address1}</p>
-                <p>{data.address2}</p>
-                <p>{data.address3}</p>
+            <div>
+                <NaviAdmin />
+                <div className='sidemenu'>
+                    <div className='dev_logo'></div>
+                    <ul className='sidemenu_link'>
+                        <li><Link to='/dev/appregist'>앱 등록</Link></li>
+                        <li><Link to='/dev/applist'>앱 관리</Link></li>
+                        <li id='setting'><Link to='/dev/setting'>설정</Link></li>
+                    </ul>
+                </div>
+                <div className='body'>
+                    <p className='body_title'>계정 설정</p>
+                    <p className='body_subtitle'>개발자 계정 세부 정보</p>
+                    <div className='devSetting-container'>
+                        <div className='devSetting-box'>
+                            <p className='devSetting-title'>아이디</p>
+                            <input className='devSetting-input' type='text'
+                                value={devId}
+                                readOnly />
+                        </div>
+                        <div className='devSetting-box'>
+                            <p className='devSetting-title'>이름</p>
+                            <input className='devSetting-input' type='text'
+                                value={devName}
+                                onChange={handlerChangeDevName} />
+                        </div>
+                        <div className='devSetting-box'>
+                            <p className='devSetting-title'>이메일</p>
+                            <input className='devSetting-input' type='text'
+                                value={devEmail}
+                                onChange={handlerChangeDevEmail} />
+                        </div>
+                    </div>
 
-                <button type='button'
-                    onClick={ handlerClickEdit }>수정</button>
-            </div>
+                    <div className='button-box-noborder'>
+                        <button id='blackButton' type='button'
+                            onClick={handlerClickEdit}>수정</button>
+                    </div>
+                </div>
 
-            
-        </div>
+
+            </div>
         </>
     )
 }
