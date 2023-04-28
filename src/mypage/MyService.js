@@ -12,7 +12,8 @@ const MyService = ({ history }) => {
     //TODO. 현재 하드 코딩 상태
     const userId = 'chochocho';
     useEffect(() => {
-        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/myservice/${userId}`)
+        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/myservice/${userId}`,
+        { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
             .then(res => {
                 setData(res.data.map((item) => ({ ...item, hover: false })));
             })
@@ -51,7 +52,8 @@ const MyService = ({ history }) => {
     const handlerClickDeleteEach = (e) => {
         console.log(e);
         console.log(userId);
-        axios.delete(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/mypage/${e}/${userId}`)
+        axios.delete(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/mypage/${e}/${userId}`,
+        { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
             .then(res => {
                 console.log(res.data);
                 alert(`삭제가 완료되었습니다.`);

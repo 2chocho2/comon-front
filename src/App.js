@@ -51,7 +51,6 @@ function App() {
       <Route path='/login' render={(props) => <Login {...props} /> } exact={true} />
       <Route path='/regist' render={(props) => <Regist {...props} /> } exact={true} />
       
-      
       <Route path='/list' component={ImageList} exact={true} />
       {/* 
       <Route path='/image/write' component={ImageWrite} exact={true} />

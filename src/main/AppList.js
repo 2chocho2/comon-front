@@ -10,7 +10,8 @@ const AppList = ({ history }) => {
     const [starAverage, setStarAverage] = useState({});
 
     useEffect(() => {
-        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist`)
+        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist`,
+        { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
             .then(res => {
                 setData(res.data);
                 console.log(res.data);
@@ -49,7 +50,8 @@ const AppList = ({ history }) => {
         console.log(categoryActive);
 
         if (e.target.id == 0) {
-            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist`)
+            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist`,
+            { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
                 .then(res => {
                     console.log(res.data);
                     setData(res.data);
@@ -58,7 +60,8 @@ const AppList = ({ history }) => {
                     console.log(err);
                 })
         } else if (e.target.id == 1) {
-            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/1`)
+            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/1`,
+            { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
                 .then(res => {
                     console.log(res.data);
                     setData(res.data);
@@ -67,7 +70,8 @@ const AppList = ({ history }) => {
                     console.log(err);
                 })
         } else if (e.target.id == 2) {
-            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/2`)
+            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/2`,
+            { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
                 .then(res => {
                     console.log(res.data);
                     setData(res.data);
@@ -81,7 +85,8 @@ const AppList = ({ history }) => {
     const starAvg = (e) => {
         console.log(starAverage);
         console.log(e);
-        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/average/${e}`)
+        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/average/${e}`,
+        { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
             .then(res => {
                 setStarAverage((prev) => ({ ...prev, [e]: res.data }));
             })

@@ -8,21 +8,18 @@ import '../css/dev.css';
 
 const AppListDev = ({ history }) => {
 
-    const [userId, setUserId] = useState('');
+    const [devId, setDevId] = useState('');
     const [data, setData] = useState([]);
     const [denyList, setDenyList] = useState([]);
 
-    //TODO! 하드 코딩 상태. 이후 수정 필요
-    const devName='chocho';
-
     useEffect(() => {
-        // const token = sessionStorage.getItem('token');
-        // const decode_token = jwt_decode(token);
-        // setUserId(decode_token.sub);
-        // let userId = decode_token.sub;
+        const token = sessionStorage.getItem('token');
+        const decode_token = jwt_decode(token);
+        setDevId(decode_token.sub);
+        let devId = decode_token.sub;
 
-        //TODO! 하드 코딩 상태. 이후 수정 필요
-        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/applist/chocho`)
+        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/applist/${devId}`,
+        { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
             .then(res => {
                 setData(res.data.list1);
                 setDenyList(res.data.list2);
@@ -33,21 +30,10 @@ const AppListDev = ({ history }) => {
             })
     }, []);
 
-    // 삭제 신청 요청
-    // const handlerClickDelete = (i) => {
-    //     axios.put(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/registdelete/${i}`)
-    //         .then(res => {
-    //             console.log(res.data);
-    //             alert('삭제 요청이 완료되었습니다.')
-    //         })
-    //         .catch(err => {
-    //             console.log(err);
-    //         })
-    // };
-
     const handlerClickDelete = (i) => {
         if (window.confirm("정말 삭제하시겠습니까?")) {
-            axios.put(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/registdelete/${i}`)
+            axios.put(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/registdelete/${i}`,
+            { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
                 .then(res => {
                     console.log(res.data);
                     alert('삭제 요청이 완료되었습니다.')
@@ -126,7 +112,7 @@ const AppListDev = ({ history }) => {
             <div className='body'>
                 <p className='body_title'>모든 앱</p>
 
-                <p className='userName'><FaUserAstronaut className='userIcon' title='유저 아이디입니다.'/>{devName}</p>
+                <p className='userName'><FaUserAstronaut className='userIcon' title='유저 아이디입니다.'/>{devId}</p>
                 <table className='AppTable'>
                     <thead>
                         <tr>

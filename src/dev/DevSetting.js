@@ -3,6 +3,7 @@ import NaviAdmin from '../Navi/NaviAdmin';
 import '../css/dev.css';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import jwt_decode from "jwt-decode";
 
 const DevSetting = ({ history }) => {
 
@@ -13,8 +14,13 @@ const DevSetting = ({ history }) => {
 
 
     useEffect(() => {
-        //TODO! 현재 하드 코딩 상태. 수정 필요.
-        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/mypage/chocho`)
+        const token = sessionStorage.getItem('token');
+        const decode_token = jwt_decode(token);
+        setDevId(decode_token.sub);
+        let devId = decode_token.sub;
+
+        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/mypage/${devId}`,
+        { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
             .then(res => {
                 console.log(res);
                 setData(res.data);
@@ -45,7 +51,8 @@ const DevSetting = ({ history }) => {
         axios({
             method: 'PUT',
             url: `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/mypage/edit`,
-            data: newData
+            data: newData,
+            headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}
         })
             .then(res => {
                 console.log(res);

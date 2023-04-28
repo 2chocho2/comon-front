@@ -6,7 +6,7 @@ const Regist = ({history}) => {
 
     // 변수 선언
     const [ userId, setUserId ] = useState('');                            // 아이디
-    const [ userPw, setUserPw] = useState('');                // 비밀번호 및 비밀번호 확인
+    const [ userPassword, setUserPassword] = useState('');                // 비밀번호 및 비밀번호 확인
     const [ userPasswordCheck, setUserPasswordCheck ] = useState('');
     const [ userName, setUserName ] = useState('');                        // 이름
     const [ userEmail, setUserEmail ] = useState('');                      // 이메일
@@ -64,20 +64,20 @@ const Regist = ({history}) => {
     }, [])
 
     // 비밀번호 핸들러 정의
-    const handlerChangeUserPassword = e => setUserPw(e.target.value);
+    const handlerChangeUserPassword = e => setUserPassword(e.target.value);
 
     // 비밀번호 확인 핸들러 정의
     const handlerChangeUserPasswordCheck = useCallback((e) => {
         const passwordCheckCurrent = e.target.value
         setUserPasswordCheck(passwordCheckCurrent)
-        if(userPw === passwordCheckCurrent) {
+        if(userPassword === passwordCheckCurrent) {
             setUserPasswordCheckMessage('비밀번호가 일치합니다.')
             setIsPasswordCheck(true)
         } else {
             setUserPasswordCheckMessage('비밀번호가 일치하지 않습니다. 다시 확인해주세요.')
             setIsPasswordCheck(false)
         }
-    }, [userPw])
+    }, [userPassword])
 
     // 전화번호 핸들러 정의
     const handlerChangeUserPhoneNumber = e => setUserPhoneNumber(e.target.value);
@@ -87,7 +87,7 @@ const Regist = ({history}) => {
         e.preventDefault();
         axios.post(`http://localhost:8080/api/regist`
         // axios.post(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/regist`,
-        , { userId, userName, userPw, userPhoneNumber, userEmail})
+        , { userId, userName, userPassword, userPhoneNumber, userEmail})
         .then(response => {
             console.log(response);
             if (response.data) {
@@ -113,7 +113,7 @@ const Regist = ({history}) => {
                             password="비밀번호 (숫자+영문자+특수문자 조합으로 8자리 이상)"
                             title="비밀번호"
                             placeholder="숫자,영문자,특수문자 조합으로 8자리"
-                            value={userPw}
+                            value={userPassword}
                             autoComplete={passwordInputType.autoComplete}
                         />
                        

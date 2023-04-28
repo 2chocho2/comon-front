@@ -12,7 +12,8 @@ const Main = ({ history }) => {
     const [rankingList, setRankingList] = useState([]);
 
     useEffect(() => {
-        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/main`)
+        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/main`,
+        { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
             .then(res => {
                 console.log(res);
                 setRecommendList(res.data.list1);

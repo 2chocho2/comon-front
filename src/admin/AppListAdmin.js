@@ -10,7 +10,8 @@ const AppListAdmin = ({ history }) => {
     const [filterActive, setFilterActive] = useState(1);
 
     useEffect(() => {
-        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist`)
+        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist`,
+        { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
             .then(res => {
                 setData(res.data);
                 console.log(res.data);
@@ -94,21 +95,14 @@ const AppListAdmin = ({ history }) => {
         history.push(`/admin/appdetail/${e}`);
     };
 
-
-    const styles = {
-        table: {
-            width: '80%',
-            border: '1px solid black'
-        }
-    };
-
     const toggleFilterButton = (e) => {
 
         setFilterActive(e.target.id);
         console.log(filterActive);
 
         if (e.target.id == 1) {
-            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist`)
+            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist`,
+            { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
                 .then(res => {
                     console.log(res.data);
                     setData(res.data);
@@ -117,7 +111,8 @@ const AppListAdmin = ({ history }) => {
                     console.log(err);
                 })
         } else if (e.target.id == 2) {
-            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist/onservice`)
+            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist/onservice`,
+            { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
                 .then(res => {
                     console.log(res.data);
                     setData(res.data);
@@ -126,7 +121,8 @@ const AppListAdmin = ({ history }) => {
                     console.log(err);
                 })
         } else if (e.target.id == 3) {
-            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist/registdelete`)
+            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist/registdelete`,
+            { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
                 .then(res => {
                     console.log(res.data);
                     setData(res.data);
@@ -135,7 +131,8 @@ const AppListAdmin = ({ history }) => {
                     console.log(err);
                 })
         } else if (e.target.id == 4) {
-            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist/delete`)
+            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist/delete`,
+            { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
                 .then(res => {
                     console.log(res.data);
                     setData(res.data);
@@ -145,54 +142,6 @@ const AppListAdmin = ({ history }) => {
                 })
         }
     }
-
-    // // 전체 앱 리스트 조회
-    // const handlerClickAll = () => {
-    //     axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist`)
-    //         .then(res => {
-    //             console.log(res.data);
-    //             setData(res.data);
-    //         })
-    //         .catch(err => {
-    //             console.log(err);
-    //         })
-    // };
-
-    // // 서비스 중인 앱 리스트 조회
-    // const handlerClickOnService = () => {
-    //     axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist/onservice`)
-    //         .then(res => {
-    //             console.log(res.data);
-    //             setData(res.data);
-    //         })
-    //         .catch(err => {
-    //             console.log(err);
-    //         })
-    // };
-
-    // // 삭제 신청 상태의 앱 리스트 조회
-    // const handlerClickRegistDelete = () => {
-    //     axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist/registdelete`)
-    //         .then(res => {
-    //             console.log(res.data);
-    //             setData(res.data);
-    //         })
-    //         .catch(err => {
-    //             console.log(err);
-    //         })
-    // };
-
-    // // 삭제된 앱 리스트 조회
-    // const handlerClickDeleteService = () => {
-    //     axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/deleteapplist`)
-    //         .then(res => {
-    //             console.log(res.data);
-    //             setData(res.data);
-    //         })
-    //         .catch(err => {
-    //             console.log(err);
-    //         })
-    // };
 
     return (
         <div>

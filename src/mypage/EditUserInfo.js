@@ -13,7 +13,8 @@ const EditUserInfo = ({ history }) => {
     const userId = 'chochocho';
 
     useEffect(() => {
-        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/mypage/edit/${userId}`)
+        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/mypage/edit/${userId}`,
+        { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
             .then(res => {
                 console.log(res.data);
                 setData(res.data);
@@ -50,7 +51,8 @@ const EditUserInfo = ({ history }) => {
 
     const handlerClickEdit = () => {
         axios.post(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/mypage/edit`,
-            { userId, userName, userEmail, userPhoneNumber: userPhoneNumber.replaceAll('-', '') })
+            { userId, userName, userEmail, userPhoneNumber: userPhoneNumber.replaceAll('-', '') },
+            { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
             .then(res => {
                 console.log(res.data);
                 alert(`회원 정보 수정이 완료되었습니다.`);

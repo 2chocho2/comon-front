@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { BsStarFill, BsStarHalf, BsStar } from "react-icons/bs";
+import jwtDecode from 'jwt-decode';
 
 function SampleNextArrow(props) {
     const { className, style, onClick } = props;
@@ -38,13 +39,12 @@ const AppDetail = ({ match, history }) => {
     const { imageIdx } = match.params;
 
     useEffect(() => {
-        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/detail/${imageIdx}`)
+        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/detail/${imageIdx}`,
+        { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
             .then(res => {
-                console.log(res.data);
                 setData(res.data.imageDto);
                 setStar(res.data.reviewAvg);
                 setReviewList(res.data.reviewList);
-                console.log(res.data.reviewList);
             })
             .catch(err => {
                 console.log(err);
@@ -55,18 +55,21 @@ const AppDetail = ({ match, history }) => {
 
     const iconImage = `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/icon/${data.iconImage}`;
 
-    // TODO.하드 코딩 상태! 수정 필요
-    const imageUserDto = {
-        userId: 'chochocho',
-        imageIdx: imageIdx
-    };
-
+   
     // 다운로드 로직
     const handlerClickDownload = () => {
+        const token = sessionStorage.getItem('token');
+        const decode_token = jwtDecode(token)
+        let userId = decode_token.sub;
+
         axios({
             method: 'POST',
             url: `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/downloadapp`,
-            data: imageUserDto
+            data: {
+                userId: userId,
+                imageIdx: imageIdx
+            },
+            headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}
         })
             .then(res => {
                 console.log(res.data);

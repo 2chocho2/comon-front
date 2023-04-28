@@ -19,7 +19,8 @@ const JudgeDetail = ({ match, history }) => {
     const [denyIdx, setDenyIdx] = useState(0);
 
     useEffect(() => {
-        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist/${imageidx}`)
+        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist/${imageidx}`,
+        { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
             .then(res => {
                 console.log(res.data);
                 setData(res.data);
@@ -31,7 +32,8 @@ const JudgeDetail = ({ match, history }) => {
 
     // 승인 후 자동 앱 출시
     const handlerOnSubmit = () => {
-        axios.put(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/access/${imageidx}`)
+        axios.put(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/access/${imageidx}`,
+        { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
             .then(res => {
                 console.log(res);
                 alert('정상적으로 처리되었습니다.');
@@ -46,7 +48,8 @@ const JudgeDetail = ({ match, history }) => {
     // 클릭 시 심사 거절 사유 선택 모달 오픈
     const handlerDeny = () => {
         setModalIsOpen(true);
-        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/denylist`)
+        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/denylist`,
+        { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
             .then(res => {
                 console.log(res);
                 setDenyList(res.data);
@@ -65,7 +68,8 @@ const JudgeDetail = ({ match, history }) => {
 
     // 모달에서 선택된 값과 함께 심사 거절 처리
     const handlerSubmitDeny = () => {
-        axios.put(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/deny/${imageidx}/${denyIdx}`)
+        axios.put(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/deny/${imageidx}/${denyIdx}`,
+        { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
             .then(res => {
                 console.log(res);
                 alert(`심사 거절 처리가 완료되었습니다.`);

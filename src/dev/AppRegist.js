@@ -18,21 +18,21 @@ const AppRegist = ({ history }) => {
     const [devIdx, setDevIdx] = useState('');
     const [categoryIdx, setCategoryIdx] = useState(1);
     const [categoryActive, setCategoryActive] = useState(1);
+    const [endpointServiceName, setEndpointServiceName] = useState('');
 
     // 제한할 파일의 크기
     const MAX_FILE_SIZE = 1 * 1024 * 1024; //1MB
     // 제한할 파일의 개수
     const MAX_FILE_COUNT = 6;
 
-    // 앱 등록을 시도하기 전 devdx값 조회
+    // 앱 등록을 시도하기 전 devIdx값 조회
     useEffect(() => {
-        // const token = sessionStorage.getItem('token');
-        // const decode_token = jwtDecode(token)
-        // let devId = decode_token.sub;
-        // TODO. 현재 하드 코딩 상태. 이후 지우기
-        let devId = 'chocho'
-        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/getidx/${devId}`)
-
+        const token = sessionStorage.getItem('token');
+        const decode_token = jwtDecode(token)
+        let devId = decode_token.sub;
+        
+        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/getidx/${devId}`,
+        { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
             .then(res => {
                 setDevIdx(res.data);
                 console.log(res.data);
@@ -45,6 +45,7 @@ const AppRegist = ({ history }) => {
     const handlerChangeImageName = e => setImageName(e.target.value);
     const handlerChangeImageDescription = e => setImageDescription(e.target.value);
     const handlerChangeImageDetail = e => setImageDetail(e.target.value);
+    const handlerChangeEndpointServiceName = e => setEndpointServiceName(e.target.value);
 
     const categoryList = ['', 'Life:On', 'Work:On'];
 
@@ -193,7 +194,8 @@ const AppRegist = ({ history }) => {
         imageDescription,
         imageDetail,
         categoryIdx,
-        devIdx
+        devIdx,
+        endpointServiceName
     };
 
     const formData = new FormData();
@@ -210,7 +212,10 @@ const AppRegist = ({ history }) => {
         axios({
             method: 'POST',
             url: `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/registapp`,
-            headers: { 'Content-Type': 'multipart/form-data;' },
+            headers: { 
+                        'Content-Type': 'multipart/form-data;',
+                        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+                     },
             data: formData
         })
             .then(res => {
@@ -252,6 +257,15 @@ const AppRegist = ({ history }) => {
                                 onChange={handlerChangeImageName}
                                 placeholder="앱 이름을 입력해 주세요." />
                             <p className='description'>COM:ON에 표시되는 앱 이름입니다. 기호를 포함하지 않고 간결하게 작성해야 합니다.</p>
+                        </li>
+                        <li className='form-each'>
+                            <p className='form-title'>엔드포인트 서비스 이름</p>
+                            <input type="text"
+                                className='text-inputbox'
+                                value={endpointServiceName}
+                                onChange={handlerChangeEndpointServiceName}
+                                placeholder="엔드포인트가 되는 서비스의 이름을 입력해 주세요." />
+                            <p className='description'>실행 파일에 작성된 서비스 중 엔드포인트가 되는 서비스의 이름을 작성해 주세요.</p>
                         </li>
                         <li className='form-each'>
                             <p className='form-title'>간단한 앱 설명</p>

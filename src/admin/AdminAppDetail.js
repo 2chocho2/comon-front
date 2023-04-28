@@ -15,7 +15,8 @@ const AdminAppDetail = ({ match, history }) => {
     const [denyIdx, setDenyIdx] = useState(0);
 
     useEffect(() => {
-        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist/${imageidx}`)
+        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist/${imageidx}`,
+        { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
             .then(res => {
                 console.log(res.data);
                 setData(res.data);
@@ -80,7 +81,8 @@ const AdminAppDetail = ({ match, history }) => {
     };
 
     const handlerClickDelete = () => {
-        axios.delete(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/registdelete/${imageidx}`)
+        axios.delete(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/registdelete/${imageidx}`,
+        { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
             .then(res => {
                 console.log(res);
                 alert(`삭제 처리가 완료되었습니다.`);
