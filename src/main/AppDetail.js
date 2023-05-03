@@ -40,7 +40,7 @@ const AppDetail = ({ match, history }) => {
     const { imageIdx } = match.params;
 
     useEffect(() => {
-        if(sessionStorage.getItem('token') === null) {
+        if (sessionStorage.getItem('token') === null) {
             alert(`로그인 후 이용 가능합니다.`);
             history.push(`/login`);
         }
@@ -161,7 +161,8 @@ const AppDetail = ({ match, history }) => {
 
                         <div className="detail-container">
                             <div className='detail-imagename'>
-                                <p><span className='detail-imagename-title'>{data.imageName}</span>의 새로운 기능</p>
+                                <p className='detail-imagename-title'>{data.imageName}  <span style={{ fontSize: '30px' }}>의</span></p>
+                                <p className="tiltle2">새로운 기능</p>
                             </div>
                             <div className='detail-download'>
                                 <div id="detail-icon-box"><img className='detail-download-icon' src={iconImage} /></div>
@@ -170,7 +171,7 @@ const AppDetail = ({ match, history }) => {
                                     <p className='detail-download-name-imagedescription'>{data.imageDescription}</p>
                                 </div>
                                 <div className='detail-download-section'>
-                                    <p>다운로드 수: {data.downloadCount}</p>
+                                    <p className="download-count">다운로드 수: {data.downloadCount}</p>
                                     <button onClick={handlerClickDownload}
                                         className='download-button'>받기</button>
                                 </div>
@@ -240,24 +241,33 @@ const AppDetail = ({ match, history }) => {
                                         </div>
                                     </div>
                                     <div className='review-score-total'>
-                                        <ReviewChart imageIdx={imageIdx}/>
+                                        <ReviewChart imageIdx={imageIdx} />
                                     </div>
                                 </div>
                             </div>
                             <div className='detail-image-review-slider'>
                                 <Slider className='review-slider-box' {...settings2}>
-                                    {
-                                        reviewList
-                                        &&
-                                        reviewList.map((review, index) =>
-                                            <div className='review-slider-each'>
-                                                <div className='review-slider-each-title'>{review.reviewTitle}</div>
-                                                <div className='review-slider-each-star'>
-                                                    <div className="review-slider-each-star-icon">{starRating(review.scoreCount)}</div>
-                                                </div>
-                                                <div className='review-slider-each-content'>{review.reviewContent}</div>
+                                {
+                                        reviewList.length > 0
+                                            ?
+                                            reviewList.map((review) =>
+                                                <div className='review-slider-each'>
+                                                    <div id="review-slider-each-header">
+                                                        <div className='review-slider-each-title'>{review.reviewTitle}</div>
+                                                        <div className='review-slider-each-star'>
+                                                            <div className="review-slider-each-star-icon">{starRating(review.scoreCount)}</div>
+                                                        </div>
+                                                    </div>
+                                                    <div className='review-slider-each-content'>{review.reviewContent}</div>
 
-                                            </div>)
+                                                </div>)
+                                            :
+                                            <>
+                                                <div className='review-slider-default'>
+                                                    <p> 아직 작성된 후기가 없습니다</p>
+                                                </div>
+                                            </>
+
                                     }
                                 </Slider>
                             </div>
