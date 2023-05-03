@@ -6,8 +6,8 @@ import KakaoLogin from "./KakaoLogin";
 const Login = ({ history }) => {
 
     // 변수 선언 
-    const [ userId, setUserId ] = useState('');
-    const [ userPassword, setUserPassword ] = useState('');
+    const [ userId, setUserId ] = useState('cho1234');
+    const [ userPassword, setUserPassword ] = useState('a123456789*');
     const [ passwordOption, setPasswordOption ] = useState(false);
 
     // 핸들러 정의
@@ -45,13 +45,13 @@ const Login = ({ history }) => {
     }, []);
 
     const handlerOnClick = e => {
-        axios.post(`http://localhost:8080/login`, { userId, userPassword })
+        axios.post(`http://192.168.0.37:8080/login`, { userId, userPassword })
                     .then(response => {
                 console.log(response);
                 if (response.data) {
                     alert('정상적으로 로그인 되었습니다')
                     sessionStorage.setItem("token", response.data);
-                    history.push('/main');
+                    history.push('/');
                 } else {
                     alert('ID, PW가 일치하지 않습니다. 확인 후 다시 시도해주세요.')
                     sessionStorage.clear();

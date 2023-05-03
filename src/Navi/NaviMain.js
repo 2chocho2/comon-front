@@ -8,7 +8,7 @@ import { Reset } from 'styled-reset'
 const NaviMain = (props) => {
 
     const handlerClickComon = () => {
-        props.history.push(`/main`);
+        props.history.push(`/`);
     };
 
     const handlerClickAppList = () => {

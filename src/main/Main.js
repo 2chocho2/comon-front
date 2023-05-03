@@ -4,6 +4,9 @@ import Ranking from './Ranking';
 import Recommend from './Recommend';
 import NaviMain from '../Navi/NaviMain';
 import '../css/appList.css';
+import jwt_decode from "jwt-decode";
+import { FaStar } from "react-icons/fa";
+import Footer from '../footer/Footer';
 
 
 const Main = ({ history }) => {
@@ -12,8 +15,7 @@ const Main = ({ history }) => {
     const [rankingList, setRankingList] = useState([]);
 
     useEffect(() => {
-        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/main`,
-        { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
+        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/main`)
             .then(res => {
                 console.log(res);
                 setRecommendList(res.data.list1);
@@ -26,7 +28,7 @@ const Main = ({ history }) => {
 
     return (
         <>
-            <NaviMain history={ history }/>
+            <NaviMain history={history} />
             <div className='main-background'>
                 <div className='main-1'>
                     <div className='main-back'>
@@ -34,11 +36,14 @@ const Main = ({ history }) => {
                     </div>
                 </div>
                 <div className='main-2'>
-                    <p className='today-rank'>Today Rank</p>
-                    <hr />
-                    <div className='rank-box'><Ranking rankingList={rankingList} />
+                    <p className='today-rank'>
+                        <FaStar className='thumbs-icon' />Today Rank<FaStar className='thumbs-icon' />
+                    </p>
+
+                    <div className='rank-box'><Ranking rankingList={rankingList} history={history}/>
                     </div>
                 </div>
+                <Footer />
 
             </div>
         </>

@@ -1,4 +1,8 @@
-const Ranking = ({ rankingList }) => {
+const Ranking = ({ rankingList, history }) => {
+
+    const handlerClickDetail = (e) => {
+        history.push(`/user/appdetail/${e}`)
+    };
 
     return (
         <div className='rank'>
@@ -6,10 +10,13 @@ const Ranking = ({ rankingList }) => {
                 &&
                 rankingList.map(data => (
                     <>
-                        <div className='rank-each'>
+                        <div className='rank-each'
+                            onClick={ () => handlerClickDetail(data.imageIdx) }>
                             <div className='rank-header'>
-                                <div className='rank-header-round-left'></div>
-                                <div className='rank-header-round-right'></div>
+                                <div id='clearfix'>
+                                    <div className='rank-header-round-left'></div>
+                                    <div className='rank-header-round-right'></div>
+                                </div>
                             </div>
                             <img src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/thumbnail/${data.thumbnailImage}`} />
                             <div className='rank-image-description'>
@@ -17,9 +24,10 @@ const Ranking = ({ rankingList }) => {
                                 <p className='rank-devname'>{data.devName}</p>
                                 <p className='rank-description'>{data.imageDescription}</p>
                             </div>
-
+                            <div className="rank-detail">
+                                <button className="rank-detailBtn">상세보기</button>
+                            </div>
                         </div>
-
                     </>
                 ))}
         </div>

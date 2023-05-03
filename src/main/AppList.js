@@ -8,13 +8,12 @@ const AppList = ({ history }) => {
     const [categoryActive, setCategoryActive] = useState(0);
     const [data, setData] = useState([]);
     const [starAverage, setStarAverage] = useState({});
+    const [orderActive, setOrderActive] = useState(0);
 
     useEffect(() => {
-        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist`,
-        { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
+        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist`)
             .then(res => {
                 setData(res.data);
-                console.log(res.data);
             })
             .catch(err => {
                 console.log(err);
@@ -41,19 +40,16 @@ const AppList = ({ history }) => {
                         id={i}>{categoryList[i]}</button>
                 </>
             )
-
         } return result;
     };
 
     const toggleCategoryButton = (e) => {
         setCategoryActive(e.target.id);
-        console.log(categoryActive);
 
         if (e.target.id == 0) {
             axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist`,
-            { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
+                { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
                 .then(res => {
-                    console.log(res.data);
                     setData(res.data);
                 })
                 .catch(err => {
@@ -61,9 +57,8 @@ const AppList = ({ history }) => {
                 })
         } else if (e.target.id == 1) {
             axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/1`,
-            { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
+                { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
                 .then(res => {
-                    console.log(res.data);
                     setData(res.data);
                 })
                 .catch(err => {
@@ -71,9 +66,8 @@ const AppList = ({ history }) => {
                 })
         } else if (e.target.id == 2) {
             axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/2`,
-            { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
+                { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
                 .then(res => {
-                    console.log(res.data);
                     setData(res.data);
                 })
                 .catch(err => {
@@ -82,11 +76,10 @@ const AppList = ({ history }) => {
         }
     };
 
+    // 앱별 별점 출력 기능
     const starAvg = (e) => {
-        console.log(starAverage);
-        console.log(e);
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/average/${e}`,
-        { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
+            { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
                 setStarAverage((prev) => ({ ...prev, [e]: res.data }));
             })
@@ -97,7 +90,64 @@ const AppList = ({ history }) => {
 
     const handlerClickAppDetail = (e) => {
         history.push(`/user/appdetail/${e}`)
-    }
+    };
+
+    // 앱 정렬 리스트
+    const orderList = ['인기순', '최신순', '가나다순'];
+
+    // 앱 정렬 버튼 출력
+    const orderButton = () => {
+        const result = [];
+
+        for (let i = 0; i < orderList.length; i++) {
+            result.push(
+                <>
+                    <input id={orderList[i]}
+                        value={i}
+                        type='radio'
+                        checked={orderActive == i}
+                        onChange={handleChangeOrderButton}
+                    />
+                    {orderList[i]}
+                </>
+            )
+        } return result;
+    };
+
+    const handleChangeOrderButton = (e) => {
+        e.preventDefault();
+        setOrderActive(e.target.value);
+
+        if (e.target.value === 0) {
+            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/count`,
+                { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
+                .then(res => {
+                    setData(res.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        } else if (e.target.value === 1) {
+            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/registdt`,
+                { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
+                .then(res => {
+                    setData(res.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        } else {
+            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/order`,
+                { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
+                .then(res => {
+                    setData(res.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+    };
+
 
     return (
         <>
@@ -109,29 +159,35 @@ const AppList = ({ history }) => {
                         {categoryButton()}
                     </div>
                 </div>
+                <div className='order-radio'>
+                    {orderButton()}
+                </div>
                 <div className='applist'>
+
                     {
                         data
                         &&
                         data.map((data =>
                             <>
-                                <div className='applist-each' onClick={ () => handlerClickAppDetail(data.imageIdx) }>
+                                <div className='applist-each' onClick={() => handlerClickAppDetail(data.imageIdx)}>
                                     <div className='applist-image-box'>
                                         <img className='applist-each-thumbnail' src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/thumbnail/${data.thumbnailImage}`} />
                                     </div>
                                     <div className='applist-description'>
-                                        <img className='applist-each-icon' src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/icon/${data.iconImage}`} />
-                                        <div className='applist-description-text'>
-                                            <p className='applist-description-name'>{data.imageName}</p>
-                                            <p className='applist-description-detail'>{data.imageDescription}</p>
-                                        </div>
-                                        <div className='star'>
-                                            {starAverage[data.imageIdx] && (
-                                                <p className='star-avg'>
-                                                    <AiFillStar className='star-logo' />{starAverage[data.imageIdx].toFixed(1)}
-                                                </p>
-                                                
-                                            )}
+                                        <div id="applist-description-box">
+                                            <img className='applist-each-icon' src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/icon/${data.iconImage}`} />
+                                            <div className='applist-description-text'>
+                                                <p className='applist-description-name'>{data.imageName}</p>
+                                                <p className='applist-description-detail'>{data.imageDescription}</p>
+                                            </div>
+                                            <div className='star'>
+                                                {starAverage[data.imageIdx] && (
+                                                    <p className='star-avg'>
+                                                        <AiFillStar className='star-logo' />{starAverage[data.imageIdx].toFixed(1)}
+                                                    </p>
+
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

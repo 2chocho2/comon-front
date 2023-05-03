@@ -50,17 +50,20 @@ const Recommend = ({ recommendList }) => {
                         &&
                         recommendList.map(data => (
                             <>
-                                <div>
+
+                                <div id="slider-box">
                                     <div className='slider-content'>
-                                        <img src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/icon/${data.iconImage}`} />
-                                        <p className='slider-imageName'>{data.imageName}</p>
-                                        <hr />
+                                        <div className="slider-header">
+                                            <img src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/icon/${data.iconImage}`} />
+                                            <p className='slider-imageName'>{data.imageName}</p>
+                                        </div>
                                         <p className='slider-detail'>{data.imageDescription}</p>
                                     </div>
                                     <div className='slider-thumbnail'>
-                                        <img src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/screenshot/${data.screenshotImage1}`} />
+                                        <img  src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/screenshot/${data.screenshotImage1}`} />
                                     </div>
                                 </div>
+
                             </>))
                     }
                 </Slider>

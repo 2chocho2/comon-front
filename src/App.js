@@ -19,12 +19,15 @@ import MyService from './mypage/MyService';
 import EditUserInfo from './mypage/EditUserInfo';
 import Login from './login/Login';
 import Regist from './login/Regist';
+import Chartsample from './chartsample/ReviewChart';
 
 function App() {
   return (
     <>
       {/* <JudgeDetail /> */}
       {/* 관리자용 */}
+
+      {/* <Chartsample /> */}
       
       <Route path="/admin" render={(props) => <AppListAdmin {...props} /> } exact={true} />
       <Route path="/admin/judge" render={(props) => <Judge {...props} /> } exact={true} />
@@ -40,7 +43,7 @@ function App() {
       
 
       {/* 사용자용 - 메인 */}
-      <Route path='/main' render={(props) => <Main {...props} /> } exact={true} />
+      {/* <Route path='/' render={(props) => <Main {...props} /> } exact={true} /> */}
       <Route path='/user/applist' render={(props) => <AppList {...props} />} exact={true} />
       <Route path='/user/appdetail/:imageIdx' render={(props) => <AppDetail {...props} /> } exact={true} />
       

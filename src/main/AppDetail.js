@@ -7,6 +7,7 @@ import Slider from "react-slick";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { BsStarFill, BsStarHalf, BsStar } from "react-icons/bs";
 import jwtDecode from 'jwt-decode';
+import ReviewChart from "../chartsample/ReviewChart";
 
 function SampleNextArrow(props) {
     const { className, style, onClick } = props;
@@ -39,12 +40,18 @@ const AppDetail = ({ match, history }) => {
     const { imageIdx } = match.params;
 
     useEffect(() => {
+        if(sessionStorage.getItem('token') === null) {
+            alert(`로그인 후 이용 가능합니다.`);
+            history.push(`/login`);
+        }
+
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/detail/${imageIdx}`,
-        { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
+            { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
                 setData(res.data.imageDto);
                 setStar(res.data.reviewAvg);
                 setReviewList(res.data.reviewList);
+                console.log(res.data.reviewList);
             })
             .catch(err => {
                 console.log(err);
@@ -55,7 +62,7 @@ const AppDetail = ({ match, history }) => {
 
     const iconImage = `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/icon/${data.iconImage}`;
 
-   
+
     // 다운로드 로직
     const handlerClickDownload = () => {
         const token = sessionStorage.getItem('token');
@@ -69,12 +76,17 @@ const AppDetail = ({ match, history }) => {
                 userId: userId,
                 imageIdx: imageIdx
             },
-            headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}
+            headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(res => {
                 console.log(res.data);
-                alert(`앱 다운로드가 완료되었습니다.`);
-                window.location.reload();
+                if (res.data === '1') {
+                    alert(`이미 다운받은 앱입니다`);
+                    window.location.reload();
+                } else {
+                    alert(`앱 다운로드가 완료되었습니다.`);
+                    window.location.reload();
+                }
             })
             .catch(err => {
                 console.log(err);
@@ -152,7 +164,7 @@ const AppDetail = ({ match, history }) => {
                                 <p><span className='detail-imagename-title'>{data.imageName}</span>의 새로운 기능</p>
                             </div>
                             <div className='detail-download'>
-                                <img className='detail-download-icon' src={iconImage} />
+                                <div id="detail-icon-box"><img className='detail-download-icon' src={iconImage} /></div>
                                 <div className='datail-download-name'>
                                     <p className='detail-download-name-imagename'>{data.imageName}</p>
                                     <p className='detail-download-name-imagedescription'>{data.imageDescription}</p>
@@ -189,12 +201,13 @@ const AppDetail = ({ match, history }) => {
                             <div className='detail-image-description-inner'>
                                 <div className='detail-image-staravg'>
                                     <p className="detail-title">평가</p>
-                                    <div className="star-score">점수</div>
-                                    <div className="stars">{star.toFixed(1)}</div>
+                                    <div className="star-score">{star.toFixed(1)}</div>
+                                    <div className="stars">{starRating(star)}</div>
                                 </div>
                                 <div className='detail-image-registdt'>
                                     <p className="detail-title">업로드 날짜</p>
                                     <div className="registdt">{registDt()}</div>
+                                    <div className="regist-name"></div>
                                 </div>
                                 <div className='detail-image-devinfo'>
                                     <p className="detail-title">개발자</p>
@@ -227,7 +240,7 @@ const AppDetail = ({ match, history }) => {
                                         </div>
                                     </div>
                                     <div className='review-score-total'>
-
+                                        <ReviewChart imageIdx={imageIdx}/>
                                     </div>
                                 </div>
                             </div>
@@ -268,5 +281,4 @@ const AppDetail = ({ match, history }) => {
         </>
     );
 }
-
 export default AppDetail;
