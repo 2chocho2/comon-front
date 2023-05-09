@@ -7,6 +7,7 @@ import '../css/appList.css';
 import jwt_decode from "jwt-decode";
 import { FaStar } from "react-icons/fa";
 import Footer from '../footer/Footer';
+import MainSide from './MainSide';
 
 
 const Main = ({ history }) => {
@@ -39,10 +40,10 @@ const Main = ({ history }) => {
                     <p className='today-rank'>
                         <FaStar className='thumbs-icon' />Today Rank<FaStar className='thumbs-icon' />
                     </p>
-
                     <div className='rank-box'><Ranking rankingList={rankingList} history={history}/>
                     </div>
                 </div>
+                <MainSide />
                 <Footer />
 
             </div>

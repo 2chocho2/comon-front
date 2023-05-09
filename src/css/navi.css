@@ -6,17 +6,17 @@
 }
 * {box-sizing: border-box;}
 
+/* 관리자 */
 .menu {
-    background-color: rgba(0, 0, 0 );
+    border-bottom: 5px solid #0d4bbe;
+    background-color: rgb(255, 255, 255);
     box-sizing: border-box;
-    padding: 0px;
     width: 100%;
     height: 60px;
     line-height: 60px;
     float: left;
     font-family: 'TheJamsil5Bold';
-    z-index: 1;
-    
+    z-index: 5;
 }
 
 #navi::after, menu::after {
@@ -26,34 +26,154 @@
 }
 
 .menu .home {
-    color: white;
+    color: #0d4bbe;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    width: 17%;
     height: 60px;
-    width: 150px;
-    box-sizing: content-box;
     line-height: 60px;
+    box-sizing: content-box;
     float: left;
     margin: 0px;
-    font-weight: bold;
-    padding-left: 30px;
+    margin-right: 40px;
 }
 
 .menu .link {
-    color: white;
+    color: #0d4bbe;
     box-sizing: content-box;
-    float: left;
     margin: 0px;
-}
-
-.menu .link::after {
-    content: '';
-    display: block;
-    clear: both;
 }
 
 .menu .link li {
     float: left;
-    padding: 0px 10px;
+    margin: 0px 20px;
+    border-left: 3px solid white;
+    width: 130px;
+    height: 30px;
+    text-align: center;
+    font-size: 1em;
     list-style: none;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+.menu .link li:hover {
+    border-left: 3px solid #0d4bbe;
+}
+
+/* 개발자 네비 */
+.dev-menu {
+    border-bottom: 5px solid rgb(255, 150, 0);
+    background-color: rgb(255, 250, 230);
+    box-sizing: border-box;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    float: left;
+    font-family: 'TheJamsil5Bold';
+    z-index: 5;
+    
+}
+
+/* #navi::after, menu::after {
+    content: '';
+    display: block;
+    clear: both;
+} */
+
+.dev-menu .dev-home {
+    color: #ff9600;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    width: 17%;
+    height: 60px;
+    line-height: 60px;
+    box-sizing: content-box;
+    float: left;
+    margin: 0px;
+    margin-right: 40px;
+}
+
+.dev-menu .dev-link {
+    color: #ff9600;
+    box-sizing: content-box;
+    margin: 0px;
+}
+
+.dev-menu .dev-link li {
+    float: left;
+    margin: 0px 20px;
+    border-left: 3px solid rgb(255, 250, 230);
+    width: 130px;
+    height: 30px;
+    text-align: center;
+    font-size: 1em;
+    list-style: none;
+    cursor: pointer;
+    transition: all .2s ease;
+
+}
+.dev-menu .dev-link li:hover {
+    border-left: 3px solid #ff9600;
+
+}
+/* 유저 네비 */
+.user-navi {
+    /* border-bottom: 5px solid rgb(255, 150, 0); */
+    background-color: black;
+    box-sizing: border-box;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    float: left;
+    font-family: 'TheJamsil5Bold';
+    z-index: 5;
+    
+}
+
+/* #navi::after, menu::after {
+    content: '';
+    display: block;
+    clear: both;
+} */
+
+.user-navi .user-home {
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    width: 25%;
+    height: 60px;
+    line-height: 60px;
+    box-sizing: content-box;
+    float: left;
+    margin: 0px;
+    margin-right: 40px;
+}
+
+.user-navi .user-link {
+    color: white;
+    box-sizing: content-box;
+    margin: 0px;
+}
+
+.user-navi .user-link li {
+    float: left;
+    margin: 0px 20px;
+    border-left: 3px solid black;
+    width: 130px;
+    height: 30px;
+    text-align: center;
+    font-size: 1em;
+    list-style: none;
+    cursor: pointer;
+    transition: all .2s ease;
+
+}
+.user-navi .user-link li:hover {
+    border-left: 3px solid white;
 }
 
 /* 메인 네비 */
@@ -109,4 +229,19 @@
     float: left;
     text-align: center;
     font-size: 18px;
+}
+
+/* 로그인, 로그아웃, 마이페이지 버튼 */
+#user-button{
+    /* background-color: #ff9600; */
+    margin-right: 150px;
+    float: right;
+}
+.logout-navi-icon, .login-navi-icon, .mypage-navi-icon {
+    color: white;
+    width: 35px;
+    height: 35px;
+    margin: 0px 10px;
+    vertical-align: middle;
+    cursor: pointer;
 }

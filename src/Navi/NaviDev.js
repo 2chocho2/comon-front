@@ -4,27 +4,25 @@ import '../css/dev.css';
 import * as React from 'react'
 import { Reset } from 'styled-reset'
 
-const NaviAdmin = ({ history }) => {
+const NaviDev = (props) => {
     const handlerClickComon = () => {
-        console.log(history);
-        this.history.push(`/`);
+        props.history.push(`/`);
     };
 
     const handlerClickAppList = () => {
-        history.push(`/user/applist`);
+        props.history.push(`/user/applist`);
     };
-
     const handlerGoMypage = () => {
-        history.push(`/mypage`);
+        props.history.push(`/mypage`);
     }
     return (
         <>
             <Reset />
-            <div className='menu'>
-                <h1 onClick={handlerClickComon} className='home'>COM:ON</h1>
-                <ul className='link'>
+            <div className='dev-menu'>
+                <h1 onClick={handlerClickComon} className='dev-home'>COM:ON</h1>
+                <ul className='dev-link'>
                     <li>About us</li>
-                    <li onClick={handlerClickAppList}>Application</li>
+                    <li onClick={ handlerClickAppList }>Application</li>
                     <li>Notice</li>
                 </ul>
                 <div id="user-button">
@@ -37,4 +35,4 @@ const NaviAdmin = ({ history }) => {
     );
 }
 
-export default NaviAdmin;
+export default NaviDev;

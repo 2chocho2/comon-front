@@ -2,6 +2,9 @@ import Navi from "../Navi/Navi";
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { AiFillStar } from 'react-icons/ai'
+import aniLog1 from '../img/ani-logo_1.png'
+import aniLog2 from '../img/ani-logo_2.png'
+
 
 const AppList = ({ history }) => {
 
@@ -102,13 +105,16 @@ const AppList = ({ history }) => {
         for (let i = 0; i < orderList.length; i++) {
             result.push(
                 <>
-                    <input id={orderList[i]}
-                        value={i}
-                        type='radio'
-                        checked={orderActive == i}
-                        onChange={handleChangeOrderButton}
-                    />
-                    {orderList[i]}
+                    <div className="radioInput">
+                        <input
+                            id={orderList[i]}
+                            value={i}
+                            type='radio'
+                            checked={orderActive == i}
+                            onChange={handleChangeOrderButton}
+                        />
+                        {orderList[i]}
+                    </div>
                 </>
             )
         } return result;
@@ -118,19 +124,22 @@ const AppList = ({ history }) => {
         e.preventDefault();
         setOrderActive(e.target.value);
 
-        if (e.target.value === 0) {
+        console.log(typeof (e.target.value));
+        if (e.target.value == 0) {
             axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/count`,
                 { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
                 .then(res => {
+                    console.log(res.data);
                     setData(res.data);
                 })
                 .catch(err => {
                     console.log(err);
                 })
-        } else if (e.target.value === 1) {
+        } else if (e.target.value == 1) {
             axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/registdt`,
                 { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
                 .then(res => {
+                    console.log(res.data);
                     setData(res.data);
                 })
                 .catch(err => {
@@ -140,6 +149,7 @@ const AppList = ({ history }) => {
             axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/order`,
                 { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
                 .then(res => {
+                    console.log(res.data);
                     setData(res.data);
                 })
                 .catch(err => {
@@ -154,7 +164,19 @@ const AppList = ({ history }) => {
             <Navi history={history} />
             <div className='applist-back'>
                 <div className='applist-header'>
-                    <div className='applist-thumbnail'>COMON의 앱 스토어를 만나 보세요!</div>
+                    <div className='applist-thumbnail'>
+                        <div className="ani-logo">
+                            <div className="ani-logo-move" />
+                        </div>
+                        <div className="applist-header-container">
+                            <div className="applist-title-box1" />
+                            <div className="applist-title-box2" />
+                            <div className="applist-title-box3" />
+                            <div className="applist-title-box4">
+                                <p><span>COM:ON</span>의 앱 스토어를 만나 보세요!</p>
+                            </div>
+                        </div>
+                    </div>
                     <div className='categoryButton'>
                         {categoryButton()}
                     </div>
@@ -163,7 +185,6 @@ const AppList = ({ history }) => {
                     {orderButton()}
                 </div>
                 <div className='applist'>
-
                     {
                         data
                         &&

@@ -19,7 +19,9 @@ import MyService from './mypage/MyService';
 import EditUserInfo from './mypage/EditUserInfo';
 import Login from './login/Login';
 import Regist from './login/Regist';
-import Chartsample from './chartsample/ReviewChart';
+import Chartsample from './reviewChart/ReviewChart';
+import AdminUserDetail from './admin/AdminUserDetail';
+import AdminDevDetail from './admin/AdminDevDetail';
 
 function App() {
   return (
@@ -34,6 +36,8 @@ function App() {
       <Route path="/admin/judge/:imageidx" render={(props) => <JudgeDetail {...props}/> } exact={true} />
       <Route path="/admin/appdetail/:imageidx" render={(props) => <AdminAppDetail {...props}/> } exact={true} />
       <Route path="/admin/setting" render={(props) => <AdminSetting {...props}/> } exact={true} />
+      <Route path="/admin/userdetail/:userId" render={(props) => <AdminUserDetail {...props}/> } exact={true} />
+      <Route path="/admin/devdetail/:userId" render={(props) => <AdminDevDetail {...props}/> } exact={true} />
 
 
       {/* 개발자용 */}
@@ -43,7 +47,7 @@ function App() {
       
 
       {/* 사용자용 - 메인 */}
-      {/* <Route path='/' render={(props) => <Main {...props} /> } exact={true} /> */}
+      <Route path='/' render={(props) => <Main {...props} /> } exact={true} />
       <Route path='/user/applist' render={(props) => <AppList {...props} />} exact={true} />
       <Route path='/user/appdetail/:imageIdx' render={(props) => <AppDetail {...props} /> } exact={true} />
       

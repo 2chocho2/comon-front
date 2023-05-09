@@ -4,55 +4,56 @@ import '../css/dev.css';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import jwt_decode from "jwt-decode";
+import NaviDev from '../Navi/NaviDev';
 
 const DevSetting = ({ history }) => {
 
     const [data, setData] = useState('');
-    const [devId, setDevId] = useState('');
-    const [devName, setDevName] = useState('');
-    const [devEmail, setDevEmail] = useState('');
+    const [userId, setUserId] = useState('');
+    const [userName, setUserName] = useState('');
+    const [userEmail, setUserEmail] = useState('');
 
 
     useEffect(() => {
         const token = sessionStorage.getItem('token');
         const decode_token = jwt_decode(token);
-        setDevId(decode_token.sub);
-        let devId = decode_token.sub;
+        setUserId(decode_token.sub);
+        let userId = decode_token.sub;
 
-        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/mypage/${devId}`,
-        { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
+        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/mypage/${userId}`,
+            { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
                 console.log(res);
                 setData(res.data);
-                setDevId(res.data.devId);
-                setDevName(res.data.devName);
-                setDevEmail(res.data.devEmail);
+                setUserId(res.data.userId);
+                setUserName(res.data.userName);
+                setUserEmail(res.data.userEmail);
             })
             .catch(err => {
                 console.log(err);
             })
     }, [])
 
-    const handlerChangeDevName = (e) => {
-        setDevName(e.target.value);
+    const handlerChangeUserName = (e) => {
+        setUserName(e.target.value);
     };
 
-    const handlerChangeDevEmail = (e) => {
-        setDevEmail(e.target.value);
+    const handlerChangeUserEmail = (e) => {
+        setUserEmail(e.target.value);
     };
 
     const handlerClickEdit = () => {
         const newData = {
-            devId: devId,
-            devName: devName,
-            devEmail: devEmail
+            userId: userId,
+            userName: userName,
+            userEmail: userEmail
         };
 
         axios({
             method: 'PUT',
             url: `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/mypage/edit`,
             data: newData,
-            headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}
+            headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(res => {
                 console.log(res);
@@ -68,13 +69,13 @@ const DevSetting = ({ history }) => {
     return (
         <>
             <div>
-                <NaviAdmin />
-                <div className='sidemenu'>
+                <NaviDev history={ history }/>
+                <div className='sidemenu_dev-box'>
                     <div className='dev_logo'></div>
-                    <ul className='sidemenu_link'>
+                    <ul className='sidemenu_dev'>
                         <li><Link to='/dev/appregist'>앱 등록</Link></li>
                         <li><Link to='/dev/applist'>앱 관리</Link></li>
-                        <li id='setting'><Link to='/dev/setting'>설정</Link></li>
+                        <li id='dev-setting'><Link to='/dev/setting'>설정</Link></li>
                     </ul>
                 </div>
                 <div className='body'>
@@ -84,20 +85,20 @@ const DevSetting = ({ history }) => {
                         <div className='devSetting-box'>
                             <p className='devSetting-title'>아이디</p>
                             <input className='devSetting-input' type='text'
-                                value={devId}
+                                value={userId}
                                 readOnly />
                         </div>
                         <div className='devSetting-box'>
                             <p className='devSetting-title'>이름</p>
                             <input className='devSetting-input' type='text'
-                                value={devName}
-                                onChange={handlerChangeDevName} />
+                                value={userName}
+                                onChange={handlerChangeUserName} />
                         </div>
                         <div className='devSetting-box'>
                             <p className='devSetting-title'>이메일</p>
                             <input className='devSetting-input' type='text'
-                                value={devEmail}
-                                onChange={handlerChangeDevEmail} />
+                                value={userEmail}
+                                onChange={handlerChangeUserEmail} />
                         </div>
                     </div>
 

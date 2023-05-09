@@ -21,7 +21,7 @@ const Ranking = ({ rankingList, history }) => {
                             <img src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/thumbnail/${data.thumbnailImage}`} />
                             <div className='rank-image-description'>
                                 <p className='rank-imagename'>{data.imageName}</p>
-                                <p className='rank-devname'>{data.devName}</p>
+                                <p className='rank-devname'>{data.userName}</p>
                                 <p className='rank-description'>{data.imageDescription}</p>
                             </div>
                             <div className="rank-detail">

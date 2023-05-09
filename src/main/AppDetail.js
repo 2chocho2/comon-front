@@ -7,7 +7,7 @@ import Slider from "react-slick";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { BsStarFill, BsStarHalf, BsStar } from "react-icons/bs";
 import jwtDecode from 'jwt-decode';
-import ReviewChart from "../chartsample/ReviewChart";
+import ReviewChart from "../reviewChart/ReviewChart";
 
 function SampleNextArrow(props) {
     const { className, style, onClick } = props;
@@ -80,10 +80,13 @@ const AppDetail = ({ match, history }) => {
         })
             .then(res => {
                 console.log(res.data);
-                if (res.data === '1') {
+                if (res.data === '이미 있음') {
                     alert(`이미 다운받은 앱입니다`);
                     window.location.reload();
-                } else {
+                } else if (res.data === '오류') {
+                    alert(`다운로드 중 오류가 발생했습니다.`);
+                    window.location.reload();
+                } else if (res.data === '정상'){
                     alert(`앱 다운로드가 완료되었습니다.`);
                     window.location.reload();
                 }
@@ -191,7 +194,7 @@ const AppDetail = ({ match, history }) => {
                                         imgArr
                                         &&
                                         imgArr.map((img, index) =>
-                                            <div className='appdetail-slider-each'>
+                                            <div className='appdetail-slider-each' key={index}>
                                                 <img className='appdetail-slider-screenshot' src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/screenshot/${img}`} key={index} />
                                             </div>)
                                     }
@@ -213,7 +216,7 @@ const AppDetail = ({ match, history }) => {
                                 <div className='detail-image-devinfo'>
                                     <p className="detail-title">개발자</p>
                                     <div className="dev-icon"></div>
-                                    <div className="dev-name">COM:ON</div>
+                                    <div className="dev-name">{data.userName}</div>
                                 </div>
                             </div>
                         </div>
@@ -250,8 +253,8 @@ const AppDetail = ({ match, history }) => {
                                 {
                                         reviewList.length > 0
                                             ?
-                                            reviewList.map((review) =>
-                                                <div className='review-slider-each'>
+                                            reviewList.map((review, index) =>
+                                                <div className='review-slider-each' key={index}>
                                                     <div id="review-slider-each-header">
                                                         <div className='review-slider-each-title'>{review.reviewTitle}</div>
                                                         <div className='review-slider-each-star'>

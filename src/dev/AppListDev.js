@@ -5,21 +5,22 @@ import jwt_decode from "jwt-decode";
 import NaviAdmin from '../Navi/NaviAdmin';
 import { FaUserAstronaut } from "react-icons/fa";
 import '../css/dev.css';
+import NaviDev from '../Navi/NaviDev';
 
 const AppListDev = ({ history }) => {
 
-    const [devId, setDevId] = useState('');
+    const [userId, setUserId] = useState('');
     const [data, setData] = useState([]);
     const [denyList, setDenyList] = useState([]);
 
     useEffect(() => {
         const token = sessionStorage.getItem('token');
         const decode_token = jwt_decode(token);
-        setDevId(decode_token.sub);
-        let devId = decode_token.sub;
+        setUserId(decode_token.sub);
+        let userId = decode_token.sub;
 
-        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/applist/${devId}`,
-        { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
+        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/applist/${userId}`,
+            { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
                 setData(res.data.list1);
                 setDenyList(res.data.list2);
@@ -33,7 +34,7 @@ const AppListDev = ({ history }) => {
     const handlerClickDelete = (i) => {
         if (window.confirm("정말 삭제하시겠습니까?")) {
             axios.put(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/registdelete/${i}`,
-            { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
+                { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
                 .then(res => {
                     console.log(res.data);
                     alert('삭제 요청이 완료되었습니다.')
@@ -80,7 +81,7 @@ const AppListDev = ({ history }) => {
                     <td><img src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/icon/${d.iconImage}`} /></td>
                     <td>{d.imageName}</td>
                     <td>
-                        <p style={{ fontSize: 16, height: 20}}>{statusName}</p>
+                        <p style={{ fontSize: 16, height: 20 }}>{statusName}</p>
                         <p className="denyCode">{denyName}</p>
                     </td>
                     <td>
@@ -97,22 +98,22 @@ const AppListDev = ({ history }) => {
         })
     };
 
-    
+
     return (
         <div>
-            <NaviAdmin />
-            <div className='sidemenu'>
+            <NaviDev history={ history }/>
+            <div className='sidemenu_dev-box'>
                 <div className='dev_logo'></div>
-                <ul className='sidemenu_link'>
+                <ul className='sidemenu_dev'>
                     <li><Link to='/dev/appregist'>앱 등록</Link></li>
-                    <li id='setting'><Link to='/dev/applist'>앱 관리</Link></li>
+                    <li id='dev-setting'><Link to='/dev/applist'>앱 관리</Link></li>
                     <li><Link to='/dev/setting'>설정</Link></li>
                 </ul>
             </div>
             <div className='body'>
                 <p className='body_title'>모든 앱</p>
 
-                <p className='userName'><FaUserAstronaut className='userIcon' title='유저 아이디입니다.'/>{devId}</p>
+                <p className='userName'><FaUserAstronaut className='userIcon' title='유저 아이디입니다.' />{userId}</p>
                 <table className='AppTable'>
                     <thead>
                         <tr>

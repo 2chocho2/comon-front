@@ -60,7 +60,7 @@ const Recommend = ({ recommendList }) => {
                                         <p className='slider-detail'>{data.imageDescription}</p>
                                     </div>
                                     <div className='slider-thumbnail'>
-                                        <img  src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/screenshot/${data.screenshotImage1}`} />
+                                        <img  src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/thumbnail/${data.thumbnailImage}`} />
                                     </div>
                                 </div>
 

@@ -1,4 +1,4 @@
-import { AiOutlineLogout, AiOutlineQq } from 'react-icons/ai'
+import { RiUser5Line, RiUser5Fill, RiLogoutCircleFill } from 'react-icons/ri'
 import '../css/dev.css';
 import '../css/navi.css';
 import * as React from 'react'
@@ -10,12 +10,12 @@ const NaviMain = (props) => {
     const handlerClickComon = () => {
         props.history.push(`/`);
     };
-
     const handlerClickAppList = () => {
         props.history.push(`/user/applist`);
     };
-
-
+    const handlerGoMypage = () => {
+        props.history.push(`/mypage`);
+    }
 
     return (
         <>
@@ -31,10 +31,11 @@ const NaviMain = (props) => {
                     <li onClick={ handlerClickAppList }>Application</li>
                     <li>Notice</li>
                 </ul>
-                <div>
-                    {AiOutlineLogout}
-                    {AiOutlineQq}
-                </div>
+                {/* <div id="user-button">
+                        < RiLogoutCircleFill className='logout-navi-icon' title='로그아웃'/>
+                        < RiUser5Fill className='mypage-navi-icon' title='마이페이지' onClick={handlerGoMypage}/>
+                        {/* < RiUser5Line className='login-navi-icon' title='로그인'/> 
+                </div> */}
             </div>
         </>
     );

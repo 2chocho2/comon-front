@@ -2,6 +2,15 @@
     box-sizing: border-box;
 }
 
+input {
+    resize: none;
+}
+
+input:focus,
+.text-inputbox-description:focus {
+    outline: none;
+}
+
 @font-face {
     font-family: 'TheJamsil5Bold';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
@@ -9,7 +18,98 @@
     font-style: normal;
 }
 
+/* 얇은 고딕 */
+@font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
 /* 사이드메뉴 */
+/* 관리자 버전 */
+.sidemenu_admin-box {
+    width: 17%;
+    height: 93.6vh;
+    float: left;
+    clear: both;
+    padding: 80px 25px;
+    background: linear-gradient(to bottom, #83c7ff, #ced6ff);
+    font-family: 'TheJamsil5Bold';
+}
+
+.sidemenu_admin li {
+    line-height: 70px;
+    text-align: center;
+    width: 250px;
+    margin: auto;
+}
+
+.sidemenu_admin-box .sidemenu_admin li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    padding: 5px 0px;
+    transition: all .1s ease;
+    display: inline-block;
+    width: 250px;
+}
+
+.sidemenu_admin-box .sidemenu_admin li a:hover {
+    background-color: rgb(0, 0, 0, 0.5);
+    color: white;
+}
+
+.sidemenu_admin li:first-child {
+    border-top: 3px solid white;
+}
+
+.sidemenu_admin li:last-child {
+    border-bottom: 3px solid white;
+}
+
+/* 개발자버전 */
+.sidemenu_dev-box {
+    width: 17%;
+    height: 93.6vh;
+    float: left;
+    clear: both;
+    padding: 80px 25px;
+    background: linear-gradient(to top, #ffd0d0, #ffc800, #ffc800);
+    font-family: 'TheJamsil5Bold';
+}
+
+.sidemenu_dev li {
+    line-height: 70px;
+    text-align: center;
+    width: 250px;
+    margin: auto;
+}
+
+.sidemenu_dev-box .sidemenu_dev li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    padding: 5px 0px;
+    transition: all .1s ease;
+    display: inline-block;
+    width: 250px;
+}
+
+.sidemenu_dev-box .sidemenu_dev li a:hover {
+    background-color: rgb(0, 0, 0, 0.5);
+    color: white;
+}
+
+.sidemenu_dev li:first-child {
+    border-top: 3px solid white;
+}
+
+.sidemenu_dev li:last-child {
+    border-bottom: 3px solid white;
+}
+
+/* 검정버전 */
 .sidemenu {
     width: 17%;
     height: 93.6vh;
@@ -21,22 +121,26 @@
     font-family: 'TheJamsil5Bold';
 }
 
-.main_logo {
-    background-image: url('../img/logo_main.png');
-    background-size: 130px;
+.main_logo,
+.admin_logo,
+.dev_logo {
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    height: 100px;
+    height: 130px;
     margin-bottom: 50px;
 }
 
+.main_logo {
+    background-image: url('../img/logo_main.png');
+}
+
+.admin_logo {
+    background-image: url('../img/logoW_admin.png');
+}
+
 .dev_logo {
-    background-image: url('../img/logo_dev.png');
-    background-size: 130px;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 100px;
-    margin-bottom: 50px;
+    background-image: url('../img/logoW_dev.png');
 }
 
 .sidemenu .sidemenu_link li {
@@ -73,6 +177,14 @@
     background-color: #f0f0f0;
 }
 
+#admin-setting {
+    background-color: rgba(90, 156, 255, 0.5);
+}
+
+#dev-setting {
+    background-color: rgba(255, 130, 0, 0.5);
+}
+
 /* 본문 */
 .body {
     display: inline-block;
@@ -107,6 +219,22 @@
     border-bottom: 3px solid black;
 }
 
+.body_title button {
+    font-family: 'TheJamsil5Bold';
+    width: 100px;
+    height: 35px;
+    font-family: 'TheJamsil5Bold';
+    font-size: 14px;
+    background-color: black;
+    border: 3px solid black;
+    color: white;
+    margin-right: 15px;
+    border-radius: 50px;
+    cursor: pointer;
+    float:right;
+    
+}
+
 .body .body_subtitle {
     margin: 20px 0px 60px 0px;
     color: gray;
@@ -116,6 +244,7 @@
 .body .form {
     width: 100%;
     line-height: 40px;
+    padding: 0px 50px;
     margin: 50px auto 0 auto;
 }
 
@@ -128,24 +257,55 @@
     width: 100%;
     height: 50px;
     padding: 10px;
-    font-family: 'TheJamsil5Bold';
+    font-family: 'SUITE-Regular';
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+@font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+.text-inputbox::placeholder,
+.text-inputbox-description::placeholder {
+    font-weight: 400;
+    color: gray;
     font-size: 16px;
 }
 
 .description {
-    font-size: 12px;
+    font-family: 'SUITE-Regular';
+    font-size: 12.5px;
+    font-weight: bold;
     color: gray;
 }
 
 .form-each .text-inputbox-description {
     border: 2px solid black;
     width: 100%;
-    height: 50px;
-    line-height: 46px;
-    padding: 0px 10px;
-    font-family: 'TheJamsil5Bold';
-    font-size: 16px;
+    height: 300px;
+    line-height: 32px;
+    padding: 10px 10px;
     white-space: pre-wrap;
+    font-family: 'SUITE-Regular';
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    resize: none;
+}
+
+/* 스크롤바 css */
+.text-inputbox-description::-webkit-scrollbar {
+    width: 5px;
+}
+
+.text-inputbox-description::-webkit-scrollbar-thumb {
+    background-color: gray;
+    border-radius: 5px;
 }
 
 .form-title {
@@ -179,9 +339,10 @@
 .registerImg-submit-button {
     border: 2px solid black;
     width: 100%;
-    font-family: 'TheJamsil5Bold';
+    font-family: 'SUITE-Regular';
     color: gray;
     font-size: 12px;
+    font-weight: bold;
 }
 
 .registerImg-submit-button::-webkit-file-upload-button {
@@ -194,6 +355,22 @@
     background-color: black;
     border: none;
     cursor: pointer;
+}
+
+/* 설명 */
+.registerFile-yaml {
+    font-family: 'SUITE-Regular';
+    font-weight: bold;
+    font-size: 12.5px;
+    color: gray;
+    line-height: 17px;
+    margin-top: 15px;
+}
+
+.registerFile-yaml span {
+    color: #ff9600;
+    font-weight: bold;
+    font-size: 12.5px;
 }
 
 /* 썸네일 */
@@ -221,36 +398,47 @@
     margin: 0px 10px;
 }
 
-/* 파일 */
-/* .registerFile-box {
-    border-bottom: 3px solid black;
-    padding: 10px 0px;
-} */
-
 /* 카테고리 토글 */
 .body .categoryUnActive {
     width: 180px;
     height: 40px;
+    line-height: 34px;
     font-size: 14px;
     background-color: white;
+    margin: 0px;
     margin-right: 20px;
     border-radius: 20px;
     border: 3px solid black;
     font-family: 'TheJamsil5Bold';
     font-size: 16px;
+    cursor: pointer;
 }
 
 .body .categoryActive {
     width: 180px;
     height: 40px;
+    line-height: 34px;
     font-size: 14px;
     background-color: black;
     color: white;
+    margin: 0px;
     margin-right: 20px;
     border-radius: 20px;
     border: 3px solid black;
     font-family: 'TheJamsil5Bold';
     font-size: 16px;
+    cursor: pointer;
+}
+
+/* 앱 필터, 검색 기능 ---------------------------------------- */
+.AppSerch {
+    padding: 50px 0px;
+}
+
+.AppSerch::after {
+    display: block;
+    content: "";
+    clear: both;
 }
 
 /* admin 앱 리스트 필터 버튼 */
@@ -265,8 +453,9 @@
 }
 
 .filterAppButton {
-    margin: 30px 0px 40px 0px;
+    /* margin: 30px 0px 40px 0px; */
     font-family: 'TheJamsil5Bold';
+    float: left;
 }
 
 .filterActive {
@@ -292,6 +481,45 @@
     margin-right: 15px;
     border-radius: 50px;
     cursor: pointer;
+}
+
+/* 검색기능 */
+#serch-container {
+    float: right;
+    height: 35px;
+}
+
+.serch-box {
+    width: 200px;
+    height: 35px;
+    padding: 0px 7px;
+    border: 3px solid black;
+    float: left;
+    font-family: 'SUITE-Regular';
+    font-weight: bold;
+    font-size: 0.8em;
+}
+
+.serch-box:focus {
+    outline: none;
+}
+
+#serch-button {
+    height: 35px;
+    line-height: 29px;
+    width: 35px;
+    background-color: black;
+    border: 3px solid black;
+    padding: 0px;
+    cursor: pointer;
+}
+
+.search-icon {
+    color: white;
+    height: 25px;
+    width: 25px;
+    margin: 0px;
+    vertical-align: middle;
 }
 
 /* 심사 테이블 */
@@ -407,9 +635,33 @@
     border: 2px solid black;
     width: 100%;
     height: 50px;
+    min-height: 50px;
     padding: 10px;
-    font-family: 'TheJamsil5Bold';
-    font-size: 16px;
+    font-family: 'SUITE-Regular';
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+.detailtext-inputbox-description {
+    border: 2px solid black;
+    width: 100%;
+    height: 300px;
+    line-height: 32px;
+    padding: 10px 10px;
+    white-space: pre-wrap;
+    font-family: 'SUITE-Regular';
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+/* 스크롤바 css */
+.text-inputbox-description::-webkit-scrollbar {
+    width: 5px;
+}
+
+.text-inputbox-description::-webkit-scrollbar-thumb {
+    background-color: gray;
+    border-radius: 5px;
 }
 
 /* 폼 내부 사진 */
@@ -533,7 +785,7 @@
     margin: 30px;
     font-size: 20px;
     vertical-align: middle;
-    color: rgb(92, 120, 211);
+    color: #ffbb00;
 }
 
 .userIcon {
@@ -561,9 +813,11 @@
 .devSetting-box:not(:last-child) {
     border-bottom: 1px dotted black;
 }
+
 .devSetting-title {
     margin-bottom: 10px;
 }
+
 .devSetting-input {
     border: 2px solid black;
     width: 100%;
@@ -572,6 +826,7 @@
     font-family: 'TheJamsil5Bold';
     font-size: 16px;
 }
+
 .devSetting-input:focus {
     background-color: #e7e7e7;
     border-radius: none;
@@ -579,8 +834,8 @@
 
 /* 삭제 요청 버튼 */
 #deleteRqButton {
-    background-color: lightgray;
-    border: 3px solid black;
+    background-color: #fffae6;
+    border: 3px solid #ff9600;
     padding: 10px;
     text-align: center;
     font-family: 'TheJamsil5Bold';
@@ -603,6 +858,7 @@
     padding: 50px;
     border-top: 3px solid black;
 }
+
 .button-box-noborder {
     text-align: center;
     margin-top: 30px;

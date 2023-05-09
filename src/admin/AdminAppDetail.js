@@ -9,11 +9,7 @@ const AdminAppDetail = ({ match, history }) => {
     const { imageidx } = match.params;
 
     const [data, setData] = useState({});
-    const [denyList, setDenyList] = useState([]);
-    const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [reason, setReason] = useState('거절 사유를 선택해 주세요.');
-    const [denyIdx, setDenyIdx] = useState(0);
-
+    
     useEffect(() => {
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist/${imageidx}`,
         { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
@@ -96,14 +92,13 @@ const AdminAppDetail = ({ match, history }) => {
 
     return (
         <div>
-            <NaviAdmin />
-            <div className='sidemenu'>
-                <div className='main_logo'></div>
-                <ul className='sidemenu_link'>
-                    <li><Link to='/dev/appregist'>앱 등록</Link></li>
-                    <li><Link to='/dev/applist'>앱 관리</Link></li>
+            <NaviAdmin history={history}/>
+            <div className='sidemenu_admin-box'>
+                <div className='admin_logo'></div>
+                <ul className='sidemenu_admin'>
+                 
                     <li><Link to='/admin/setting'>회원 관리</Link></li>
-                    <li id='setting'><Link to='/admin'>모든 앱</Link></li>
+                    <li id='admin-setting'><Link to='/admin'>모든 앱</Link></li>
                     <li><Link to='/admin/judge'>심사</Link></li>
                 </ul>
             </div>
@@ -133,7 +128,7 @@ const AdminAppDetail = ({ match, history }) => {
                         <li className='detailform-each'>
                             <p className='detailform-title'>자세한 설명</p>
                             <textarea type='text'
-                                className='detailtext-inputbox'
+                                className='detailtext-inputbox-description'
                                 value={data.imageDetail}
                                 readOnly />
                         </li>

@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import NaviAdmin from '../Navi/NaviAdmin';
 import '../css/dev.css';
+import NaviDev from '../Navi/NaviDev';
 
 const AppRegist = ({ history }) => {
 
@@ -15,7 +16,7 @@ const AppRegist = ({ history }) => {
     const [screenshotImgs, setScreenshotImgs] = useState('');
     const [iconImage, setIconImage] = useState('');
     const [thumbnailImage, setThumbnailImage] = useState('');
-    const [devIdx, setDevIdx] = useState('');
+    const [userIdx, setUserIdx] = useState('');
     const [categoryIdx, setCategoryIdx] = useState(1);
     const [categoryActive, setCategoryActive] = useState(1);
     const [endpointServiceName, setEndpointServiceName] = useState('');
@@ -29,12 +30,12 @@ const AppRegist = ({ history }) => {
     useEffect(() => {
         const token = sessionStorage.getItem('token');
         const decode_token = jwtDecode(token)
-        let devId = decode_token.sub;
-        
-        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/getidx/${devId}`,
-        { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
+        let userId = decode_token.sub;
+
+        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/getidx/${userId}`,
+            { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
-                setDevIdx(res.data);
+                setUserIdx(res.data);
                 console.log(res.data);
             })
             .catch(err => {
@@ -194,8 +195,7 @@ const AppRegist = ({ history }) => {
         imageDescription,
         imageDetail,
         categoryIdx,
-        devIdx,
-        endpointServiceName
+        userIdx
     };
 
     const formData = new FormData();
@@ -212,10 +212,10 @@ const AppRegist = ({ history }) => {
         axios({
             method: 'POST',
             url: `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/registapp`,
-            headers: { 
-                        'Content-Type': 'multipart/form-data;',
-                        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-                     },
+            headers: {
+                'Content-Type': 'multipart/form-data;',
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+            },
             data: formData
         })
             .then(res => {
@@ -231,11 +231,11 @@ const AppRegist = ({ history }) => {
 
     return (
         <div>
-            <NaviAdmin />
-            <div className='sidemenu'>
+            <NaviDev history={ history }/>
+            <div className='sidemenu_dev-box'>
                 <div className='dev_logo'></div>
-                <ul className='sidemenu_link'>
-                    <li id='setting'><Link to='/dev/appregist'>앱 등록</Link></li>
+                <ul className='sidemenu_dev'>
+                    <li id='dev-setting'><Link to='/dev/appregist'>앱 등록</Link></li>
                     <li><Link to='/dev/applist'>앱 관리</Link></li>
                     <li><Link to='/dev/setting'>설정</Link></li>
                 </ul>
@@ -257,15 +257,6 @@ const AppRegist = ({ history }) => {
                                 onChange={handlerChangeImageName}
                                 placeholder="앱 이름을 입력해 주세요." />
                             <p className='description'>COM:ON에 표시되는 앱 이름입니다. 기호를 포함하지 않고 간결하게 작성해야 합니다.</p>
-                        </li>
-                        <li className='form-each'>
-                            <p className='form-title'>엔드포인트 서비스 이름</p>
-                            <input type="text"
-                                className='text-inputbox'
-                                value={endpointServiceName}
-                                onChange={handlerChangeEndpointServiceName}
-                                placeholder="엔드포인트가 되는 서비스의 이름을 입력해 주세요." />
-                            <p className='description'>실행 파일에 작성된 서비스 중 엔드포인트가 되는 서비스의 이름을 작성해 주세요.</p>
                         </li>
                         <li className='form-each'>
                             <p className='form-title'>간단한 앱 설명</p>
@@ -354,7 +345,7 @@ const AppRegist = ({ history }) => {
                                         ref={inputFiles4}
                                         onChange={handleChangeYamlFile} />
                                 </div>
-                                <ul style={{ fontSize: 12, color: 'gray', lineHeight: 2, marginTop: 15 }}>
+                                <ul className='registerFile-yaml'>
                                     <li>
                                         실행되야 하는 컨테이너가 1개더라도 yaml 파일 형식으로 등록되어야 합니다.
                                     </li>
@@ -362,7 +353,7 @@ const AppRegist = ({ history }) => {
                                         데이터 서버의 경우, 영속적인 데이터 저장이 필요하다면 볼륨 설정을 해 주시기 바랍니다.
                                     </li>
                                     <li>
-                                        사용자의 디렉터리 형식은 <span style={{ fontSize: 12, color: 'blue' }}>[c\comon\OUR_APP_USER_ID\앱 이름]</span> 의 형식으로 작성해 주시기 바랍니다.
+                                        사용자의 디렉터리 형식은 <span>[c\comon\OUR_APP_USER_ID\STATIC_NUM]</span> 의 형식으로 작성해 주시기 바랍니다.
                                     </li>
                                     <li>
                                         등록 전 실행되어야 하는 포트를 확인해 주시기 바랍니다.

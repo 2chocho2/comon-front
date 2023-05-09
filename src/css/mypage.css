@@ -8,15 +8,19 @@
     font-weight: 300;
     font-style: normal;
 }
-
+#my-container {
+    height: 100vh;
+    overflow: hidden;
+}
 /* 마이페이지 사이드 메뉴 */
 .mypage-side-box {
-    background-color: #D9D9D9;
+    /* background-color: #D9D9D9; */
+    background: linear-gradient(to top, #e5e8e9, #898c8f);
     width: 25%;
-    height: 100vh;
+    height: 93.6vh;
     float: left;
     text-align: center;
-    padding-top: 120px;
+    padding-top: 100px;
     font-family: 'TheJamsil5Bold';
 }
 
@@ -25,7 +29,7 @@
 }
 
 .mypage-image {
-    border: 8px solid rgb(221, 221, 221);
+    border: 8px solid #ffff;
     box-shadow: 0px 0px 5px 5px gray;
     width: 250px;
     height: 250px;
@@ -34,30 +38,53 @@
     margin-left: auto;
     margin-right: auto;
 }
+/* 메뉴 */
+.mypage-side-link li {
+    line-height: 50px;
+    text-align: center;
+    width: 250px;
+    margin: auto;
+}
 
-.mypage-side-link a {
+.mypage-side-link li a {
     text-decoration: none;
     color: black;
-    font-size: 20px;
+    font-size: 18px;
+    padding: 5px 0px;
+    transition: all .1s ease;
+    display: inline-block;
+    width: 250px;
 }
 
-.mypage-side-link li {
-    margin: 30px 0;
+.mypage-side-link li a:hover {
+    background-color: rgb(0, 0, 0, 0.5);
+    color: white;
 }
 
+.mypage-side-link li:first-child {
+    border-top: 3px solid black;
+}
+.mypage-side-link li:last-child {
+    border-bottom: 3px solid black;
+}
+#my-setting {
+    background-color: rgb(0, 0, 0, 0.2);
+}
 /* 사용 중 서비스 */
 .my-service-body {
     width: 75%;
+    height: 93.6vh;
+    background-color: antiquewhite;
     display: inline-block;
-    padding-top: 100px;
+    padding: 100px 150px;
     text-align: center;
     font-family: 'TheJamsil5Bold';
-    overflow: scroll;
-    height: 100vh;
+    overflow-y: auto;
 }
 
 .my-service-header {
     position: relative;
+    background-color: aqua;
 }
 
 .my-service-title {
@@ -143,10 +170,10 @@
     margin-top: 13px;
 }
 
-.my-app-image{
-    width:100%;
-    height:100%;
-    object-fit:cover;
+.my-app-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .my-app-description {
@@ -196,7 +223,7 @@
     height: 350px;
     font-family: 'TheJamsil5Bold';
     text-align: center;
-    
+
 }
 
 .my-app-hover-imagename {
@@ -221,7 +248,7 @@
 .my-app-hover-description-description {
     padding: 0 50px;
     color: white;
-    font-size: 20px;   
+    font-size: 20px;
 }
 
 /* 각각 앱 삭제 버튼 */
@@ -243,13 +270,13 @@
     padding-top: 100px;
     text-align: center;
     font-family: 'TheJamsil5Bold';
-    height: 100vh;
-    
+    height: 93.5vh;
+
 }
 
 .edit-user-info-title {
     font-size: 30px;
-}   
+}
 
 .edit-user-info-form {
     width: 70%;

@@ -3,8 +3,9 @@ import NaviAdmin from '../Navi/NaviAdmin';
 import '../css/dev.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { FcSettings } from 'react-icons/fc';
 
-const AdminSetting = () => {
+const AdminSetting = ({ history }) => {
 
     const [userData, setUserData] = useState([]);
     const [devData, setDevData] = useState([]);
@@ -12,7 +13,7 @@ const AdminSetting = () => {
 
     useEffect(() => {
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/setting`,
-        { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
+            { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
                 console.log(res);
                 setUserData(res.data.userList);
@@ -46,7 +47,7 @@ const AdminSetting = () => {
 
         if (e.target.id == 1) {
             axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/setting`,
-            { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
+                { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
                 .then(res => {
                     console.log(res.data);
                     setUserData(res.data.userList);
@@ -59,7 +60,7 @@ const AdminSetting = () => {
             setUserData(null);
             setDevData(null);
             axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/setting`,
-            { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
+                { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
                 .then(res => {
                     console.log(res.data);
                     setUserData(res.data.userList);
@@ -71,7 +72,7 @@ const AdminSetting = () => {
             setUserData(null);
             setDevData(null);
             axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/setting`,
-            { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
+                { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
                 .then(res => {
                     console.log(res.data);
                     setDevData(res.data.devList);
@@ -80,35 +81,51 @@ const AdminSetting = () => {
                     console.log(err);
                 })
         }
-    }
+    };
+
+    const handlerClickUserDetail = (e) => {
+        history.push(`/admin/userdetail/${e}`);
+    };
+
+    const handlerClickDevDetail = (e) => {
+        history.push(`/admin/devdetail/${e}`);
+    };
+
 
     return (
         <>
             <div className='dev-container'>
-                <NaviAdmin />
-                <div className='sidemenu'>
-                    <div className='main_logo'></div>
-                    <ul className='sidemenu_link'>
-                        <li><Link to='/dev/appregist'>앱 등록</Link></li>
-                        <li><Link to='/dev/applist'>앱 관리</Link></li>
-                        <li id='setting'><Link to='/admin/setting'>회원 관리</Link></li>
+                <NaviAdmin history={history} />
+                <div className='sidemenu_admin-box'>
+                    <div className='admin_logo'></div>
+                    <ul className='sidemenu_admin'>
+
+                        <li id='admin-setting'><Link to='/admin/setting'>회원 관리</Link></li>
                         <li><Link to='/admin'>모든 앱</Link></li>
                         <li><Link to='/admin/judge'>심사</Link></li>
                     </ul>
                 </div>
                 <div className='body'>
-                <p className='body_title'>회원 관리</p>
+                    <p className='body_title'>회원 관리</p>
                     <div className='filterSetButton'>
                         {filterButton()}
 
                     </div>
                     <table className='AppTable'>
+                        <colgroup>
+                            <col width="21%" />
+                            <col width="21%" />
+                            <col width="21%" />
+                            <col width="21%" />
+                            <col width="15%" />
+                        </colgroup>
                         <thead>
                             <tr>
                                 <th>ID</th>
                                 <td>NAME</td>
                                 <td>E-MAIL</td>
                                 <td>AUTH</td>
+                                <td>SET</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -127,6 +144,8 @@ const AdminSetting = () => {
                                                     (<p>사용자</p>
                                                     )}
                                             </td>
+                                            <td><FcSettings style={{ width: 40, height: 40, verticalAlign: 'middle' }}
+                                                            onClick={() => handlerClickUserDetail(data.userId)}/></td>
                                         </tr>
                                     )
                                 })
@@ -135,11 +154,13 @@ const AdminSetting = () => {
                                 devData &&
                                 devData.map(data => {
                                     return (
-                                        <tr key={data.devIdx}>
-                                            <td>{data.devId}</td>
-                                            <td>{data.devName}</td>
-                                            <td>{data.devEmail}</td>
+                                        <tr key={data.userIdx}>
+                                            <td>{data.userId}</td>
+                                            <td>{data.userName}</td>
+                                            <td>{data.userEmail}</td>
                                             <td>개발자</td>
+                                            <td><FcSettings style={{ width: 40, height: 40, verticalAlign: 'middle' }}
+                                                            onClick={() => handlerClickDevDetail(data.userId)} /></td>
                                         </tr>
                                     )
                                 })

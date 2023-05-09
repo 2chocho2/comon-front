@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Navi from "../Navi/Navi";
 import MyPageSide from "./MyPageSide";
 import axios from "axios";
@@ -27,6 +27,7 @@ const MyService = ({ history }) => {
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
                 setData(res.data.map((item) => ({ ...item, hover: false })));
+                console.log(userId);
             })
             .catch(err => {
                 console.log(err);
@@ -55,26 +56,42 @@ const MyService = ({ history }) => {
     };
 
     // 앱 실행 핸들러
-    const handlerRunApp = (index) => {
-        const id = setInterval(() => {
-            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/runapp/${userId}/${index}`,
-            { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
-                .then(res => {
-                    console.log(res.data.exitCode)
-                    if (res.data.exitCode != 0) {
-                        clearInterval(id);
-                    } else {
-                        alert(`localhost:${res.data.endpointPort}로 접속 가능합니다.`);
-                    }
-                    
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        }, 5000);
-        // setIntervalId(id);
-    };
+    // const handlerRunApp = (index, userId) => {
+    //     const id = setInterval(() => {
+    //         console.log(">>>", new Date(), id)
 
+    //         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/runapp/${userId}/${index}`,
+    //         { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
+    //             .then(res => {
+    //                 if (res.data.exitCode === 0) {
+    //                     console.log("<<<", new Date(), id)
+    //                     clearInterval(id);
+    //                     alert(`localhost:${res.data.endpointPort}로 접속 가능합니다.`);
+    //                 }
+
+    //             })
+    //             .catch(err => {
+    //                 console.log(err);
+    //             });
+    //     }, 5000);
+    // };
+
+    async function handlerRunApp(index) {
+        console.log("index", index);
+        console.log('>>>>>>')
+        try {
+            const result = await axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/runapp/${userId}/${index}`,
+                { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } });
+            console.log('<<<<<<');
+
+            console.log("exitCode", result.data.exitCode);
+
+            if (result.data.exitCode != 0) handlerRunApp(index);
+        } catch (err) {
+            console.log(err);
+            return;
+        }
+    };
 
     // 삭제 버튼 
     const handlerClickDelete = () => {
@@ -112,7 +129,7 @@ const MyService = ({ history }) => {
                         &&
                         data.map((data, index) => (
                             <>
-                                <div className='my-app-each-contain-delete'
+                                <div key={index} className='my-app-each-contain-delete'
                                     onClick={() => handlerRunApp(data.imageIdx)}>
                                     <div className='my-app-each'
                                         onMouseOver={() => handlerMouseOver(index)}
@@ -127,7 +144,7 @@ const MyService = ({ history }) => {
                                                     <div className='my-app-hover-description'>
                                                         <p className='my-app-hover-imagename'>{data.imageName}</p>
                                                         <hr className='my-app-hover-hr' />
-                                                        <p className='my-app-hover-devname'>{data.devName}</p>
+                                                        <p className='my-app-hover-devname'>{data.userName}</p>
                                                         <p className='my-app-hover-description-description'>{data.imageDescription}</p>
                                                     </div>
 
@@ -142,7 +159,7 @@ const MyService = ({ history }) => {
                                                     <img className='my-app-image' src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/thumbnail/${data.thumbnailImage}`} />
                                                     <div className='my-app-description'>
                                                         <p className='my-app-imagename'>{data.imageName}</p>
-                                                        <p className='my-app-devname'>{data.devName}</p>
+                                                        <p className='my-app-devname'>{data.userName}</p>
                                                         <p className='my-app-description-description'>{data.imageDescription}</p>
                                                     </div>
                                                 </>

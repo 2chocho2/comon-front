@@ -3,10 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import NaviAdmin from '../Navi/NaviAdmin';
 import '../css/dev.css';
-import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
-import Modal from 'react-modal';
 import JudgeModal from './JudgeModal';
-import styled from 'styled-components';
 
 const JudgeDetail = ({ match, history }) => {
 
@@ -32,13 +29,13 @@ const JudgeDetail = ({ match, history }) => {
 
     // 승인 후 자동 앱 출시
     const handlerOnSubmit = () => {
-        console.log( `Bearer ${sessionStorage.getItem('token')}`)
+        console.log(`Bearer ${sessionStorage.getItem('token')}`)
 
         axios.put(
             `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/access/${imageidx}`,
             '',
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } }
-            )
+        )
             .then(res => {
                 console.log(res);
                 alert('정상적으로 처리되었습니다.');
@@ -142,19 +139,18 @@ const JudgeDetail = ({ match, history }) => {
         download.setAttribute('download', filename);
         download.setAttribute('type', 'application/json');
         download.click();
-    }
+    };
 
     return (
         <div>
-            <NaviAdmin />
-            <div className='sidemenu'>
-                <div className='main_logo'></div>
-                <ul className='sidemenu_link'>
-                    <li><Link to='/dev/appregist'>앱 등록</Link></li>
-                    <li><Link to='/dev/applist'>앱 관리</Link></li>
+            <NaviAdmin history={history}/>
+            <div className='sidemenu_admin-box'>
+                <div className='admin_logo'></div>
+                <ul className='sidemenu_admin'>
+                    
                     <li><Link to='/admin/setting'>회원 관리</Link></li>
                     <li><Link to='/admin'>모든 앱</Link></li>
-                    <li id='setting'><Link to='/admin/judge'>심사</Link></li>
+                    <li id='admin-setting'><Link to='/admin/judge'>심사</Link></li>
                 </ul>
             </div>
             <div className='body'>

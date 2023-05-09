@@ -3,15 +3,18 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import NaviAdmin from '../Navi/NaviAdmin';
 import '../css/dev.css';
+import { BiSearchAlt } from "react-icons/bi";
+
 
 const AppListAdmin = ({ history }) => {
 
     const [data, setData] = useState([]);
     const [filterActive, setFilterActive] = useState(1);
+    const [search, setSearch] = useState('');
 
     useEffect(() => {
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist`,
-        { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
+            { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
                 setData(res.data);
                 console.log(res.data);
@@ -80,7 +83,7 @@ const AppListAdmin = ({ history }) => {
                         {statusName} <br />
                         <p className="denyCode">{denyName}</p>
                     </td>
-                    <td>{d.devName}</td>
+                    <td>{d.userName}</td>
                     <td>
                         {d.statusIdx === 5 ?
                             <p>삭제 요청 접수됨</p>
@@ -102,7 +105,7 @@ const AppListAdmin = ({ history }) => {
 
         if (e.target.id == 1) {
             axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist`,
-            { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
+                { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
                 .then(res => {
                     console.log(res.data);
                     setData(res.data);
@@ -112,7 +115,7 @@ const AppListAdmin = ({ history }) => {
                 })
         } else if (e.target.id == 2) {
             axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist/onservice`,
-            { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
+                { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
                 .then(res => {
                     console.log(res.data);
                     setData(res.data);
@@ -122,7 +125,7 @@ const AppListAdmin = ({ history }) => {
                 })
         } else if (e.target.id == 3) {
             axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist/registdelete`,
-            { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
+                { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
                 .then(res => {
                     console.log(res.data);
                     setData(res.data);
@@ -132,7 +135,7 @@ const AppListAdmin = ({ history }) => {
                 })
         } else if (e.target.id == 4) {
             axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist/delete`,
-            { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
+                { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
                 .then(res => {
                     console.log(res.data);
                     setData(res.data);
@@ -142,25 +145,53 @@ const AppListAdmin = ({ history }) => {
                 })
         }
     }
+    // 앱 검색 기능
+    const onChangeSearch = (e) => {
+        e.preventDefault();
+        setSearch(e.target.value);
+    };
+
+    const onSearch = e => {
+        e.preventDefault();
+        if (search === null || search === '') {
+            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist`,
+                { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
+                .then(res => {
+                    setData(res.data);
+                })
+        } else {
+            const filterData = data.filter((row) => row.imageName.includes(search));
+            setData(filterData);
+        }
+        setSearch('')
+    };
 
     return (
         <div>
-            <NaviAdmin />
-            <div className='sidemenu'>
-                <div className='main_logo'></div>
-                <ul className='sidemenu_link'>
-                    <li><Link to='/dev/appregist'>앱 등록</Link></li>
-                    <li><Link to='/dev/applist'>앱 관리</Link></li>
+            <NaviAdmin history={history}/>
+            <div className='sidemenu_admin-box'>
+                <div className='admin_logo'></div>
+                <ul className='sidemenu_admin'>
+                    
                     <li><Link to='/admin/setting'>회원 관리</Link></li>
-                    <li id='setting'><Link to='/admin'>모든 앱</Link></li>
+                    <li id='admin-setting'><Link to='/admin'>모든 앱</Link></li>
                     <li><Link to='/admin/judge'>심사</Link></li>
                 </ul>
             </div>
             <div className='body'>
                 <p className='body_title'>모든 앱</p>
-                <div className='filterAppButton'>
-                    {filterButton()}
-
+                <div className='AppSerch'>
+                    <div className='filterAppButton'>
+                        {filterButton()}
+                    </div>
+                    <form id='serch-container' onSubmit={e => onSearch(e)}>
+                        <input className='serch-box'
+                            type='text'
+                            value={search}
+                            placeholder='앱 이름을 검색하세요.'
+                            onChange={onChangeSearch} />
+                        <button id="serch-button" type='submit'><BiSearchAlt className='search-icon'/></button>
+                    </form>
                 </div>
                 <table className='AppTable'>
                     <thead>
