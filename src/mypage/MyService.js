@@ -1,9 +1,13 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import Navi from "../Navi/Navi";
 import MyPageSide from "./MyPageSide";
 import axios from "axios";
 import { BsPencilFill } from 'react-icons/bs';
+import { RiUserSmileFill } from 'react-icons/ri';
+import { TiDelete } from 'react-icons/ti';
+
 import jwt_decode from "jwt-decode";
+import RunModal from "./RunModal";
 
 const MyService = ({ history }) => {
 
@@ -11,12 +15,14 @@ const MyService = ({ history }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [userId, setUserId] = useState('');
     const [intervalId, setIntervalId] = useState('');
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        // if(sessionStorage.getItem('token') === null) {
-        //     alert(`로그인 후 이용 가능합니다.`);
-        //     history.push(`/login`);
-        // }
+        if(sessionStorage.getItem('token') === null) {
+            alert(`로그인 후 이용 가능합니다.`);
+            history.push(`/login`);
+        }
 
         const token = sessionStorage.getItem('token');
         const decode_token = jwt_decode(token);
@@ -27,7 +33,6 @@ const MyService = ({ history }) => {
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
                 setData(res.data.map((item) => ({ ...item, hover: false })));
-                console.log(userId);
             })
             .catch(err => {
                 console.log(err);
@@ -56,42 +61,30 @@ const MyService = ({ history }) => {
     };
 
     // 앱 실행 핸들러
-    // const handlerRunApp = (index, userId) => {
-    //     const id = setInterval(() => {
-    //         console.log(">>>", new Date(), id)
-
-    //         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/runapp/${userId}/${index}`,
-    //         { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
-    //             .then(res => {
-    //                 if (res.data.exitCode === 0) {
-    //                     console.log("<<<", new Date(), id)
-    //                     clearInterval(id);
-    //                     alert(`localhost:${res.data.endpointPort}로 접속 가능합니다.`);
-    //                 }
-
-    //             })
-    //             .catch(err => {
-    //                 console.log(err);
-    //             });
-    //     }, 5000);
-    // };
+    const handlerClick = (index) => {
+        setModalIsOpen(true);
+        setIsLoading(true);
+        handlerRunApp(index);
+    };
 
     async function handlerRunApp(index) {
-        console.log("index", index);
-        console.log('>>>>>>')
         try {
             const result = await axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/runapp/${userId}/${index}`,
                 { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } });
-            console.log('<<<<<<');
-
+            
             console.log("exitCode", result.data.exitCode);
 
-            if (result.data.exitCode != 0) handlerRunApp(index);
+            if (result.data.exitCode != 0) {
+                handlerRunApp(index);
+            } else if (result.data.exitCode == 0) {
+                setIsLoading(false);
+            }
         } catch (err) {
             console.log(err);
             return;
         }
     };
+
 
     // 삭제 버튼 
     const handlerClickDelete = () => {
@@ -112,71 +105,86 @@ const MyService = ({ history }) => {
             })
     };
 
+
     return (
         <>
-            <Navi history={history} />
-            <MyPageSide />
-            <div className='my-service-body'>
-                <div className='my-service-header'>
-                    <p className='my-service-title'>사용 중인 서비스</p>
-                    <hr className='my-service-body-hr' />
-                    <BsPencilFill className='my-service-delete-button'
-                        onClick={handlerClickDelete} />
-                </div>
+            <div id="my-container">
+                <Navi history={history} />
+                <MyPageSide />
+                <div className='my-service-body'>
+                    <div className='my-service-header'>사용 중인 서비스</div>
+                        <BsPencilFill title="사용중인 앱 설정"
+                            className='my-service-delete-button'
+                            onClick={handlerClickDelete} />
+                    
+                    <div className='my-service-box'>
+                        {data
+                            &&
+                            data.map((data, index) => (
+                                <>
+                                    <div className='my-app-each-contain-delete'
+                                        onClick={() => handlerClick(data.imageIdx)}>
+                                        <div className='my-app-each'
+                                            onMouseOver={() => handlerMouseOver(index)}
+                                            onMouseOut={() => handlerMouseOut(index)}
+                                        >
+                                            {
+                                                data.hover
+                                                    ?
+                                                    <>
+                                                        <div className='my-app-hover-header'></div>
+                                                        <div className='my-app-hover-description'>
+                                                            <p className='my-app-hover-imagename'>{data.imageName}</p>
 
-                <div className='my-service-box'>
-                    {data
-                        &&
-                        data.map((data, index) => (
-                            <>
-                                <div key={index} className='my-app-each-contain-delete'
-                                    onClick={() => handlerRunApp(data.imageIdx)}>
-                                    <div className='my-app-each'
-                                        onMouseOver={() => handlerMouseOver(index)}
-                                        onMouseOut={() => handlerMouseOut(index)}
-                                    >
+                                                            <p className='my-app-hover-devname'>
+                                                                <RiUserSmileFill className="my-app-hover-devicon" />
+                                                                {data.devName}초초
+                                                            </p>
+                                                            <p className='my-app-hover-description-description'>{data.imageDescription}</p>
+                                                        </div>
+
+                                                    </>
+                                                    :
+                                                    <>
+                                                        <div className='my-app-header'>
+                                                            {/* <div className='app-header-round-left'></div>
+                                                            <div className='app-header-round-right'></div> */}
+                                                            <div className='app-header-round'></div>
+                                                            <div className='app-header-round'></div>
+                                                            <div className='app-header-round'></div>
+                                                        </div>
+                                                        <img className='my-app-image' src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/thumbnail/${data.thumbnailImage}`} />
+                                                        <div className='my-app-description'>
+                                                            <p className='my-app-imagename'>{data.imageName}</p>
+                                                            <p className='my-app-devname'>
+                                                                <RiUserSmileFill className="my-app-devicon" />
+                                                                {data.devName}
+                                                            </p>
+                                                            <p className='my-app-description-description'>{data.imageDescription}</p>
+                                                        </div>
+                                                    </>
+                                            }
+                                        </div>
                                         {
-                                            data.hover
-                                                ?
-                                                <>
+                                            isEditing
+                                            &&
+                                            <TiDelete type='button' title="삭제"
+                                                className='my-app-delete-button-each'
+                                                onClick={() => handlerClickDeleteEach(data.imageIdx)} />
+                                        }
 
-                                                    <div className='my-app-hover-header'></div>
-                                                    <div className='my-app-hover-description'>
-                                                        <p className='my-app-hover-imagename'>{data.imageName}</p>
-                                                        <hr className='my-app-hover-hr' />
-                                                        <p className='my-app-hover-devname'>{data.userName}</p>
-                                                        <p className='my-app-hover-description-description'>{data.imageDescription}</p>
-                                                    </div>
-
-                                                </>
-
-                                                :
-                                                <>
-                                                    <div className='my-app-header'>
-                                                        <div className='app-header-round-left'></div>
-                                                        <div className='app-header-round-right'></div>
-                                                    </div>
-                                                    <img className='my-app-image' src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/thumbnail/${data.thumbnailImage}`} />
-                                                    <div className='my-app-description'>
-                                                        <p className='my-app-imagename'>{data.imageName}</p>
-                                                        <p className='my-app-devname'>{data.userName}</p>
-                                                        <p className='my-app-description-description'>{data.imageDescription}</p>
-                                                    </div>
-                                                </>
+                                        {
+                                            modalIsOpen
+                                            &&
+                                            <RunModal setModalIsOpen={setModalIsOpen}
+                                                        setIsLoading={setIsLoading}
+                                            />
                                         }
 
                                     </div>
-                                    {
-                                        isEditing
-                                        &&
-                                        <button type='button'
-                                            className='my-app-delete-button-each'
-                                            onClick={() => handlerClickDeleteEach(data.imageIdx)}>x</button>
-                                    }
-
-                                </div>
-                            </>
-                        ))}
+                                </>
+                            ))}
+                    </div>
                 </div>
             </div>
         </>

@@ -4,8 +4,61 @@
     font-weight: 300;
     font-style: normal;
 }
-* {box-sizing: border-box;}
 
+* {
+    box-sizing: border-box;
+}
+/* 기본 네비 */
+.default-navi {
+    /* border-bottom: 5px solid rgb(255, 150, 0); */
+    background-color: black;
+    box-sizing: border-box;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    float: left;
+    font-family: 'TheJamsil5Bold';
+    z-index: 5;
+    padding: 0px 150px;
+}
+
+.default-navi .default-home {
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    height: 60px;
+    line-height: 60px;
+    box-sizing: content-box;
+    float: left;
+    margin: 0px;
+    margin-right: 40px;
+}
+
+.default-navi .default-link {
+    color: white;
+    box-sizing: content-box;
+    margin: 0px;
+}
+
+.default-navi .default-link li {
+    float: left;
+    margin: 0px 20px;
+    border-left: 3px solid black;
+    width: 130px;
+    height: 30px;
+    text-align: center;
+    font-size: 1em;
+    list-style: none;
+    cursor: pointer;
+    transition: all .2s ease;
+
+}
+
+.default-navi .default-link li:hover {
+    border-left: 3px solid white;
+
+}
 /* 관리자 */
 .menu {
     border-bottom: 5px solid #0d4bbe;
@@ -19,7 +72,8 @@
     z-index: 5;
 }
 
-#navi::after, menu::after {
+#navi::after,
+menu::after {
     content: '';
     display: block;
     clear: both;
@@ -73,14 +127,8 @@
     float: left;
     font-family: 'TheJamsil5Bold';
     z-index: 5;
-    
-}
 
-/* #navi::after, menu::after {
-    content: '';
-    display: block;
-    clear: both;
-} */
+}
 
 .dev-menu .dev-home {
     color: #ff9600;
@@ -115,13 +163,14 @@
     transition: all .2s ease;
 
 }
+
 .dev-menu .dev-link li:hover {
     border-left: 3px solid #ff9600;
 
 }
+
 /* 유저 네비 */
 .user-navi {
-    /* border-bottom: 5px solid rgb(255, 150, 0); */
     background-color: black;
     box-sizing: border-box;
     width: 100%;
@@ -130,14 +179,8 @@
     float: left;
     font-family: 'TheJamsil5Bold';
     z-index: 5;
-    
-}
 
-/* #navi::after, menu::after {
-    content: '';
-    display: block;
-    clear: both;
-} */
+}
 
 .user-navi .user-home {
     color: white;
@@ -170,8 +213,8 @@
     list-style: none;
     cursor: pointer;
     transition: all .2s ease;
-
 }
+
 .user-navi .user-link li:hover {
     border-left: 3px solid white;
 }
@@ -232,12 +275,17 @@
 }
 
 /* 로그인, 로그아웃, 마이페이지 버튼 */
-#user-button{
-    /* background-color: #ff9600; */
+#user-button {
     margin-right: 150px;
     float: right;
 }
-.logout-navi-icon, .login-navi-icon, .mypage-navi-icon {
+#default-button {
+    float: right;
+}
+
+.logout-navi-icon,
+.login-navi-icon,
+.mypage-navi-icon {
     color: white;
     width: 35px;
     height: 35px;

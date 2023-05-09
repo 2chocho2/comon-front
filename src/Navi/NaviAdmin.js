@@ -4,18 +4,16 @@ import '../css/dev.css';
 import * as React from 'react'
 import { Reset } from 'styled-reset'
 
-const NaviAdmin = ({ history }) => {
+const NaviAdmin = (props) => {
     const handlerClickComon = () => {
-        console.log(history);
-        this.history.push(`/`);
+        props.history.push(`/`);
     };
 
     const handlerClickAppList = () => {
-        history.push(`/user/applist`);
+        props.history.push(`/user/applist`);
     };
-
     const handlerGoMypage = () => {
-        history.push(`/mypage`);
+        props.history.push(`/mypage`);
     }
     return (
         <>

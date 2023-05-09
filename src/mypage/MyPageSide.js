@@ -52,15 +52,14 @@ const MyPageSide = () => {
         const randomName = name || `user${Math.floor(Math.random() * 10000)}`;
         return createAvatar(thumbs, {
             seed: [randomName],
-            shapeColor: ["0a5b83", "1c799f", "69d2e7", "f1f4dc", "f88c49"],
+            shapeColor: ["CCF3FF", "FFCACA", "FFF7CC", "CEFFD9", "F2E9FF"],
             mouth: ["variant1", "variant2", "variant3", "variant4", "variant5"],
             eyes: ["variant1W10", "variant1W12", "variant1W14", "variant1W16", "variant2W10", "variant2W12", "variant2W14", "variant2W16", "variant3W10", "variant3W12", "variant3W14", "variant3W16",
                 "variant4W10", "variant4W12", "variant4W14", "variant4W16", "variant5W10", "variant5W12", "variant5W14", "variant5W16", "variant6W10", "variant6W12", "variant6W14", "variant6W16", "variant7W10",
                 "variant7W12", "variant7W14", "variant7W16", "variant8W10", "variant8W12", "variant8W14", "variant8W16", "variant9W10", "variant9W12", "variant9W14", "variant9W16"],
             faceOffsetY: [-15, 15],
             faceOffsetX: [-15, 15],
-            // backgroundType: ["gradientLinear", "solid"],
-            backgroundColor: ["b6e3f4","c0aede","d1d4f9","ffd5dc","ffdfbf"],
+            backgroundColor: ["0094D3", "FFA91D", "975CE2"],
             scale: 120,
 
         }).toDataUriSync();
@@ -69,12 +68,15 @@ const MyPageSide = () => {
     return (
         <>
             <div className='mypage-side-box'>
+                <div className="sidebox-bg" />
                 <p className='mypage-name'>{name}'s Profile</p>
                 <img className='mypage-image' src={avatar}></img>
                 <ul className='mypage-side-link'>
                     <li><Link to='/mypage'>사용 중인 서비스</Link></li>
                     <li><Link to='/mypage/qna'>나의 문의 내역</Link></li>
                     <li><Link to='/mypage/edit'>회원 정보 변경</Link></li>
+                    <li><Link to='/mypage/review'>리뷰 작성</Link></li>
+                    <li><Link to='/mypage/reviewList'>작성한 리뷰</Link></li>
                 </ul>
             </div>
         </>

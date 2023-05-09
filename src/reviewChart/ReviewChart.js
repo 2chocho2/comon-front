@@ -6,14 +6,14 @@ import { useEffect } from "react";
 import './chart.css';
 
 
-const ReviewChart = ({imageIdx}) => {
+const ReviewChart = ({ imageIdx }) => {
     const [reviewRatio, setReviewRatio] = useState([]);
 
     useEffect(() => {
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/score/${imageIdx}`)
             .then(res => {
                 console.log(res.data);
-                const ratioArr = [res.data.ratio1, res.data.ratio2, res.data.ratio3, res.data.ratio4, res.data.ratio5];
+                const ratioArr = [res.data.ratio5, res.data.ratio4, res.data.ratio3, res.data.ratio2, res.data.ratio1];
                 setReviewRatio(ratioArr);
                 console.log(ratioArr);
             })
@@ -31,8 +31,8 @@ const ReviewChart = ({imageIdx}) => {
         ],
         chart: {
             type: 'column',
-            height: 180,
-            width: 236
+            height: 160,
+            width: 330
         },
         title: {
             text: ''
@@ -76,18 +76,16 @@ const ReviewChart = ({imageIdx}) => {
 
     return (
         <>
-            
-                <div className='subtitle'>
-                    <ul>
-                        <li>{reviewRatio[0]}%</li>
-                        <li>{reviewRatio[1]}%</li>
-                        <li>{reviewRatio[2]}%</li>
-                        <li>{reviewRatio[3]}%</li>
-                        <li>{reviewRatio[4]}%</li>
-                    </ul>
-                </div>
-                <HighchartsReact highcharts={Highcharts} options={options} />
-           
+            <div className='subtitle'>
+                <ul>
+                    <li>{reviewRatio[0]}%</li>
+                    <li>{reviewRatio[1]}%</li>
+                    <li>{reviewRatio[2]}%</li>
+                    <li>{reviewRatio[3]}%</li>
+                    <li>{reviewRatio[4]}%</li>
+                </ul>
+            </div>
+            <HighchartsReact highcharts={Highcharts} options={options} />
         </>)
         ;
 }

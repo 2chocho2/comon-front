@@ -9,10 +9,19 @@
     font-style: normal;
 }
 
+/* 조금 두꺼운 다정한 고딕 */
 @font-face {
     font-family: 'GongGothicMedium';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
     font-weight: normal;
+    font-style: normal;
+}
+
+/* 얇은고딕 */
+@font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
     font-style: normal;
 }
 
@@ -25,7 +34,7 @@
 
 .detail-back {
     height: 100vh;
-    /* overflow-y: hidden; */
+    overflow-y: hidden;
 }
 
 .detail-left {
@@ -146,7 +155,6 @@
 .detail-download-section {
     width: 15%;
     float: left;
-    /* background-color: #D9D9D9; */
     color: white;
     text-align: center;
     font-family: 'Jeju Gothic', sans-serif;
@@ -167,6 +175,7 @@
     color: white;
     font-family: 'Jeju Gothic', sans-serif;
     font-size: 15px;
+    cursor: pointer;
 }
 
 /* ----------------------------------------오른쪽 */
@@ -176,6 +185,17 @@
     padding: 100px 120px;
     overflow-y: scroll;
     font-family: 'GongGothicMedium';
+}
+
+/* 뒤로가기 버튼 */
+.home-btn {
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    right: 2%;
+    bottom: 15%;
+    color: #005DCB;
+    cursor: pointer;
 }
 
 /* 스크롤바css */
@@ -196,13 +216,11 @@
     height: 400px;
 }
 
-
 .detail-image-review {
     height: 450px;
     border-bottom: 3px solid black;
 
 }
-
 
 /* 스크린샷 슬라이더 */
 .screenshot-title,
@@ -232,10 +250,10 @@
 
 .appdetail-slider .slick-list {
     width: 100%;
-    text-align: left;
     height: 100%;
+    text-align: left;
     vertical-align: middle;
-    border: none;
+    border: 1px solid lightgray;
     border-radius: 10px;
 }
 
@@ -263,8 +281,6 @@
     height: 100%;
     border-radius: 10px;
 }
-
-
 
 /* 앱 정보 박스 */
 .detail-image-description {
@@ -301,7 +317,6 @@
 /* 평가 */
 .detail-title {
     font-size: 1em;
-    /* background-color: aliceblue; */
     margin: 0px;
     height: 25px;
     line-height: 25px;
@@ -310,7 +325,6 @@
 .star-score,
 .dev-icon,
 .registdt {
-    /* background-color: antiquewhite; */
     font-size: 2em;
     height: 80px;
     line-height: 90px;
@@ -319,7 +333,6 @@
 .stars,
 .dev-name,
 .regist-name {
-    /* background-color: blue; */
     height: 25px;
     line-height: 25px;
 }
@@ -341,17 +354,8 @@
 
 .detail-how-to-use {
     height: auto;
-
 }
-
 /* 서비스 이용법 */
-@font-face {
-    font-family: 'SUITE-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
-    font-weight: 400;
-    font-style: normal;
-}
-
 .how-to-use-detail {
     width: 100%;
     text-align: justify;
@@ -359,11 +363,9 @@
     font-family: 'SUITE-Regular';
     font-size: 20px;
     font-weight: 500;
-    white-space: pre;
+    white-space: pre-line;
     margin-bottom: 100px;
 }
-
-
 
 /* 리뷰 평가 정보 */
 .review-star-avg {
@@ -372,12 +374,12 @@
 
 .detail-image-review-slider,
 .review-star-avg,
-.review-star,
-.review-score-total {
+.review-star {
     padding: 20px 0px;
     position: relative;
     text-align: center;
     margin: auto;
+    /* background-color: #92bdf3; */
 }
 
 #star-box {
@@ -394,19 +396,17 @@
 .review-box-inner {
     width: 100%;
     height: 100%;
-    /* margin-left: auto;
-    margin-right: auto; */
     display: flex;
     justify-content: space-around;
     vertical-align: middle;
-    /* background-color: lightpink; */
 }
 
-.review-star-avg, .review-star {
+.review-star-avg,
+.review-star {
     width: 20%;
     height: 100%;
-    /* background-color: lightblue; */
 }
+
 .review-star {
     width: 30%;
     margin: 0px;
@@ -414,6 +414,10 @@
 
 .review-score-total {
     width: 50%;
+    padding: 0px;
+    position: relative;
+    text-align: center;
+    margin: auto;
 }
 
 .review-star-avg-score {
@@ -449,7 +453,6 @@
     position: relative;
     height: 200px;
     width: 100%;
-    /* margin-top: 40px; */
 }
 
 .review-slider-box {
@@ -463,8 +466,6 @@
 .review-slider-box .slick-list {
     width: calc(100% - 40px);
     text-align: center;
-    /* margin-left: auto;
-    margin-right: auto; */
     margin: 0px 20px;
     height: 100%;
     vertical-align: middle;
@@ -520,14 +521,12 @@
 }
 
 #review-slider-each-header {
-    /* background-color: blue; */
     height: 40px;
     line-height: 40px;
 }
 
 .review-slider-each-title {
     width: 70%;
-    /* background-color: #005DCB; */
     float: left;
     text-align: left;
     font-weight: 600;
@@ -579,7 +578,6 @@
 /* 오른쪽 마지막 다운로드 박스 */
 .detail-image-download-app {
     background-color: rgb(228, 228, 228);
-    /* height: 350px; */
     border-radius: 20px;
     text-align: center;
     padding: 50px 30px;
@@ -613,7 +611,6 @@
 .detail-image-download-button {
     background-color: #005DCB;
     border: 3px solid #005DCB;
-    /* border: none; */
     width: 100px;
     height: 30px;
     line-height: 24px;

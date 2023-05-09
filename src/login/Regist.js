@@ -1,6 +1,7 @@
 import { Router, withRouter } from 'react-router-dom';
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
+import NaviDefault from '../Navi/NaviDefault';
 
 const Regist = ({ history }) => {
 
@@ -43,7 +44,6 @@ const Regist = ({ history }) => {
 
     // 핸들러
     const handlerChangeUserId = e => setUserId(e.target.value);
-
 
     // 이름 핸들러 정의
     const handlerChangeUserName = e => setUserName(e.target.value);
@@ -104,62 +104,87 @@ const Regist = ({ history }) => {
 
     return (
         <>
-            <div>
-                <h1>회원가입</h1>
-                <p>아이디 : <input type="text" value={userId} onChange={handlerChangeUserId} /></p>
-                <p>비밀번호 :
-                    <input type={passwordInputType.type} onChange={handlerChangeUserPassword}
-                        id="password"
-                        password="비밀번호 (숫자+영문자+특수문자 조합으로 8자리 이상)"
-                        title="비밀번호"
-                        placeholder="숫자,영문자,특수문자 조합으로 8자리"
-                        value={userPassword}
-                        autoComplete={passwordInputType.autoComplete}
-                    />
+            <div id="my-container">
+                <NaviDefault />
+                <div className='register-bg' />
+                <div className='register-container'>
+                    <div className='register-box'>
+                        <div className="login-header">
+                            <div className="round1" />
+                            <div className="round2" />
+                            <div className="round3" />
+                        </div>
+                        <div className='register-body'>
+                            <p className='title'>Hello! Regist!!!^_____^</p>
+                            <div className='input-register'>
+                                <label><span style={{ color: 'red' }}>*</span> 아이디</label>
+                                <input type="text" value={userId} onChange={handlerChangeUserId}
+                                    placeholder="아이디를 입력하세요." />
+                            </div>
+                            <div className='input-register'>
+                                <label><span style={{ color: 'red' }}>*</span> 비밀번호</label>
+                                <input type={passwordInputType.type} onChange={handlerChangeUserPassword}
+                                    id="password"
+                                    password="비밀번호 (숫자+영문자+특수문자 조합으로 8자리 이상)"
+                                    title="비밀번호"
+                                    placeholder="비밀번호를 입력하세요"
+                                    value={userPassword}
+                                    autoComplete={passwordInputType.autoComplete}
+                                />
+                            </div>
+                            <div className='checked-box'>
+                                <div className='input-pwdChecked'>
+                                    <label><span style={{ color: 'red' }}>*</span> 비밀번호 확인</label>
+                                    <input type={passwordInputType.type}
+                                        onChange={handlerChangeUserPasswordCheck}
+                                        title="비밀번호 확인"
+                                        placeholder="비밀번호를 한번 더 입력하세요."
+                                        value={userPasswordCheck}
+                                        autoComplete={passwordInputType.autoComplete}
+                                    />
+                                    {userPasswordCheck.length > 0 && (
+                                        <p className={`message ${isPasswordCheck ? 'success' : 'error'}`}>{userPasswordCheckMessage}</p>
+                                    )}
+                                </div>
+                                <p className="checkbox-item">
+                                    <input id="showPwd-check"
+                                        type="checkbox"
+                                        checked={passwordOption}
+                                        onChange={() => setPasswordOption(!passwordOption)}
+                                    />
+                                    <label><span>비밀번호 표시</span></label>
+                                </p>
+                            </div>
 
-                </p>
-                <p>비밀번호 확인 :
-                    <input type={passwordInputType.type}
-                        onChange={handlerChangeUserPasswordCheck}
-                        title="비밀번호 확인"
-                        placeholder="비밀번호를 한번 더 입력하세요."
-                        value={userPasswordCheck}
-                        autoComplete={passwordInputType.autoComplete}
-                    />
-                    {userPasswordCheck.length > 0 && (
-                        <span className={`message ${isPasswordCheck ? 'success' : 'error'}`}>{userPasswordCheckMessage}</span>
-                    )}
-                </p>
-                <span className="checkbox-item">
-                    <input
-                        type="checkbox"
-                        checked={passwordOption}
-                        onChange={() => setPasswordOption(!passwordOption)}
-                    />
-                    <label>
-                        <span>비밀번호 표시</span>
-                    </label>
-                </span>
-                <p>이름 :
-                    <input type="text" text="이름" value={userName} onChange={handlerChangeUserName} />
+                            <div className='input-register'>
+                                <label><span style={{ color: 'red' }}>*</span> 이름</label>
+                                <input type="text" text="이름" value={userName} onChange={handlerChangeUserName}
+                                    placeholder="이름을 입력하세요." />
+                            </div>
+                            <div className='input-email'>
+                                <label><span style={{ color: 'red' }}>*</span> 이메일</label>
+                                <input type="email" text="이메일" value={userEmail} onChange={handlerChangeUserEmail}
+                                    placeholder="이메일을 입력하세요." />
+                                {userEmail.length > 0 && <span className={`message ${isEmail ? 'success' : 'error'}`}>{userEmailMessage}</span>
+                                }
+                            </div>
+                            <div className='input-register'>
+                                <label><span style={{ color: 'red' }}>*</span> 전화번호</label>
+                                <input type="text" text="전화번호" value={userPhoneNumber} onChange={handlerChangeUserPhoneNumber}
+                                    placeholder="전화번호를 입력하세요." />
+                            </div>
+                            <section>
+                                <button className="registerCheck-btn"
+                                    onClick={handlerOnClick}
+                                    type="submit">
+                                    회원가입
+                                </button>
+                            </section>
+                        </div>
+                    </div>
+                </div>
 
-                </p>
-                <p>이메일 :
-                    <input type="email" text="이메일" value={userEmail} onChange={handlerChangeUserEmail} />
-                    {userEmail.length > 0 && <span className={`message ${isEmail ? 'success' : 'error'}`}>{userEmailMessage}</span>}
-                </p>
-                <p>전화번호 :
-                    <input type="text" text="전화번호" value={userPhoneNumber} onChange={handlerChangeUserPhoneNumber} />
-                </p>
             </div>
-
-            <section>
-                <button
-                    onClick={handlerOnClick}
-                    type="submit">
-                    회원가입하기
-                </button>
-            </section>
         </>
     );
 };

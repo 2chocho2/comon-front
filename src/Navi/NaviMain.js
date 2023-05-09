@@ -13,29 +13,29 @@ const NaviMain = (props) => {
     const handlerClickAppList = () => {
         props.history.push(`/user/applist`);
     };
-    const handlerGoMypage = () => {
-        props.history.push(`/mypage`);
+    // const handlerGoMypage = () => {
+    //     props.history.push(`/mypage`);
+    // }
+    const handlerGoLogin = () => {
+        props.history.push(`/login`)
     }
-
+    const handlerGoRegist = () => {
+        props.history.push(`/regist`)
+    }
     return (
         <>
             <Reset />
             <div className='main-navi'>
                 <div className='loginButton'>
-                    <button className='login-btn' type='button'>로그인</button>
-                    <button className='login-btn' type='button'>회원가입</button>
+                    <button onClick={handlerGoLogin} className='login-btn' type='button'>로그인</button>
+                    <button onClick={handlerGoRegist} className='login-btn' type='button'>회원가입</button>
                 </div>
-                <h1 onClick={ handlerClickComon } className='main-home'>COM:ON</h1>
+                <h1 onClick={handlerClickComon} className='main-home'>COM:ON</h1>
                 <ul className='main-link'>
                     <li>About us</li>
-                    <li onClick={ handlerClickAppList }>Application</li>
+                    <li onClick={handlerClickAppList}>Application</li>
                     <li>Notice</li>
                 </ul>
-                {/* <div id="user-button">
-                        < RiLogoutCircleFill className='logout-navi-icon' title='로그아웃'/>
-                        < RiUser5Fill className='mypage-navi-icon' title='마이페이지' onClick={handlerGoMypage}/>
-                        {/* < RiUser5Line className='login-navi-icon' title='로그인'/> 
-                </div> */}
             </div>
         </>
     );

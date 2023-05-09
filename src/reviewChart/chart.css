@@ -9,24 +9,28 @@
 
 .chart-body {
     border: 1px solid black;
-    
 }
 
 .subtitle {
-    width: 238px;
+    width: 340px;
+    /* background-color: pink; */
+    margin: 0px;
 }
 
 .subtitle ul {
     padding-left: 45px;
-    
+    margin: 0px;
 }
 
 .subtitle ul li {
     float: left;
     list-style: none;
-    width: calc(180px/5);
+    width: calc(280px/5);
     text-align: center;
-    font-size:10px;
+    font-size: 11px;
+    color: black;
+    font-weight: bold;
+    font-family: 'SUITE-Regular';
 }
 
 .subtitle::after {
@@ -45,5 +49,17 @@
 }
 
 .highcharts-xaxis-labels {
-    font-size: 12px;
+    font-size: 14px;
+    color: black;
+    font-weight: bold;
+    font-family: 'SUITE-Regular';
+}
+
+.highcharts-background {
+    background: transparent !important;
+    height: 110px !important;
+}
+
+.highcharts-container {
+    height: 110px !important;
 }
