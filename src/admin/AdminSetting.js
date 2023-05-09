@@ -4,14 +4,28 @@ import '../css/dev.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FcSettings } from 'react-icons/fc';
+import jwtDecode from 'jwt-decode';
+import Auth from './Auth';
 
 const AdminSetting = ({ history }) => {
 
     const [userData, setUserData] = useState([]);
     const [devData, setDevData] = useState([]);
     const [filterActive, setFilterActive] = useState(1);
+    const [authYn, setAuthYn] = useState(false);
 
     useEffect(() => {
+
+        const token = sessionStorage.getItem('token');
+        const decode_token = jwtDecode(token);
+        let authIdx = decode_token.authIdx;
+        console.log(authIdx);
+        if (authIdx === 3) {
+            setAuthYn(true);
+        } else {
+            setAuthYn(false);
+        }
+        
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/setting`,
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
@@ -94,6 +108,9 @@ const AdminSetting = ({ history }) => {
 
     return (
         <>
+        {
+            authYn
+            ?
             <div className='dev-container'>
                 <NaviAdmin history={history} />
                 <div className='sidemenu_admin-box'>
@@ -172,6 +189,10 @@ const AdminSetting = ({ history }) => {
                     </table>
                 </div>
             </div>
+            :
+            <Auth history={history}/>
+        }
+            
         </>
     )
 }

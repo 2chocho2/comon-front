@@ -3,16 +3,32 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import NaviAdmin from '../Navi/NaviAdmin';
 import '../css/dev.css';
+import jwtDecode from 'jwt-decode';
+import Auth from './Auth';
 
 const AdminAppDetail = ({ match, history }) => {
 
     const { imageidx } = match.params;
 
     const [data, setData] = useState({});
-    
+    const [authYn, setAuthYn] = useState(false);
+
+
     useEffect(() => {
+
+        const token = sessionStorage.getItem('token');
+        const decode_token = jwtDecode(token);
+        let authIdx = decode_token.authIdx;
+        console.log(authIdx);
+        if (authIdx === 3) {
+            setAuthYn(true);
+        } else {
+            setAuthYn(false);
+        }
+
+
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist/${imageidx}`,
-        { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
+            { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
                 console.log(res.data);
                 setData(res.data);
@@ -78,7 +94,7 @@ const AdminAppDetail = ({ match, history }) => {
 
     const handlerClickDelete = () => {
         axios.delete(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/registdelete/${imageidx}`,
-        { headers: { 'Authorization' : `Bearer ${ sessionStorage.getItem('token') }`}})
+            { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
                 console.log(res);
                 alert(`삭제 처리가 완료되었습니다.`);
@@ -91,84 +107,93 @@ const AdminAppDetail = ({ match, history }) => {
     };
 
     return (
-        <div>
-            <NaviAdmin history={history}/>
-            <div className='sidemenu_admin-box'>
-                <div className='admin_logo'></div>
-                <ul className='sidemenu_admin'>
-                 
-                    <li><Link to='/admin/setting'>회원 관리</Link></li>
-                    <li id='admin-setting'><Link to='/admin'>모든 앱</Link></li>
-                    <li><Link to='/admin/judge'>심사</Link></li>
-                </ul>
-            </div>
-            <div className='body'>
-                <p className='body_title'>앱 관리</p>
-                <p className='body_subtitle'>앱 세부 정보</p>
-                <div className='detailform'>
-                    <ol>
-                        <li className='detailform-each'>
-                            <p className='detailform-title'>카테고리</p>
-                            {handlerSetCategoryName()}
-                        </li>
-                        <li className='detailform-each'>
-                            <p className='detailform-title'>앱 이름</p>
-                            <input type='text'
-                                className='detailtext-inputbox'
-                                value={data.imageName}
-                                readOnly />
-                        </li>
-                        <li className='detailform-each'>
-                            <p className='detailform-title'>간단한 앱 설명</p>
-                            <input type='text'
-                                className='detailtext-inputbox'
-                                value={data.imageDescription}
-                                readOnly />
-                        </li>
-                        <li className='detailform-each'>
-                            <p className='detailform-title'>자세한 설명</p>
-                            <textarea type='text'
-                                className='detailtext-inputbox-description'
-                                value={data.imageDetail}
-                                readOnly />
-                        </li>
-                        <div className='img-container'>
-                            <div id='img-box'>
-                                <li className='imgform-each'>
-                                    <p className='imgform-title1'>앱 아이콘 이미지 </p>
-                                    <div className='icon-img-box'>
-                                        <img className='iconImg' src={iconImage} />
-                                    </div>
+        <>
+            {
+                authYn
+                    ?
+                    <div>
+                        <NaviAdmin history={history} />
+                        <div className='sidemenu_admin-box'>
+                            <div className='admin_logo'></div>
+                            <ul className='sidemenu_admin'>
 
-                                </li>
-                                <li className='imgform-each'>
-                                    <p className='imgform-title1'>썸네일 이미지 </p>
-                                    <div className='icon-img-box'>
-                                        <img className='thumbnailImg' src={thumbnailImage} />
-                                    </div>
-                                </li>
-                            </div>
-                            <li className='sh-imgform-each'>
-                                <p className='imgform-title2'>스크린샷 이미지</p>
-                                <div className='sh-img-box'>
-                                    <div className='screenshot-detail'>
-                                        {getScreenshotImage()}
-                                    </div>
-                                </div>
-                            </li>
+                                <li><Link to='/admin/setting'>회원 관리</Link></li>
+                                <li id='admin-setting'><Link to='/admin'>모든 앱</Link></li>
+                                <li><Link to='/admin/judge'>심사</Link></li>
+                            </ul>
                         </div>
-                        <li className='detailform-each'>
-                            <p className='fileform-title'>실행 파일 다운로드</p>
-                            <button className='file-button' type='button'
-                                onClick={handlerClickDownload}>다운로드</button>
-                        </li>
-                    </ol>
-                    <div className='button-box'>
-                        <button id="blackButton" type='button' onClick={handlerClickDelete}>삭제 처리</button>
+                        <div className='body'>
+                            <p className='body_title'>앱 관리</p>
+                            <p className='body_subtitle'>앱 세부 정보</p>
+                            <div className='detailform'>
+                                <ol>
+                                    <li className='detailform-each'>
+                                        <p className='detailform-title'>카테고리</p>
+                                        {handlerSetCategoryName()}
+                                    </li>
+                                    <li className='detailform-each'>
+                                        <p className='detailform-title'>앱 이름</p>
+                                        <input type='text'
+                                            className='detailtext-inputbox'
+                                            value={data.imageName}
+                                            readOnly />
+                                    </li>
+                                    <li className='detailform-each'>
+                                        <p className='detailform-title'>간단한 앱 설명</p>
+                                        <input type='text'
+                                            className='detailtext-inputbox'
+                                            value={data.imageDescription}
+                                            readOnly />
+                                    </li>
+                                    <li className='detailform-each'>
+                                        <p className='detailform-title'>자세한 설명</p>
+                                        <textarea type='text'
+                                            className='detailtext-inputbox-description'
+                                            value={data.imageDetail}
+                                            readOnly />
+                                    </li>
+                                    <div className='img-container'>
+                                        <div id='img-box'>
+                                            <li className='imgform-each'>
+                                                <p className='imgform-title1'>앱 아이콘 이미지 </p>
+                                                <div className='icon-img-box'>
+                                                    <img className='iconImg' src={iconImage} />
+                                                </div>
+
+                                            </li>
+                                            <li className='imgform-each'>
+                                                <p className='imgform-title1'>썸네일 이미지 </p>
+                                                <div className='icon-img-box'>
+                                                    <img className='thumbnailImg' src={thumbnailImage} />
+                                                </div>
+                                            </li>
+                                        </div>
+                                        <li className='sh-imgform-each'>
+                                            <p className='imgform-title2'>스크린샷 이미지</p>
+                                            <div className='sh-img-box'>
+                                                <div className='screenshot-detail'>
+                                                    {getScreenshotImage()}
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </div>
+                                    <li className='detailform-each'>
+                                        <p className='fileform-title'>실행 파일 다운로드</p>
+                                        <button className='file-button' type='button'
+                                            onClick={handlerClickDownload}>다운로드</button>
+                                    </li>
+                                </ol>
+                                <div className='button-box'>
+                                    <button id="blackButton" type='button' onClick={handlerClickDelete}>삭제 처리</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                    :
+                    <Auth history={history}/>
+        }
+        </>
+
     )
 
 }

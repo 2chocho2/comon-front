@@ -4,6 +4,8 @@ import axios from 'axios';
 import NaviAdmin from '../Navi/NaviAdmin';
 import '../css/dev.css';
 import { BiSearchAlt } from "react-icons/bi";
+import jwtDecode from 'jwt-decode';
+import Auth from './Auth';
 
 
 const AppListAdmin = ({ history }) => {
@@ -11,13 +13,26 @@ const AppListAdmin = ({ history }) => {
     const [data, setData] = useState([]);
     const [filterActive, setFilterActive] = useState(1);
     const [search, setSearch] = useState('');
+    const [authYn, setAuthYn] = useState(false);
 
     useEffect(() => {
+
+        const token = sessionStorage.getItem('token');
+        const decode_token = jwtDecode(token);
+        let authIdx = decode_token.authIdx;
+        
+        if (authIdx === 3) {
+            setAuthYn(true);
+        } else {
+            setAuthYn(false);
+        }
+
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist`,
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
+                
                 setData(res.data);
-                console.log(res.data);
+                console.log(authYn);
             })
             .catch(err => {
                 console.log(err);
@@ -167,7 +182,11 @@ const AppListAdmin = ({ history }) => {
     };
 
     return (
-        <div>
+        <>
+        {
+            authYn
+            ?
+            <div>
             <NaviAdmin history={history}/>
             <div className='sidemenu_admin-box'>
                 <div className='admin_logo'></div>
@@ -211,6 +230,11 @@ const AppListAdmin = ({ history }) => {
             </div>
 
         </div>
+        :
+        <Auth history={history}/>
+        }
+        </>
+        
     )
 }
 

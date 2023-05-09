@@ -25,6 +25,10 @@ import AdminDevDetail from './admin/AdminDevDetail';
 import MyReview from './mypage/MyReview';
 import WriteReview from './mypage/WriteReview';
 import MyReviewList from './mypage/MyReviewList';
+import NoticeDetail from './notice/NoticeDetail';
+import NoticeEdit from './notice/NoticeEdit';
+import NoticeList from './notice/NoticeList';
+import NoticeWrite from './notice/NoticeWrite';
 
 function App() {
   return (
@@ -38,7 +42,8 @@ function App() {
       <Route path="/admin/setting" render={(props) => <AdminSetting {...props}/> } exact={true} />
       <Route path="/admin/userdetail/:userId" render={(props) => <AdminUserDetail {...props}/> } exact={true} />
       <Route path="/admin/devdetail/:userId" render={(props) => <AdminDevDetail {...props}/> } exact={true} />
-
+      <Route path='/notice/write' render={(props) => <NoticeWrite {...props} />} exact={true} />
+      <Route path='/notice/edit/:noticeIdx' render={(props) => <NoticeEdit {...props} />} exact={true} />
 
       {/* 개발자용 */}
       <Route path='/dev/applist' render={(props) => <AppListDev {...props} /> } exact={true} />
@@ -58,8 +63,9 @@ function App() {
       <Route path='/mypage/writereview' render={(props) => <WriteReview {...props} /> } exact={true} />
       <Route path='/mypage/reviewlist' render={(props) => <MyReviewList {...props} /> } exact={true} />
       
-      
-      
+      {/* 사용자용 - notice */}
+      <Route path='/notice' render={(props) => <NoticeList {...props} />} exact={true} />
+      <Route path='/notice/detail/:noticeIdx' render={(props) => <NoticeDetail {...props} />} exact={true} />
       
       <Route path='/login' render={(props) => <Login {...props} /> } exact={true} />
       <Route path='/regist' render={(props) => <Regist {...props} /> } exact={true} />

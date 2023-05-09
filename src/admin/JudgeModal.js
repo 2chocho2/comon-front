@@ -2,12 +2,11 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import '../css/modal.css'
 import { FaAngleDown } from "react-icons/fa";
-import { AiOutlineClose } from "react-icons/ai"
+import { AiOutlineClose } from "react-icons/ai";
+import jwtDecode from 'jwt-decode';
 
 const JudgeModal = (props) => {
 
-    // TODO! 하드 코딩 상태 이후 수정 필요
-    // const { denyList } = props;
     const denyList = [
         { denyIdx: '1', denyName: '이미지 규격이 맞지 않음.' },
         { denyIdx: '2', denyName: '볼륨 설정이 옳지 않음.' },

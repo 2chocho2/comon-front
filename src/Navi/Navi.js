@@ -14,8 +14,13 @@ const Navi = (props) => {
     const handlerClickAppList = () => {
         props.history.push(`/user/applist`);
     };
+
     const handlerGoMypage = () => {
         props.history.push(`/mypage`);
+    };
+
+    const handlerClickNotice = () => {
+        props.history.push(`/notice`)
     }
 
     return (
@@ -27,7 +32,7 @@ const Navi = (props) => {
                     <ul className='user-link'>
                         <li>About us</li>
                         <li onClick={handlerClickAppList}>Application</li>
-                        <li>Notice</li>
+                        <li onClick={handlerClickNotice}>Notice</li>
                     </ul>
                     <div id="user-button">
                         < RiLogoutCircleFill className='logout-navi-icon' title='로그아웃'/>

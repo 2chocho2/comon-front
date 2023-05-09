@@ -17,8 +17,10 @@ const MyService = ({ history }) => {
     const [intervalId, setIntervalId] = useState('');
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [port, setPort] = useState('');
 
     useEffect(() => {
+        console.log(modalIsOpen);
         if(sessionStorage.getItem('token') === null) {
             alert(`로그인 후 이용 가능합니다.`);
             history.push(`/login`);
@@ -28,6 +30,7 @@ const MyService = ({ history }) => {
         const decode_token = jwt_decode(token);
         setUserId(decode_token.sub);
         let userId = decode_token.sub;
+        console.log(decode_token);
 
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/myservice/${userId}`,
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
@@ -62,22 +65,24 @@ const MyService = ({ history }) => {
 
     // 앱 실행 핸들러
     const handlerClick = (index) => {
+        console.log('>>>>>>>>>>> 클릭');
         setModalIsOpen(true);
-        setIsLoading(true);
         handlerRunApp(index);
     };
 
     async function handlerRunApp(index) {
         try {
+            setIsLoading(true);
             const result = await axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/runapp/${userId}/${index}`,
                 { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } });
             
             console.log("exitCode", result.data.exitCode);
 
-            if (result.data.exitCode != 0) {
+            if (result.data.exitCode != '0') {
                 handlerRunApp(index);
-            } else if (result.data.exitCode == 0) {
+            } else if (result.data.exitCode == '0') {
                 setIsLoading(false);
+                setPort(result.data.endpointPort)
             }
         } catch (err) {
             console.log(err);
@@ -85,9 +90,12 @@ const MyService = ({ history }) => {
         }
     };
 
+    const closeModal = () => {
+        setModalIsOpen(false);
+    };
 
     // 삭제 버튼 
-    const handlerClickDelete = () => {
+    const handlerClickDelete = (e) => {
         setIsEditing(prevIsEditing => !prevIsEditing);
     };
 
@@ -176,8 +184,10 @@ const MyService = ({ history }) => {
                                         {
                                             modalIsOpen
                                             &&
-                                            <RunModal setModalIsOpen={setModalIsOpen}
-                                                        setIsLoading={setIsLoading}
+                                            <RunModal 
+                                                        closeModal={closeModal}
+                                                        isLoading={isLoading}
+                                                        port={port}
                                             />
                                         }
 

@@ -246,6 +246,7 @@ input:focus,
     font-weight: bold;
     letter-spacing: 1px;
 }
+
 .text-inputbox::placeholder,
 .text-inputbox-description::placeholder {
     font-weight: 400;
@@ -618,6 +619,7 @@ input:focus,
     font-weight: bold;
     letter-spacing: 1px;
 }
+
 .detailtext-inputbox-description {
     border: 2px solid black;
     width: 100%;
@@ -630,6 +632,7 @@ input:focus,
     font-weight: bold;
     letter-spacing: 1px;
 }
+
 /* 스크롤바 css */
 .text-inputbox-description::-webkit-scrollbar {
     width: 5px;
@@ -874,4 +877,43 @@ input:focus,
     background-color: #c7c7c7;
     border: 3px solid black;
     color: black;
+}
+
+/* 권한 페이지 */
+.auth_body {
+    height: 100vh;
+    background-color: #c7c7c7;
+}
+
+.auth-content {
+    position: absolute;
+    border: 3px solid gray;
+    width: 30%;
+    background-color: white;
+    height: 200px;
+    text-align: center;
+    font-family: 'TheJamsil5Bold';
+    border-radius: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 50px 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.auth-btn {
+    background-color: black;
+    border-radius: 50px;
+    border: 3px solid black;
+    margin-top: 40px;
+    width: 80px;
+    height: 35px;
+    line-height: 29px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    font-family: 'TheJamsil5Bold';
+    cursor: pointer;
+    transition: all .1s ease;
 }

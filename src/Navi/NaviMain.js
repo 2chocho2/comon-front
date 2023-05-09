@@ -10,18 +10,26 @@ const NaviMain = (props) => {
     const handlerClickComon = () => {
         props.history.push(`/`);
     };
+
     const handlerClickAppList = () => {
         props.history.push(`/user/applist`);
     };
+    
     // const handlerGoMypage = () => {
     //     props.history.push(`/mypage`);
     // }
     const handlerGoLogin = () => {
         props.history.push(`/login`)
-    }
+    };
+
     const handlerGoRegist = () => {
         props.history.push(`/regist`)
-    }
+    };
+
+    const handlerClickNotice = () => {
+        props.history.push(`/notice`)
+    };
+
     return (
         <>
             <Reset />
@@ -34,7 +42,7 @@ const NaviMain = (props) => {
                 <ul className='main-link'>
                     <li>About us</li>
                     <li onClick={handlerClickAppList}>Application</li>
-                    <li>Notice</li>
+                    <li onClick={handlerClickNotice}>Notice</li>
                 </ul>
             </div>
         </>

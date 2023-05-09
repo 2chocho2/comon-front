@@ -6,18 +6,28 @@ import NaviAdmin from '../Navi/NaviAdmin';
 import { FaUserAstronaut } from "react-icons/fa";
 import '../css/dev.css';
 import NaviDev from '../Navi/NaviDev';
+import Auth from '../admin/Auth';
 
 const AppListDev = ({ history }) => {
 
     const [userId, setUserId] = useState('');
     const [data, setData] = useState([]);
     const [denyList, setDenyList] = useState([]);
+    const [authYn, setAuthYn] = useState(false);
 
     useEffect(() => {
+        
         const token = sessionStorage.getItem('token');
         const decode_token = jwt_decode(token);
         setUserId(decode_token.sub);
         let userId = decode_token.sub;
+        let authIdx = decode_token.authIdx;
+
+        if (authIdx === 3 || authIdx === 2) {
+            setAuthYn(true);
+        } else {
+            setAuthYn(false);
+        }
 
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/applist/${userId}`,
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
@@ -100,7 +110,11 @@ const AppListDev = ({ history }) => {
 
 
     return (
-        <div>
+        <>
+        {
+            authYn
+            ?
+<div>
             <NaviDev history={ history }/>
             <div className='sidemenu_dev-box'>
                 <div className='dev_logo'></div>
@@ -131,6 +145,12 @@ const AppListDev = ({ history }) => {
             </div>
 
         </div>
+            :
+            <Auth history={history}/>
+        }
+        </>
+
+        
     )
 }
 
