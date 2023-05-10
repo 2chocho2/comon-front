@@ -122,7 +122,7 @@ const DevSetting = ({ history }) => {
 
                     </div>
                     :
-                    <Auth history={history}/>
+                    <Auth history={history} />
             }
 
         </>

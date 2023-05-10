@@ -18,7 +18,6 @@ const DevRegist = ({ history }) => {
     const [userEmailMessage, setUserEmailMessage] = useState('');                 // 이메일 메시지
     const [userPasswordCheckMessage, setUserPasswordCheckMessage] = useState(''); // 비밀번호 확인 메시지
 
-
     //유효성 검사
     const [isEmail, setIsEmail] = useState(false);                   // 이메일
     const [isPasswordCheck, setIsPasswordCheck] = useState(false);   // 비밀번호 확인
@@ -93,7 +92,7 @@ const DevRegist = ({ history }) => {
                 console.log(response);
                 if (response.data) {
                     alert('정상적으로 가입 되었습니다. 로그인 페이지로 이동합니다.')
-                    history.push('/DevLogin');
+                    history.push('/devlogin');
                 }
             })
             .catch(error => {
@@ -106,7 +105,7 @@ const DevRegist = ({ history }) => {
     return (
         <>
             <div id="my-container">
-                <NaviDefault />
+                <NaviDefault history={history} />
                 <div className='register-bg' />
                 <div className='register-container'>
                     <div className='register-box'>

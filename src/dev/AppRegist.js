@@ -2,7 +2,6 @@ import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import NaviAdmin from '../Navi/NaviAdmin';
 import '../css/dev.css';
 import NaviDev from '../Navi/NaviDev';
 import Auth from '../admin/Auth';

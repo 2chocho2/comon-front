@@ -70,20 +70,21 @@ const MyReview = ({ history }) => {
                     <div className='my-review-box'>
                         {data
                             &&
-                            data.map((data) => (
+                            data.map((data, index) => (
                                 <>
-                                    <div className="my-review-each">
+                                    <div className="my-review-each" key={index}>
                                         <div className='my-app-header'>
                                             <div className='app-header-round'></div>
                                             <div className='app-header-round'></div>
                                             <div className='app-header-round'></div>
                                         </div>
-                                        <img className='my-app-image' src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/thumbnail/${data.thumbnailImage}`} />
+                                        <img className='my-app-image' 
+                                            src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/thumbnail/${data.thumbnailImage}`} />
                                         <div className='my-review-description'>
                                             <p className='my-review-imagename'>{data.imageName}</p>
                                             <p className='my-review-devname'>
                                                 <RiUserSmileFill className="my-review-devicon" />
-                                                {data.devName} 초초
+                                                {data.userName}
                                             </p>
                                             {/* <p className='my-review-description-description'>{data.imageDescription}</p> */}
                                             {/* 리뷰 작성했는지 여부에 따라 노출 다르게 하는 버튼 컴포넌트를 ReviewCheckButton으로 분리 */}

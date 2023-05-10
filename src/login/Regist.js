@@ -105,7 +105,7 @@ const Regist = ({ history }) => {
     return (
         <>
             <div id="my-container">
-                <NaviDefault />
+            <NaviDefault history={history}/>
                 <div className='register-bg' />
                 <div className='register-container'>
                     <div className='register-box'>

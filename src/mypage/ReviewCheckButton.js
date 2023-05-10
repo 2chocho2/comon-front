@@ -8,8 +8,8 @@ const ReviewCheckButton = (props) => {
 
     const [count, setCount] = useState(0);
     const [imageIdx, setImageIdx] = useState(props.imageIdx);
-    const [userIdx ,setUserIdx] = useState(props.userIdx);
-    const [imageName ,setimageName] = useState(props.imageName);
+    const [userIdx, setUserIdx] = useState(props.userIdx);
+    const [imageName, setimageName] = useState(props.imageName);
 
 
     useEffect(() => {
@@ -17,9 +17,6 @@ const ReviewCheckButton = (props) => {
         { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
                 setCount(res.data);
-                
-                console.log(imageIdx);
-                console.log(imageName);
             })
             .catch(err => {
                 console.log(err);

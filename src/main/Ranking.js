@@ -8,10 +8,11 @@ const Ranking = ({ rankingList, history }) => {
         <div className='rank'>
             {rankingList
                 &&
-                rankingList.map(data => (
+                rankingList.map((data, index) => (
                     <>
                         <div className='rank-each'
-                            onClick={ () => handlerClickDetail(data.imageIdx) }>
+                                onClick={() => handlerClickDetail(data.imageIdx)}
+                                key={index}>
                             <div className='rank-header'>
                                 <div id='clearfix'>
                                     <div className='rank-header-round-left'></div>

@@ -9,6 +9,7 @@ import { BsStarFill, BsStarHalf, BsStar } from "react-icons/bs";
 import jwtDecode from 'jwt-decode';
 import ReviewChart from "../reviewChart/ReviewChart";
 
+// 슬라이더 화살표 정의
 function SampleNextArrow(props) {
     const { className, style, onClick } = props;
     return (
@@ -43,7 +44,7 @@ const AppDetail = ({ match, history }) => {
         if (sessionStorage.getItem('token') === null) {
             alert(`로그인 후 이용 가능합니다.`);
             history.push(`/login`);
-        }
+        };
 
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/detail/${imageIdx}`,
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
@@ -86,7 +87,7 @@ const AppDetail = ({ match, history }) => {
                 } else if (res.data === '오류') {
                     alert(`다운로드 중 오류가 발생했습니다.`);
                     window.location.reload();
-                } else if (res.data === '정상'){
+                } else if (res.data === '정상') {
                     alert(`앱 다운로드가 완료되었습니다.`);
                     window.location.reload();
                 }
@@ -153,7 +154,7 @@ const AppDetail = ({ match, history }) => {
             appRegistDt = data.registDt.substring(0, 10);
         }
         return <p>{appRegistDt}</p>;
-    }
+    };
 
     return (
         <>
@@ -250,7 +251,7 @@ const AppDetail = ({ match, history }) => {
                             </div>
                             <div className='detail-image-review-slider'>
                                 <Slider className='review-slider-box' {...settings2}>
-                                {
+                                    {
                                         reviewList.length > 0
                                             ?
                                             reviewList.map((review, index) =>
@@ -275,7 +276,6 @@ const AppDetail = ({ match, history }) => {
                                 </Slider>
                             </div>
                         </div>
-                        <hr />
 
                         <div className='detail-image-download-app'>
                             <img className='detail-image-download-app-icon' src={iconImage} />

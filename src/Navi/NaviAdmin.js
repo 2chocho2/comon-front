@@ -3,8 +3,26 @@ import '../css/navi.css';
 import '../css/dev.css';
 import * as React from 'react'
 import { Reset } from 'styled-reset'
+import jwtDecode from 'jwt-decode';
+import { useEffect, useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const NaviAdmin = (props) => {
+
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const token = sessionStorage.getItem('token');
+
+        if (token != null) {
+            const decode_token = jwtDecode(token);
+            setIsLoggedIn(true);
+        } else {
+            setIsLoggedIn(false);
+        }
+    })
+
     const handlerClickComon = () => {
         props.history.push(`/`);
     };
@@ -12,9 +30,39 @@ const NaviAdmin = (props) => {
     const handlerClickAppList = () => {
         props.history.push(`/user/applist`);
     };
+
     const handlerGoMypage = () => {
         props.history.push(`/mypage`);
-    }
+    };
+
+    const handlerClickNotice = () => {
+        props.history.push(`/notice`);
+    };
+
+    const handlerClickLogout = () => {
+        setIsLoggedIn(false);
+        sessionStorage.clear();
+        props.history.push('/');
+        showToastMessage();
+    };
+
+    const handlerClickLogin = () => {
+        props.history.push(`/login`)
+    };
+
+    const showToastMessage = () => {
+        toast('Bye Bye~ 👋', {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
+    };
+
     return (
         <>
             <Reset />
@@ -23,13 +71,32 @@ const NaviAdmin = (props) => {
                 <ul className='link'>
                     <li>About us</li>
                     <li onClick={handlerClickAppList}>Application</li>
-                    <li>Notice</li>
+                    <li onClick={handlerClickNotice}>Notice</li>
                 </ul>
-                <div id="user-button">
-                    < RiLogoutCircleFill className='logout-navi-icon' title='로그아웃' />
-                    < RiUser5Fill className='mypage-navi-icon' title='마이페이지' onClick={handlerGoMypage} />
-                    {/* < RiUser5Line className='login-navi-icon' title='로그인'/> */}
-                </div>
+                {
+                    isLoggedIn
+                        ?
+                        <>
+                            <div id="user-button">
+                                < RiLogoutCircleFill className='logout-navi-icon'   
+                                                        title='로그아웃'
+                                                        onClick={handlerClickLogout} />
+                                < RiUser5Fill className='mypage-navi-icon' 
+                                                title='마이페이지' 
+                                                onClick={handlerGoMypage} />
+                            </div>
+                        </>
+                        :
+                        <>
+                            <div id="user-button">
+                                < RiUser5Line className='login-navi-icon' 
+                                            title='로그인'
+                                            onClick={handlerClickLogin}
+                                             />
+                            </div></>
+
+                }
+
             </div>
         </>
     );

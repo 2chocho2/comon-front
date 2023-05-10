@@ -16,6 +16,7 @@
     font-family: 'TheJamsil5Bold';
     font-size: 1em;
     vertical-align: middle;
+    cursor: pointer;
 }
 
 .radioInput {
@@ -228,6 +229,7 @@
     border-radius: 50px;
     border: 5px solid black;
     font-family: 'TheJamsil5Bold';
+    cursor: pointer;
 }
 
 .applist-header .categoryActive {
@@ -264,6 +266,7 @@
     margin-bottom: 150px;
     border-radius: 20px;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .applist-image-box {

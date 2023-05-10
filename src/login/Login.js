@@ -5,7 +5,8 @@ import KakaoLogin from "./KakaoLogin";
 import NaviDefault from "../Navi/NaviDefault";
 import '../css/login.css'
 import { BiShowAlt, BiHide } from "react-icons/bi";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = ({ history }) => {
 
@@ -67,13 +68,14 @@ const Login = ({ history }) => {
     }, []);
 
     const handlerOnClick = e => {
-        axios.post(`http://192.168.0.37:8080/login`, { userId, userPassword })
+        axios.post(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/login`, { userId, userPassword })
             .then(response => {
                 console.log(response);
                 if (response.data) {
-                    alert('정상적으로 로그인 되었습니다')
                     sessionStorage.setItem("token", response.data);
+                    showToastMessage();
                     history.push('/');
+
                 } else {
                     alert('ID, PW가 일치하지 않습니다. 확인 후 다시 시도해주세요.')
                     sessionStorage.clear();
@@ -86,11 +88,24 @@ const Login = ({ history }) => {
             });
     };
 
+    const showToastMessage = () => {
+        toast('🦄 환영합니다!', {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
+    };
 
     return (
         <>
+            <ToastContainer />
             <div id="my-container">
-                <NaviDefault />
+                <NaviDefault history={history}/>
                 <div className="login-bg">
                     <div className="login-container">
                         <div className="login-box">
@@ -147,6 +162,7 @@ const Login = ({ history }) => {
                                             disabled={!(userId && userPassword)}>
                                             로그인
                                         </button>
+
                                     </section>
                                     <button className='register-btn' onClick={handlerRegist}>아이디가 없으신가요?</button>
                                 </div>

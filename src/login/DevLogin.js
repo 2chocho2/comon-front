@@ -1,13 +1,19 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import NaverLogin from "./NaverLogin";
-import KakaoLogin from "./KakaoLogin";
 import NaviDefault from "../Navi/NaviDefault";
 import '../css/login.css'
 import { BiShowAlt, BiHide } from "react-icons/bi";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const DevLogin = ({ history }) => {
+
+    useEffect(() => {
+        if(sessionStorage.getItem('token') != null) {
+            history.push('/');
+            showToastMessage(`already Logined`);
+        }
+    }, [])
 
     // 변수 선언 
     const [userId, setUserId] = useState('');
@@ -17,23 +23,21 @@ const DevLogin = ({ history }) => {
     // 핸들러 정의
     const handlerChangeUserId = e => setUserId(e.target.value);
     const handlerChangeUserPassword = e => setUserPassword(e.target.value);
-    const handlerRegist = () => { history.push('/DevRegist'); };
+    const handlerRegist = () => { history.push('/devregist'); };
 
-   
     //  비밀번호 옵션 설정
     const [hidePassword, setHidePassword] = useState(true);
     const toggleHidePassword = () => {
         setHidePassword(!hidePassword);
-    }
-
+    };
 
     const handlerOnClick = e => {
-        axios.post(`${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}`, { userId, userPassword })
+        axios.post(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/login`, { userId, userPassword })
             .then(response => {
                 console.log(response);
                 if (response.data) {
-                    alert('정상적으로 로그인 되었습니다')
                     sessionStorage.setItem("token", response.data);
+                    showToastMessage(`🦄 환영합니다!`);
                     history.push('/dev/applist');
                 } else {
                     alert('ID, PW가 일치하지 않습니다. 확인 후 다시 시도해주세요.')
@@ -47,11 +51,25 @@ const DevLogin = ({ history }) => {
             });
     };
 
+    const showToastMessage = (msg) => {
+        toast(msg, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
+    };
+
 
     return (
         <>
+            <ToastContainer />
             <div id="my-container">
-                <NaviDefault />
+            <NaviDefault history={history}/>
                 <div className="login-bg">
                     <div className="login-container">
                         <div className="login-box">
@@ -113,8 +131,8 @@ const DevLogin = ({ history }) => {
                                 </div>
                                 {/* <div className="social-login-box">
                                     <p>소셜 로그인</p> */}
-                                    {/* 다양한 방식의 로그인 컴포넌트를 추가 */}
-                                    {/* <div className="login-btn-box">
+                                {/* 다양한 방식의 로그인 컴포넌트를 추가 */}
+                                {/* <div className="login-btn-box">
                                         <div className="naver-btn">
                                             <NaverLogin />
                                         </div>

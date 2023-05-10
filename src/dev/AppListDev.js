@@ -16,7 +16,7 @@ const AppListDev = ({ history }) => {
     const [authYn, setAuthYn] = useState(false);
 
     useEffect(() => {
-        
+
         const token = sessionStorage.getItem('token');
         const decode_token = jwt_decode(token);
         setUserId(decode_token.sub);
@@ -111,46 +111,46 @@ const AppListDev = ({ history }) => {
 
     return (
         <>
-        {
-            authYn
-            ?
-<div>
-            <NaviDev history={ history }/>
-            <div className='sidemenu_dev-box'>
-                <div className='dev_logo'></div>
-                <ul className='sidemenu_dev'>
-                    <li><Link to='/dev/appregist'>앱 등록</Link></li>
-                    <li id='dev-setting'><Link to='/dev/applist'>앱 관리</Link></li>
-                    <li><Link to='/dev/setting'>설정</Link></li>
-                </ul>
-            </div>
-            <div className='body'>
-                <p className='body_title'>모든 앱</p>
+            {
+                authYn
+                    ?
+                    <div>
+                        <NaviDev history={history} />
+                        <div className='sidemenu_dev-box'>
+                            <div className='dev_logo'></div>
+                            <ul className='sidemenu_dev'>
+                                <li><Link to='/dev/appregist'>앱 등록</Link></li>
+                                <li id='dev-setting'><Link to='/dev/applist'>앱 관리</Link></li>
+                                <li><Link to='/dev/setting'>설정</Link></li>
+                            </ul>
+                        </div>
+                        <div className='body'>
+                            <p className='body_title'>모든 앱</p>
 
-                <p className='userName'><FaUserAstronaut className='userIcon' title='유저 아이디입니다.' />{userId}</p>
-                <table className='AppTable'>
-                    <thead>
-                        <tr>
-                            <th>아이콘</th>
-                            <th>앱 이름</th>
-                            <th>상태</th>
-                            <th>삭제 요청</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {createTable()}
-                    </tbody>
+                            <p className='userName'><FaUserAstronaut className='userIcon' title='유저 아이디입니다.' />{userId}</p>
+                            <table className='AppTable'>
+                                <thead>
+                                    <tr>
+                                        <th>아이콘</th>
+                                        <th>앱 이름</th>
+                                        <th>상태</th>
+                                        <th>삭제 요청</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {createTable()}
+                                </tbody>
 
-                </table>
-            </div>
+                            </table>
+                        </div>
 
-        </div>
-            :
-            <Auth history={history}/>
-        }
+                    </div>
+                    :
+                    <Auth history={history} />
+            }
         </>
 
-        
+
     )
 }
 

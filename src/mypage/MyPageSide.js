@@ -27,26 +27,6 @@ const MyPageSide = () => {
                 console.log(err);
             })
     }, [])
-    // 프로필
-    // const avatar = createAvatar(thumbs, {
-    //     randomizeIds: false,
-    //     radius: 0,
-    //     scale: 200,
-    //     size: 50
-    // });
-
-    // const avatar = useMemo(() => {
-    //     return createAvatar(thumbs, {
-    //         //   size: 128,
-    //         // randomizeIds: true,
-    //         radius: 0,
-    //         scale: 200,
-    //         size: 50,
-    //         shapeColor: ["0a5b83","1c799f","69d2e7"],
-    //         seed: [{name}]
-    //     }).toDataUriSync();
-    // }, []);
-
 
     const avatar = useMemo(() => {
         const randomName = name || `user${Math.floor(Math.random() * 10000)}`;

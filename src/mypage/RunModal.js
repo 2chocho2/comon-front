@@ -7,7 +7,7 @@ import loading from '../img/loading.gif';
 const RunModal = (props) => {
 
     useEffect(() => {
-        console.log(props.port);
+        console.log(props)
         document.body.style.cssText = `
           position: fixed; 
           top: -${window.scrollY}px;
@@ -19,9 +19,8 @@ const RunModal = (props) => {
             document.body.style.cssText = '';
             window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
         };
-    }, [props]);
+    }, []);
 
-    // const url = 
     const handlerClickGo = () => {
         window.open(`http://${process.env.REACT_APP_IP}:${props.port}/`)
     };
@@ -30,11 +29,9 @@ const RunModal = (props) => {
         <>
             <div className="Modal">
                 <div className="modalBody" onClick={(e) => e.stopPropagation()}>
-                    
-                        <AiOutlineClose id="modalCloseBtn"
-                            onClick={props.closeModal} />
-                    
-                    
+                    <AiOutlineClose id="modalCloseBtn"
+                        onClick={props.closeModal} />
+
                     {
                         props.isLoading
                             ?
@@ -46,8 +43,8 @@ const RunModal = (props) => {
                             <>
                                 <p>준비 끝 {props.port}</p>
                                 <button type='button'
-                                        className="run_modalBtn"
-                                        onClick={ handlerClickGo } >이동하기</button>
+                                    className="run_modalBtn"
+                                    onClick={handlerClickGo} >이동하기</button>
                             </>
                     }
                 </div>

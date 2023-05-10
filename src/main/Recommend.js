@@ -2,7 +2,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import '../css/main.css';
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa"
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 function SampleNextArrow(props) {
     const { className, style, onClick } = props;
@@ -13,7 +13,7 @@ function SampleNextArrow(props) {
             onClick={onClick}
         />
     );
-}
+};
 
 function SamplePrevArrow(props) {
     const { className, style, onClick } = props;
@@ -24,8 +24,7 @@ function SamplePrevArrow(props) {
             onClick={onClick}
         />
     );
-}
-
+};
 
 const Recommend = ({ recommendList }) => {
 
@@ -48,10 +47,10 @@ const Recommend = ({ recommendList }) => {
                     {
                         recommendList
                         &&
-                        recommendList.map(data => (
+                        recommendList.map((data, index) => (
                             <>
 
-                                <div id="slider-box">
+                                <div id="slider-box" key={index}>
                                     <div className='slider-content'>
                                         <div className="slider-header">
                                             <img src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/icon/${data.iconImage}`} />
@@ -60,10 +59,9 @@ const Recommend = ({ recommendList }) => {
                                         <p className='slider-detail'>{data.imageDescription}</p>
                                     </div>
                                     <div className='slider-thumbnail'>
-                                        <img  src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/thumbnail/${data.thumbnailImage}`} />
+                                        <img src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/thumbnail/${data.thumbnailImage}`} />
                                     </div>
                                 </div>
-
                             </>))
                     }
                 </Slider>

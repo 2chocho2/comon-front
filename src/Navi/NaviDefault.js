@@ -3,6 +3,8 @@ import '../css/navi.css';
 import '../css/dev.css';
 import * as React from 'react'
 import { Reset } from 'styled-reset'
+import { useEffect, useState } from "react";
+import jwtDecode from 'jwt-decode';
 
 
 const NaviDefault = (props) => {
@@ -14,9 +16,10 @@ const NaviDefault = (props) => {
     const handlerClickAppList = () => {
         props.history.push(`/user/applist`);
     };
+
     const handlerGoMypage = () => {
         props.history.push(`/mypage`);
-    }
+    };
 
     return (
         <>

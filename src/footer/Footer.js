@@ -5,6 +5,7 @@ import axios from "axios";
 const Footer = (props) => {
 
     const [noticeList, setNoticeList] = useState([]);
+    
     const handlerClickNotice = () => {
         props.history.push(`/notice`);
     }

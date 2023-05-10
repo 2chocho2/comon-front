@@ -5,22 +5,25 @@ import * as React from 'react'
 import { Reset } from 'styled-reset'
 import { useEffect, useState } from "react";
 import jwtDecode from 'jwt-decode';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Navi = (props) => {
 
-    const [ isLoggedIn, setIsLoggedIn ] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
         const token = sessionStorage.getItem('token');
+        console.log(isLoggedIn);
+        console.log(token);
 
-        if(token != null) {
+        if (token != null) {
             const decode_token = jwtDecode(token);
             setIsLoggedIn(true);
         } else {
             setIsLoggedIn(false);
         }
-    })
+    }, [])
 
     const handlerClickComon = () => {
         props.history.push(`/`);
@@ -36,10 +39,35 @@ const Navi = (props) => {
 
     const handlerClickNotice = () => {
         props.history.push(`/notice`)
+    };
+
+    const handlerClickLogin = () => {
+        props.history.push(`/login`)
     }
+
+    const handlerClickLogout = () => {
+        setIsLoggedIn(false);
+        sessionStorage.clear();
+        props.history.push('/');
+        showToastMessage();
+    };
+
+    const showToastMessage = () => {
+        toast('Bye Bye~ 👋', {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
+    };
 
     return (
         <>
+            <ToastContainer />
             <Reset />
             <div id="navi">
                 <div className='user-navi'>
@@ -49,11 +77,28 @@ const Navi = (props) => {
                         <li onClick={handlerClickAppList}>Application</li>
                         <li onClick={handlerClickNotice}>Notice</li>
                     </ul>
-                    <div id="user-button">
-                        < RiLogoutCircleFill className='logout-navi-icon' title='로그아웃'/>
-                        < RiUser5Fill className='mypage-navi-icon' title='마이페이지' onClick={handlerGoMypage}/>
-                        {/* < RiUser5Line className='login-navi-icon' title='로그인'/> */}
-                    </div>
+                    {
+                        isLoggedIn
+                            ?
+                            <div id="user-button">
+                                < RiLogoutCircleFill className='logout-navi-icon'
+                                    title='로그아웃'
+                                    onClick={handlerClickLogout} />
+                                < RiUser5Fill className='mypage-navi-icon'
+                                    title='마이페이지'
+                                    onClick={handlerGoMypage} />
+                            </div>
+                            :
+                            <div id="user-button">
+                                < RiUser5Line className='login-navi-icon'
+                                    title='로그인'
+                                    onClick={handlerClickLogin}
+                                />
+                            </div>
+                    }
+
+
+
                 </div>
             </div>
         </>

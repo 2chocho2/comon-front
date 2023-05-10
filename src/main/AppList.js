@@ -1,10 +1,8 @@
 import Navi from "../Navi/Navi";
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { AiFillStar } from 'react-icons/ai'
-import aniLog1 from '../img/ani-logo_1.png'
-import aniLog2 from '../img/ani-logo_2.png'
-
+import { AiFillStar } from 'react-icons/ai';
+import '../css/appList.css';
 
 const AppList = ({ history }) => {
 
@@ -46,6 +44,7 @@ const AppList = ({ history }) => {
         } return result;
     };
 
+    // 카테고리 버튼 선택에 따른 리스트 변경
     const toggleCategoryButton = (e) => {
         setCategoryActive(e.target.id);
 
@@ -158,7 +157,6 @@ const AppList = ({ history }) => {
         }
     };
 
-
     return (
         <>
             <Navi history={history} />
@@ -188,15 +186,18 @@ const AppList = ({ history }) => {
                     {
                         data
                         &&
-                        data.map((data =>
+                        data.map(((data, index) =>
                             <>
-                                <div className='applist-each' onClick={() => handlerClickAppDetail(data.imageIdx)}>
+                                <div className='applist-each' 
+                                    onClick={() => handlerClickAppDetail(data.imageIdx)} key={index}>
                                     <div className='applist-image-box'>
-                                        <img className='applist-each-thumbnail' src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/thumbnail/${data.thumbnailImage}`} />
+                                        <img className='applist-each-thumbnail' 
+                                            src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/thumbnail/${data.thumbnailImage}`} />
                                     </div>
                                     <div className='applist-description'>
                                         <div id="applist-description-box">
-                                            <img className='applist-each-icon' src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/icon/${data.iconImage}`} />
+                                            <img className='applist-each-icon' 
+                                                src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/icon/${data.iconImage}`} />
                                             <div className='applist-description-text'>
                                                 <p className='applist-description-name'>{data.imageName}</p>
                                                 <p className='applist-description-detail'>{data.imageDescription}</p>

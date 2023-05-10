@@ -6,14 +6,12 @@ import { RiUserSettingsFill, RiPhoneFill } from "react-icons/ri";
 import { MdMarkEmailRead } from "react-icons/md";
 import jwtDecode from 'jwt-decode';
 
-
 const EditUserInfo = ({ history }) => {
     const [data, setData] = useState('');
     const [userName, setUserName] = useState('');
     const [userEmail, setUserEmail] = useState('');
     const [userPhoneNumber, setUserPhoneNumber] = useState(0);
     const [userId, setUserId] = useState(0);
-
 
     useEffect(() => {
         const token = sessionStorage.getItem('token');

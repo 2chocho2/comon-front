@@ -23,7 +23,8 @@ const NoticeList = ({ history }) => {
         const decode_token = jwtDecode(token);
         let authIdx = decode_token.authIdx;
         console.log(authIdx);
-        if (authIdx === 3) {
+
+        if (authIdx == '3') {
             setAuthYn(true);
         } else {
             setAuthYn(false);
@@ -104,7 +105,7 @@ const NoticeList = ({ history }) => {
                 <div className="notice-main">
                     <div className="notice-logo">
                         <Link to={"/notice"}>
-                            <img src={notice1} alt="notice logo" />
+                            <img className="notice-img" src={notice1} alt="notice logo" />
                         </Link>
                     </div>
                     COM:ON의 소식을 만나보세요
@@ -117,9 +118,15 @@ const NoticeList = ({ history }) => {
                         <NoticeCategory
                             visibility={isDropdownVisible}
                             setVisibility={setIsDropdownVisible}>
-                            {categoryList.map((category) => (
-                                <ul className="category-list" key={category.noticeCategoryIdx}>
-                                    <li className="category-name" value={category.noticeCategoryIdx} onClick={() => handleCategorySelect(category)}>
+                            {
+                            categoryList
+                            &&
+                            categoryList.map((category) => (
+                                <ul className="category-list" 
+                                    key={category.noticeCategoryIdx}>
+                                    <li className="category-name" 
+                                        value={category.noticeCategoryIdx} 
+                                        onClick={() => handleCategorySelect(category)}>
                                         {category.noticeCategoryName}
                                     </li>
                                 </ul>
