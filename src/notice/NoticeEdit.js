@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import "../css/notice.css";
+import jwtDecode from 'jwt-decode';
 
 const NoticeEdit = ({ match, history }) => {
     const { noticeIdx } = match.params;

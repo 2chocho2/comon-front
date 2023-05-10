@@ -3,9 +3,24 @@ import '../css/navi.css';
 import '../css/dev.css';
 import * as React from 'react'
 import { Reset } from 'styled-reset'
+import { useEffect, useState } from "react";
+import jwtDecode from 'jwt-decode';
 
 
 const Navi = (props) => {
+
+    const [ isLoggedIn, setIsLoggedIn ] = useState(false);
+
+    useEffect(() => {
+        const token = sessionStorage.getItem('token');
+
+        if(token != null) {
+            const decode_token = jwtDecode(token);
+            setIsLoggedIn(true);
+        } else {
+            setIsLoggedIn(false);
+        }
+    })
 
     const handlerClickComon = () => {
         props.history.push(`/`);

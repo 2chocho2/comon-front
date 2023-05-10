@@ -87,7 +87,7 @@ const Regist = ({ history }) => {
         e.preventDefault();
 
         axios.post(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/regist`,
-            { userId, userName, userPassword, userPhoneNumber, userEmail })
+            { userId, userName, userPassword, userPhoneNumber, userEmail, authIdx: '1' })
             .then(response => {
                 console.log(response);
                 if (response.data) {

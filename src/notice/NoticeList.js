@@ -6,6 +6,7 @@ import NoticeCategory from "./NoticeCategory";
 import "../css/notice.css";
 import notice1 from "./notice1.png";
 import Navi from '../Navi/Navi';
+import jwtDecode from 'jwt-decode';
 
 const NoticeList = ({ history }) => {
     const [noticeList, setNoticeList] = useState([]);
@@ -14,8 +15,20 @@ const NoticeList = ({ history }) => {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [isDropdownVisible, setIsDropdownVisible] = useState(false);
     const [categoryList, setCategoryList] = useState([]);
+    const [authYn, setAuthYn] = useState(false);
 
     useEffect(() => {
+
+        const token = sessionStorage.getItem('token');
+        const decode_token = jwtDecode(token);
+        let authIdx = decode_token.authIdx;
+        console.log(authIdx);
+        if (authIdx === 3) {
+            setAuthYn(true);
+        } else {
+            setAuthYn(false);
+        }
+
         axios
             .get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/notice?currentPage=${currentPage}`)
             .then((response) => {
@@ -145,9 +158,14 @@ const NoticeList = ({ history }) => {
                     </tbody>
                 </table>
                 <div>
-                    <Link to={"/notice/write"} className="list-btn">
-                        글쓰기
-                    </Link>
+                    {
+                        authYn
+                        &&
+                        <Link to={"/notice/write"} className="list-btn">
+                            글쓰기
+                        </Link>
+                    }
+
                 </div>
                 <div className="paging">{renderPageNumbers()}</div>
             </div>

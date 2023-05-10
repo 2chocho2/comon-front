@@ -14,7 +14,6 @@ const AdminDevDetail = ({ history, match }) => {
 
     useEffect(() => {
 
-
         const token = sessionStorage.getItem('token');
         const decode_token = jwtDecode(token);
         let authIdx = decode_token.authIdx;
