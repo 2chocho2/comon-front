@@ -64,38 +64,64 @@ const AppDetail = ({ match, history }) => {
     const iconImage = `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/icon/${data.iconImage}`;
 
 
-    // 다운로드 로직
-    const handlerClickDownload = () => {
+    async function handlerClickDownload() {
         const token = sessionStorage.getItem('token');
         const decode_token = jwtDecode(token)
         let userId = decode_token.sub;
 
-        axios({
-            method: 'POST',
-            url: `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/downloadapp`,
-            data: {
-                userId: userId,
-                imageIdx: imageIdx
-            },
-            headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
-        })
-            .then(res => {
-                console.log(res.data);
-                if (res.data === '이미 있음') {
-                    alert(`이미 다운받은 앱입니다`);
-                    window.location.reload();
-                } else if (res.data === '오류') {
-                    alert(`다운로드 중 오류가 발생했습니다.`);
-                    window.location.reload();
-                } else if (res.data === '정상') {
-                    alert(`앱 다운로드가 완료되었습니다.`);
-                    window.location.reload();
-                }
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    };
+        console.log(">>>>>>")
+        try {
+            
+            const result =
+                await axios({
+                    method: 'POST',
+                    url: `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/downloadapp`,
+                    data: {
+                        userId: userId,
+                        imageIdx: imageIdx
+                    },
+                    headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
+                })
+                console.log("<<<<<");
+                console.log(result);
+                
+        } catch (err) {
+            console.log(err);
+            return;
+        }
+    }
+    // 다운로드 로직
+    // const handlerClickDownload = () => {
+    //     const token = sessionStorage.getItem('token');
+    //     const decode_token = jwtDecode(token)
+    //     let userId = decode_token.sub;
+
+    //     axios({
+    //         method: 'POST',
+    //         url: `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/downloadapp`,
+    //         data: {
+    //             userId: userId,
+    //             imageIdx: imageIdx
+    //         },
+    //         headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
+    //     })
+    //         .then(res => {
+    //             console.log(res.data);
+    //             if (res.data === '이미 있음') {
+    //                 alert(`이미 다운받은 앱입니다`);
+    //                 window.location.reload();
+    //             } else if (res.data === '오류') {
+    //                 alert(`다운로드 중 오류가 발생했습니다.`);
+    //                 window.location.reload();
+    //             } else if (res.data === '정상') {
+    //                 alert(`앱 다운로드가 완료되었습니다.`);
+    //                 window.location.reload();
+    //             }
+    //         })
+    //         .catch(err => {
+    //             console.log(err);
+    //         })
+    // };
 
     const imgArr = [data.screenshotImage1,
     data.screenshotImage2,

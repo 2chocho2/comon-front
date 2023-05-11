@@ -17,7 +17,7 @@ const Judge = ({ history }) => {
         const decode_token = jwtDecode(token);
         let authIdx = decode_token.authIdx;
         console.log(authIdx);
-        if (authIdx === 3) {
+        if (authIdx == '3') {
             setAuthYn(true);
         } else {
             setAuthYn(false);
@@ -63,8 +63,10 @@ const Judge = ({ history }) => {
     return (
         <>
             {
-                authYn
+                !authYn
                     ?
+                    <Auth history={history}/>
+                    :
                     <div>
                         <NaviAdmin history={history} />
                         <div className='sidemenu_admin-box'>
@@ -103,8 +105,6 @@ const Judge = ({ history }) => {
                             </table>
                         </div>
                     </div>
-                    :
-                    <Auth history={history}/>
             }
 
         </>

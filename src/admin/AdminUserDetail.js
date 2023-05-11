@@ -10,19 +10,8 @@ const AdminUserDetail = ({ history, match }) => {
 
     const { userId } = match.params;
     const [data, setData] = useState([]);
-    const [authYn, setAuthYn] = useState(false);
 
     useEffect(() => {
-
-        const token = sessionStorage.getItem('token');
-        const decode_token = jwtDecode(token);
-        let authIdx = decode_token.authIdx;
-        console.log(authIdx);
-        if (authIdx === 3) {
-            setAuthYn(true);
-        } else {
-            setAuthYn(false);
-        }
 
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/myservice/${userId}`,
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
@@ -59,52 +48,46 @@ const AdminUserDetail = ({ history, match }) => {
 
     return (
         <>
-            {
-                authYn
-                    ?
-                    <>
-                        <NaviAdmin history={history} />
 
-                        <div className='sidemenu_admin-box'>
-                            <div className='admin_logo'></div>
-                            <ul className='sidemenu_admin'>
+            <>
+                <NaviAdmin history={history} />
 
-                                <li id='admin-setting'><Link to='/admin/setting'>회원 관리</Link></li>
-                                <li><Link to='/admin'>모든 앱</Link></li>
-                                <li><Link to='/admin/judge'>심사</Link></li>
-                            </ul>
-                        </div>
-                        <div className='body'>
-                            <p className='body_title'>사용 중인 앱-{userId}
-                                <button type='button'
-                                    onClick={handlerClickList}>목록으로</button></p>
-                            <table className='AppTable'>
-                                <colgroup>
-                                    <col width="15%" />
-                                    <col width="21%" />
-                                    <col width="21%" />
-                                    <col width="21%" />
-                                    <col width="21%" />
-                                </colgroup>
-                                <thead>
-                                    <tr>
-                                        <th>앱 아이콘</th>
-                                        <td>앱 이름</td>
-                                        <td>앱 제공사</td>
-                                        <td>서버 포트</td>
-                                        <td>엔드포인트 포트</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {createTable()}
-                                </tbody>
-                            </table>
-                        </div>
-                    </>
-                    :
-                    <Auth history={history}/>
-            }
+                <div className='sidemenu_admin-box'>
+                    <div className='admin_logo'></div>
+                    <ul className='sidemenu_admin'>
 
+                        <li id='admin-setting'><Link to='/admin/setting'>회원 관리</Link></li>
+                        <li><Link to='/admin'>모든 앱</Link></li>
+                        <li><Link to='/admin/judge'>심사</Link></li>
+                    </ul>
+                </div>
+                <div className='body'>
+                    <p className='body_title'>사용 중인 앱-{userId}
+                        <button type='button'
+                            onClick={handlerClickList}>목록으로</button></p>
+                    <table className='AppTable'>
+                        <colgroup>
+                            <col width="15%" />
+                            <col width="21%" />
+                            <col width="21%" />
+                            <col width="21%" />
+                            <col width="21%" />
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>앱 아이콘</th>
+                                <td>앱 이름</td>
+                                <td>앱 제공사</td>
+                                <td>서버 포트</td>
+                                <td>엔드포인트 포트</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {createTable()}
+                        </tbody>
+                    </table>
+                </div>
+            </>
         </>
     );
 }

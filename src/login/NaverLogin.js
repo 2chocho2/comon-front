@@ -90,8 +90,8 @@ const NaverLogin = () => {
     return (
         <>
             <div ref={naverRef} id="naverIdLogin" />
-            <img className="login-naver"
-                src={naverIcon}
+            <div className="login-naver"
+                // src={naverIcon}
                 onClick={handleNaverLogin}
                 style={{ width: '30px', height: '30px' }} />
         </>

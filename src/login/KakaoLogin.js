@@ -24,7 +24,10 @@ const KakaoLogin = () => {
 
 
     useEffect(() => {
-        Kakao.init(JAVASCRIPT_APP_KEY);
+        if (!Kakao.isInitialized()) {
+            Kakao.init('JAVASCRIPT_APP_KEY');
+        };
+        // Kakao.init(JAVASCRIPT_APP_KEY);
 
         // 쿼리 스트링으로 부터 인가 코드를 추출
         const code = window.location.search.split('=')[1];

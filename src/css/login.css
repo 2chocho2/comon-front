@@ -1,4 +1,4 @@
-/* // 잠실 */
+/* 잠실 */
 @font-face {
     font-family: 'TheJamsil5Bold';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
@@ -42,6 +42,7 @@
     border: 3px solid black;
     background-color: white;
     text-align: center;
+    box-shadow: 3px 3px 5px 3px rgb(0, 0, 0, 0.5);
 }
 
 /* 헤더 */
@@ -76,7 +77,6 @@
     height: 500px;
     margin-right: 50px;
     float: left;
-    /* background-color: antiquewhite; */
     position: relative;
 }
 
@@ -99,7 +99,6 @@
 }
 
 .login-logo {
-    /* background-color: aqua; */
     background-size: 100%;
     margin: auto;
     width: 50%;
@@ -163,13 +162,37 @@
     /* background-color: skyblue; */
 }
 
-.login-content p {
-    font-family: 'TheJamsil5Bold';
-    font-size: 2em;
-    padding: 40px 0px;
+.dev-login-content {
+    width: 40%;
+    height: 340px;
+    float: left;
+    padding: 50px 10px;
+    margin-top: 10px;
+    vertical-align: middle;
 }
 
-.login-content input {
+.login-content-title {
+    font-family: 'TheJamsil5Bold';
+    font-size: 2em;
+    margin: 20px 0px 30px 0px;
+}
+
+.login-content-title p {
+    padding: 0px;
+    margin-bottom: 5px;
+}
+
+.login-content-title p:first-child {
+    font-size: 1.2em;
+}
+
+.login-content-title p:last-child {
+    font-size: 0.9em;
+    color: gray;
+}
+
+.login-content input,
+.dev-login-content input {
     border: 3px solid black;
     padding: 0px 40px 0px 10px;
     width: 100%;
@@ -181,7 +204,8 @@
     font-weight: bold;
 }
 
-.login-content input::placeholder {
+.login-content input::placeholder,
+.dev-login-content input::placeholder {
     font-size: 0.7em;
 }
 
@@ -198,6 +222,24 @@
     top: 20%;
     right: 10px;
     cursor: pointer;
+}
+
+/* ------------------------------------------------------------- */
+/* 선택 로그인 */
+.select-login-content {
+    display: inline-block;
+    text-align: center;
+    margin: 80px auto 100px auto;
+}
+
+.select-login-content .select-login-title {
+    font-family: 'TheJamsil5Bold';
+    font-size: 5em;
+    margin-bottom: 80px;
+    background: linear-gradient(40deg, rgb(255, 162, 162), rgb(118, 87, 255));
+    animation: huerotator 10s infinite alternate;
+    color: transparent;
+    -webkit-background-clip: text;
 }
 
 /* 로그인 버튼 */
@@ -218,6 +260,60 @@
     color: black;
     cursor: none;
 }
+
+/* 선택 로그인 */
+.select-login-box {
+    display: inline-block;
+}
+
+.select-dev-loginBtn,
+.select-user-loginBtn {
+    float: left;
+    width: 300px;
+    margin: 0px 30px;
+    padding: 40px;
+    font-family: 'TheJamsil5Bold';
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.select-login-content div>p {
+    padding: 0px;
+    margin: 0px;
+    margin-top: 20px;
+    font-size: 2em;
+}
+
+.select-dev-loginBtn {
+    border: 5px solid #ffbb00;
+    color: #ffbb00;
+}
+
+.select-user-loginBtn {
+    border: 5px solid black;
+    color: black;
+}
+
+.select-dev-loginBtn:hover {
+    border: 5px solid #ffbb00;
+    background-color: #ffbb00;
+    color: white;
+    box-shadow: 0px 0px 10px rgb(255, 190, 0);
+}
+
+.select-user-loginBtn:hover {
+    border: 5px solid black;
+    background-color: black;
+    color: white;
+    box-shadow: 0px 0px 10px rgb(0, 0, 0);
+}
+
+#dev-login-btn,
+#user-login-btn {
+    width: 100%;
+    height: 100px;
+}
+
 
 /* 회원가입 버튼 */
 .register-btn {
@@ -302,7 +398,9 @@
 .login-header::after,
 .login-body::after,
 .login-content::after,
-.login-btn-box::after {
+.login-btn-box::after,
+.select-login-content::after,
+.select-login-box::after {
     display: block;
     content: "";
     clear: both;
@@ -310,21 +408,144 @@
 
 
 /* ------------------------------------------------------------------------------------ */
+/* 선택 회원가입 */
+.select-register-container {
+    height: 100vh;
+    overflow: hidden;
+    padding: 100px 600px;
+    position: relative;
+}
+
+.select-register-box {
+    border: 3px solid black;
+    background-color: white;
+    box-shadow: 3px 3px 5px rgb(0, 0, 0, 0.5);
+}
+
+.select-register-bg {
+    width: 100%;
+    height: 93.6vh;
+    background: linear-gradient(40deg, rgb(255, 227, 227), rgb(194, 194, 194), rgb(248, 213, 255));
+    animation: huerotator 8s infinite alternate;
+    position: absolute;
+}
+
+.select-register-body {
+    padding: 40px 150px;
+}
+
+.select-register-body .title {
+    font-family: 'TheJamsil5Bold';
+    font-size: 3em;
+    padding: 30px 0px 50px 0px;
+}
+
+.dev-register-btn, .user-register-btn {
+    width: 100%;
+    height: 50px;
+    line-height: 44px;
+    text-align: center;
+    margin: 20px 0px;
+    font-family: 'TheJamsil5Bold';
+    font-size: 20px;
+    background-color: black;
+    border: 3px solid black;
+    color: white;
+    cursor: pointer;
+    transition: all .1s ease;
+}
+
+.dev-register-btn:hover {
+    background: linear-gradient(to right, #fff099,  #ffface ,#ffcacb);
+    color: black;
+}
+.user-register-btn:hover {
+    background: linear-gradient(to right, #fffde2, #faccff, #b9faff);
+    color: black;
+}
+
+/* 회원가입 소셜 */
+/* 네이버 */
+.register-naver-btn-box {
+    background-color: rgb(3, 199, 90);
+    height: 50px;
+    margin: 20px 0px;
+    text-align: center;
+    position: relative;
+}
+
+.select-naver-btn {
+    width: 100%;
+    height: 50px;
+    /* border: 1px solid blue; */
+    position: absolute;
+    top: 0;
+}
+
+.select-naver-tag {
+    display: inline-block;
+    /* border: 1px solid pink; */
+    height: 50px;
+    line-height: 50px;
+    font-family: 'TheJamsil5Bold';
+    font-size: 20px;
+    color: white;
+}
+
+.select-naver-icon {
+    vertical-align: sub;
+    font-size: 25px;
+    margin-right: 12px;
+}
+
+/* 카카오 */
+.register-kakao-btn-box {
+    background-color: #FEE500;
+    height: 50px;
+    margin-bottom: 60px;
+    text-align: center;
+    position: relative;
+}
+
+.select-kakao-btn {
+    width: 100%;
+    height: 50px;
+    /* border: 1px solid blue; */
+    position: absolute;
+    top: 0;
+}
+
+.select-kakao-tag {
+    display: inline-block;
+    /* border: 1px solid pink; */
+    height: 50px;
+    line-height: 50px;
+    font-family: 'TheJamsil5Bold';
+    font-size: 20px;
+    color: #3B1E1E;
+}
+
+.select-kakao-icon {
+    vertical-align: middle;
+    font-size: 40px;
+    margin-right: 10px;
+    padding-bottom: 5px;
+    color: #3B1E1E;
+}
+
 /* 회원가입 */
 .register-container {
     height: 100vh;
     overflow: hidden;
-    /* border: 2px solid red; */
-    padding: 100px 600px;
+    padding: 80px 600px;
     position: relative;
-
 }
 
 .register-bg {
     width: 100%;
     height: 93.6vh;
     background: linear-gradient(40deg, rgb(255, 227, 227), rgb(194, 194, 194), rgb(248, 213, 255));
-    animation: huerotator 10s infinite alternate;
+    animation: huerotator 8s infinite alternate;
     position: absolute;
 }
 
@@ -338,6 +559,14 @@
     }
 }
 
+.dev-register-bg {
+    width: 100%;
+    height: 93.6vh;
+    background: linear-gradient(40deg, rgb(255, 255, 227), rgb(194, 194, 194), rgb(213, 216, 255));
+    animation: huerotator 8s infinite alternate;
+    position: absolute;
+}
+
 .register-box {
     border: 3px solid black;
     background-color: white;
@@ -345,14 +574,20 @@
 
 /* form */
 .register-body {
-    /* background-color: bisque; */
     padding: 40px 150px;
+    /* background-color: #b9faff; */
 }
 
 .register-body .title {
     font-family: 'TheJamsil5Bold';
     font-size: 2em;
-    padding: 30px 0px;
+    padding: 10px 0px 20px 0px;
+}
+
+.register-body .title p:last-child {
+    font-size: 0.8em;
+    margin-top: 5px;
+    color: gray;
 }
 
 /* 인풋박스 */
@@ -457,6 +692,13 @@ input::placeholder {
     margin-bottom: 20px;
     cursor: pointer;
 }
+
+.registerCheck-btn:hover {
+    border: 3px solid black;
+    background: linear-gradient(to right, #fffde2, #faccff, #b9faff);
+    color: black;
+}
+
 
 /* 비밀번호표시 */
 /* 요소를 숨기는 class.*/

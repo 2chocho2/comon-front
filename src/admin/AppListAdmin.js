@@ -20,8 +20,8 @@ const AppListAdmin = ({ history }) => {
         const token = sessionStorage.getItem('token');
         const decode_token = jwtDecode(token);
         let authIdx = decode_token.authIdx;
-        
-        if (authIdx === 3) {
+
+        if (authIdx == '3') {
             setAuthYn(true);
         } else {
             setAuthYn(false);
@@ -30,9 +30,8 @@ const AppListAdmin = ({ history }) => {
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist`,
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
-                
                 setData(res.data);
-                console.log(authYn);
+                console.log(res.data);
             })
             .catch(err => {
                 console.log(err);
@@ -89,6 +88,14 @@ const AppListAdmin = ({ history }) => {
                 denyName = '';
             }
 
+            const registDt = () => {
+                let appRegistDt = '';
+                if (d.registDt != null) {
+                    appRegistDt = d.registDt.substring(0, 10);
+                }
+                return <td>{appRegistDt}</td>
+            }
+
             return (
                 <tr key={index}
                     onClick={() => handlerClickImage(d.imageIdx)}>
@@ -99,6 +106,7 @@ const AppListAdmin = ({ history }) => {
                         <p className="denyCode">{denyName}</p>
                     </td>
                     <td>{d.userName}</td>
+                    {registDt()}
                     <td>
                         {d.statusIdx === 5 ?
                             <p>삭제 요청 접수됨</p>
@@ -183,58 +191,60 @@ const AppListAdmin = ({ history }) => {
 
     return (
         <>
-        {
-            authYn
-            ?
-            <div>
-            <NaviAdmin history={history}/>
-            <div className='sidemenu_admin-box'>
-                <div className='admin_logo'></div>
-                <ul className='sidemenu_admin'>
-                    
-                    <li><Link to='/admin/setting'>회원 관리</Link></li>
-                    <li id='admin-setting'><Link to='/admin'>모든 앱</Link></li>
-                    <li><Link to='/admin/judge'>심사</Link></li>
-                </ul>
-            </div>
-            <div className='body'>
-                <p className='body_title'>모든 앱</p>
-                <div className='AppSerch'>
-                    <div className='filterAppButton'>
-                        {filterButton()}
+            {
+                !authYn
+                    ?
+                    <Auth history={history} />
+                    :
+                    <div>
+                        <NaviAdmin history={history} />
+                        <div className='sidemenu_admin-box'>
+                            <div className='admin_logo'></div>
+                            <ul className='sidemenu_admin'>
+
+                                <li><Link to='/admin/setting'>회원 관리</Link></li>
+                                <li id='admin-setting'><Link to='/admin'>모든 앱</Link></li>
+                                <li><Link to='/admin/judge'>심사</Link></li>
+                            </ul>
+                        </div>
+                        <div className='body'>
+                            <p className='body_title'>모든 앱</p>
+                            <div className='AppSerch'>
+                                <div className='filterAppButton'>
+                                    {filterButton()}
+                                </div>
+                                <form id='serch-container' onSubmit={e => onSearch(e)}>
+                                    <input className='serch-box'
+                                        type='text'
+                                        value={search}
+                                        placeholder='앱 이름을 검색하세요.'
+                                        onChange={onChangeSearch} />
+                                    <button id="serch-button" type='submit'><BiSearchAlt className='search-icon' /></button>
+                                </form>
+                            </div>
+                            <table className='AppTable'>
+                                <thead>
+                                    <tr>
+                                        <th>아이콘</th>
+                                        <th>앱 이름</th>
+                                        <th>상태</th>
+                                        <th>서비스 제공사</th>
+                                        <th>출시일</th>
+                                        <th>삭제 요청</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {createTable()}
+                                </tbody>
+
+                            </table>
+                        </div>
+
                     </div>
-                    <form id='serch-container' onSubmit={e => onSearch(e)}>
-                        <input className='serch-box'
-                            type='text'
-                            value={search}
-                            placeholder='앱 이름을 검색하세요.'
-                            onChange={onChangeSearch} />
-                        <button id="serch-button" type='submit'><BiSearchAlt className='search-icon'/></button>
-                    </form>
-                </div>
-                <table className='AppTable'>
-                    <thead>
-                        <tr>
-                            <th>아이콘</th>
-                            <th>앱 이름</th>
-                            <th>상태</th>
-                            <th>서비스 제공사</th>
-                            <th>삭제 요청</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {createTable()}
-                    </tbody>
 
-                </table>
-            </div>
-
-        </div>
-        :
-        <Auth history={history}/>
-        }
+            }
         </>
-        
+
     )
 }
 

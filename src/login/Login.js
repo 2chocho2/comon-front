@@ -8,6 +8,7 @@ import { BiShowAlt, BiHide } from "react-icons/bi";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 const Login = ({ history }) => {
 
     // 변수 선언 
@@ -103,9 +104,8 @@ const Login = ({ history }) => {
 
     return (
         <>
-            <ToastContainer />
             <div id="my-container">
-                <NaviDefault history={history}/>
+                <NaviDefault />
                 <div className="login-bg">
                     <div className="login-container">
                         <div className="login-box">
@@ -162,7 +162,6 @@ const Login = ({ history }) => {
                                             disabled={!(userId && userPassword)}>
                                             로그인
                                         </button>
-
                                     </section>
                                     <button className='register-btn' onClick={handlerRegist}>아이디가 없으신가요?</button>
                                 </div>

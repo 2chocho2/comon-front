@@ -67,9 +67,8 @@ const DevLogin = ({ history }) => {
 
     return (
         <>
-            <ToastContainer />
             <div id="my-container">
-            <NaviDefault history={history}/>
+                <NaviDefault />
                 <div className="login-bg">
                     <div className="login-container">
                         <div className="login-box">
@@ -131,8 +130,8 @@ const DevLogin = ({ history }) => {
                                 </div>
                                 {/* <div className="social-login-box">
                                     <p>소셜 로그인</p> */}
-                                {/* 다양한 방식의 로그인 컴포넌트를 추가 */}
-                                {/* <div className="login-btn-box">
+                                    {/* 다양한 방식의 로그인 컴포넌트를 추가 */}
+                                    {/* <div className="login-btn-box">
                                         <div className="naver-btn">
                                             <NaverLogin />
                                         </div>

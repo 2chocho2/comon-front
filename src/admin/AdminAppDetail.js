@@ -109,8 +109,10 @@ const AdminAppDetail = ({ match, history }) => {
     return (
         <>
             {
-                authYn
+                !authYn
                     ?
+                    <Auth history={history} />
+                    :
                     <div>
                         <NaviAdmin history={history} />
                         <div className='sidemenu_admin-box'>
@@ -189,9 +191,8 @@ const AdminAppDetail = ({ match, history }) => {
                             </div>
                         </div>
                     </div>
-                    :
-                    <Auth history={history}/>
-        }
+
+            }
         </>
 
     )

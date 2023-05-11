@@ -509,14 +509,16 @@ input:focus,
 }
 
 .AppTable tbody tr td:nth-child(1),
-.AppTable tbody tr td:nth-child(3) {
+.AppTable tbody tr td:nth-child(3),
+.AppTable tbody tr td:nth-child(6) {
     width: 15%;
 }
 
 .AppTable tbody tr td:nth-child(2),
 .AppTable tbody tr td:nth-child(4),
 .AppTable tbody tr td:nth-child(5) {
-    width: calc(70%/3);
+    /* width: calc(70%/3); */
+    width: 20%;
 }
 
 /* 테이블 헤더  */

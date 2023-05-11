@@ -7,7 +7,6 @@ import loading from '../img/loading.gif';
 const RunModal = (props) => {
 
     useEffect(() => {
-        console.log(props)
         document.body.style.cssText = `
           position: fixed; 
           top: -${window.scrollY}px;

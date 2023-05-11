@@ -12,7 +12,7 @@ const AdminSetting = ({ history }) => {
     const [userData, setUserData] = useState([]);
     const [devData, setDevData] = useState([]);
     const [filterActive, setFilterActive] = useState(1);
-    const [authYn, setAuthYn] = useState(false);
+    const [authYn, setAuthYn] = useState(true);
 
     useEffect(() => {
 
@@ -20,7 +20,7 @@ const AdminSetting = ({ history }) => {
         const decode_token = jwtDecode(token);
         let authIdx = decode_token.authIdx;
         console.log(authIdx);
-        if (authIdx === 3) {
+        if (authIdx == '3') {
             setAuthYn(true);
         } else {
             setAuthYn(false);
@@ -109,8 +109,10 @@ const AdminSetting = ({ history }) => {
     return (
         <>
         {
-            authYn
+            !authYn
             ?
+            <Auth history={history}/>
+            :
             <div className='dev-container'>
                 <NaviAdmin history={history} />
                 <div className='sidemenu_admin-box'>
@@ -189,8 +191,6 @@ const AdminSetting = ({ history }) => {
                     </table>
                 </div>
             </div>
-            :
-            <Auth history={history}/>
         }
             
         </>

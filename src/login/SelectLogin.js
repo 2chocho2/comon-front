@@ -1,4 +1,6 @@
 import NaviDefault from '../Navi/NaviDefault';
+import { FaUserAstronaut, FaUserLock } from "react-icons/fa";
+import '../css/login.css';
 
 const SelectLogin = ({history}) => {
     
@@ -8,8 +10,8 @@ const SelectLogin = ({history}) => {
 
     return (
         <>
-         <div id="my-container">
-         <NaviDefault history={history}/>
+            <div id="my-container">
+                <NaviDefault />
                 <div className="login-bg">
                     <div className="login-container">
                         <div className="login-box">
@@ -18,31 +20,25 @@ const SelectLogin = ({history}) => {
                                 <div className="round2" />
                                 <div className="round3" />
                             </div>
-                            <div className="login-body">
-                                <div className="rotate-box">
-                                    <div className="rotation-text" />
-                                    <div className="login-logo" />
+                            <div className="select-login-body">
+                                <div className="select-login-content">
+                                    <p className='select-login-title'> HELLO! COM:ON!!:) </p>
+                                    <div className='select-login-box'>
+                                        <div className="select-dev-loginBtn" onClick={handlerDev} type="submit">
+                                            <FaUserAstronaut id='dev-login-btn' />
+                                            <p>개발자 로그인</p>
+                                        </div>
+                                        <div className="select-user-loginBtn" onClick={handlerUser} type="submit">
+                                            <FaUserLock id='user-login-btn' />
+                                            <p>사용자 로그인</p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="login-content">
-                                    {/* <p>Hello! COM:ON! Developer Login</p> */}
-                                    <section>
-                                        <button className="loginBtn" onClick={handlerDev} type="submit">
-                                            개발자로 로그인
-                                        </button>
-                                    </section>
-                                    <section>
-                                        <button className="loginBtn" onClick={handlerUser} type="submit">
-                                            사용자로 로그인
-                                        </button>
-                                    </section>
-                                    
-                                </div>
-                               
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
         </>
     );
 };

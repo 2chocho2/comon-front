@@ -2,6 +2,7 @@ import { Router, withRouter } from 'react-router-dom';
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import NaviDefault from '../Navi/NaviDefault';
+import '../css/login.css';
 
 const DevRegist = ({ history }) => {
 
@@ -105,7 +106,7 @@ const DevRegist = ({ history }) => {
     return (
         <>
             <div id="my-container">
-                <NaviDefault history={history} />
+                <NaviDefault />
                 <div className='register-bg' />
                 <div className='register-container'>
                     <div className='register-box'>
