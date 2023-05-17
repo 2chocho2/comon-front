@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import '../css/modal.css'
 import { FaAngleDown } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
-import jwtDecode from 'jwt-decode';
 
 const JudgeModal = (props) => {
 
@@ -14,7 +13,6 @@ const JudgeModal = (props) => {
         { denyIdx: '4', denyName: '실행 파일(docker-compose.yaml) 형식이 맞지 않음.' },
         { denyIdx: '5', denyName: '실행 포트가 올바르게 설정되지 않음.' },
     ];
-
 
     useEffect(() => {
         document.body.style.cssText = `

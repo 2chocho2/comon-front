@@ -26,7 +26,7 @@ function SamplePrevArrow(props) {
     );
 };
 
-const Recommend = ({ recommendList }) => {
+const Recommend = ({ recommendList, history }) => {
 
     const settings = {
         dots: true,
@@ -40,6 +40,10 @@ const Recommend = ({ recommendList }) => {
         prevArrow: <SamplePrevArrow />
     };
 
+    const handlerClick = (imageIdx) => {
+        history.push(`/user/appdetail/${imageIdx}`);
+    }
+
     return (
         <>
             <div>
@@ -50,7 +54,7 @@ const Recommend = ({ recommendList }) => {
                         recommendList.map((data, index) => (
                             <>
 
-                                <div id="slider-box" key={index}>
+                                <div id="slider-box" key={index} onClick={() => handlerClick(data.imageIdx)}>
                                     <div className='slider-content'>
                                         <div className="slider-header">
                                             <img src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/icon/${data.iconImage}`} />

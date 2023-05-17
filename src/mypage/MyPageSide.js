@@ -8,9 +8,7 @@ import jwt_decode from "jwt-decode";
 import { useMemo } from 'react';
 
 const MyPageSide = () => {
-
     const [name, setName] = useState('');
-
 
     useEffect(() => {
         const token = sessionStorage.getItem('token');
@@ -53,7 +51,6 @@ const MyPageSide = () => {
                 <img className='mypage-image' src={avatar}></img>
                 <ul className='mypage-side-link'>
                     <li><Link to='/mypage'>사용 중인 서비스</Link></li>
-                    <li><Link to='/mypage/qna'>나의 문의 내역</Link></li>
                     <li><Link to='/mypage/edit'>회원 정보 변경</Link></li>
                     <li><Link to='/mypage/review'>리뷰 작성</Link></li>
                     <li><Link to='/mypage/reviewList'>작성한 리뷰</Link></li>

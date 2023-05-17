@@ -13,15 +13,14 @@ const NaviAdmin = (props) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
-        const token = sessionStorage.getItem('token');
-
-        if (token != null) {
-            const decode_token = jwtDecode(token);
+        if (sessionStorage.getItem('token') != null) {
+            setIsLoggedIn(true);
+        } else if (window.localStorage.getItem('userName')!= null) {
             setIsLoggedIn(true);
         } else {
             setIsLoggedIn(false);
         }
-    })
+    }, [])
 
     const handlerClickComon = () => {
         props.history.push(`/`);
@@ -42,6 +41,7 @@ const NaviAdmin = (props) => {
     const handlerClickLogout = () => {
         setIsLoggedIn(false);
         sessionStorage.clear();
+        localStorage.clear();
         props.history.push('/');
         showToastMessage();
     };

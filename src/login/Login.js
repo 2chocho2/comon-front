@@ -7,7 +7,9 @@ import '../css/login.css'
 import { BiShowAlt, BiHide } from "react-icons/bi";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import Swal from "sweetalert2";
+import { SiNaver } from "react-icons/si";
+import { RiKakaoTalkFill } from "react-icons/ri";
 
 const Login = ({ history }) => {
 
@@ -20,37 +22,6 @@ const Login = ({ history }) => {
     const handlerChangeUserId = e => setUserId(e.target.value);
     const handlerChangeUserPassword = e => setUserPassword(e.target.value);
     const handlerRegist = () => { history.push('/regist'); };
-
-    // 비밀번호 옵션 설정
-    // const [passwordInputType, setPasswordInputType] = useState({
-    //     type: "password",
-    //     autoComplete: "current-password",
-    // });
-    // useEffect(() => {
-    //     if (passwordOption === false)
-    //         setPasswordInputType({
-    //             type: "password",
-    //             autoComplete: "current-password",
-    //         });
-    //     else
-    //         setPasswordInputType({
-    //             type: "text",
-    //             autoComplete: "off"
-    //         });
-    // }, [passwordOption])
-
-    // useEffect(() => {
-    //     if (passwordOption === false)
-    //     setHidePassword({
-    //             type: "password",
-    //             autoComplete: "current-password",
-    //         });
-    //     else
-    //     setHidePassword({
-    //             type: "text",
-    //             autoComplete: "off"
-    //         });
-    // }, [passwordOption])
 
     //  비밀번호 옵션 설정
     const [hidePassword, setHidePassword] = useState(true);
@@ -71,20 +42,19 @@ const Login = ({ history }) => {
     const handlerOnClick = e => {
         axios.post(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/login`, { userId, userPassword })
             .then(response => {
-                console.log(response);
                 if (response.data) {
                     sessionStorage.setItem("token", response.data);
                     showToastMessage();
                     history.push('/');
 
                 } else {
-                    alert('ID, PW가 일치하지 않습니다. 확인 후 다시 시도해주세요.')
+                    Swal.fire({text: `ID, PW가 일치하지 않습니다. 확인 후 다시 시도해주세요.`});
                     sessionStorage.clear();
                 }
             })
             .catch(error => {
                 console.log(error);
-                alert('ID, PW가 일치하지 않습니다. 확인 후 다시 시도해주세요.')
+                Swal.fire({text: `ID, PW가 일치하지 않습니다. 확인 후 다시 시도해주세요.`});
                 sessionStorage.clear();
             });
     };
@@ -104,8 +74,9 @@ const Login = ({ history }) => {
 
     return (
         <>
+            <ToastContainer />
             <div id="my-container">
-                <NaviDefault />
+                <NaviDefault history={history}/>
                 <div className="login-bg">
                     <div className="login-container">
                         <div className="login-box">
@@ -114,19 +85,26 @@ const Login = ({ history }) => {
                                 <div className="round2" />
                                 <div className="round3" />
                             </div>
+                            
                             <div className="login-body">
                                 <div className="rotate-box">
                                     <div className="rotation-text" />
                                     <div className="login-logo" />
                                 </div>
+                                
                                 <div className="login-content">
-                                    <p>Hello! COM:ON!</p>
+                                    <div className="login-content-title">
+                                        <p>Hello! COM:ON!!</p>
+                                        <p>User</p>
+                                    </div>
+                                    
                                     <input className='login-id'
                                         type="text"
                                         value={userId}
                                         placeholder="아이디를 입력하세요."
                                         onChange={handlerChangeUserId} />
                                     <br />
+                                    
                                     <div className='login-pwd-input'>
                                         <input className='login-pwd'
                                             type={hidePassword ? "password" : "text"}
@@ -142,16 +120,6 @@ const Login = ({ history }) => {
                                         </div>
                                     </div>
 
-                                    {/* <span className="checkbox-item">
-                                    <input
-                                        type="checkbox"
-                                        checked={passwordOption}
-                                        onChange={() => setPasswordOption(!passwordOption)}
-                                    />
-                                    <label>
-                                        <span>비밀번호 표시</span>
-                                    </label>
-                                    </span> */}
                                     {/* 아이디, 비밀번호 두개다 입력했을 때 색깔 변화 */}
                                     <section>
                                         <button className="loginBtn"
@@ -163,20 +131,28 @@ const Login = ({ history }) => {
                                             로그인
                                         </button>
                                     </section>
+                                    
                                     <button className='register-btn' onClick={handlerRegist}>아이디가 없으신가요?</button>
                                 </div>
+                               
                                 <div className="social-login-box">
                                     <p>소셜 로그인</p>
                                     {/* 다양한 방식의 로그인 컴포넌트를 추가 */}
                                     <div className="login-btn-box">
                                         <div className="naver-btn">
                                             <NaverLogin />
+                                            <div className="naver-btn-bg">
+                                                <SiNaver className="user-naver-icon" />
+                                            </div>
                                         </div>
+
                                         <div className="kakao-btn">
                                             <KakaoLogin />
+                                            <div className="kakao-btn-bg">
+                                                <RiKakaoTalkFill className="user-kakao-icon" />
+                                            </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>

@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import jwt_decode from "jwt-decode";
 import NaviDev from '../Navi/NaviDev';
 import Auth from '../admin/Auth';
+import Swal from "sweetalert2";
 
 const DevSetting = ({ history }) => {
 
@@ -16,22 +17,25 @@ const DevSetting = ({ history }) => {
     const [authYn, setAuthYn] = useState(false);
 
     useEffect(() => {
-        const token = sessionStorage.getItem('token');
-        const decode_token = jwt_decode(token);
-        setUserId(decode_token.sub);
-        let userId = decode_token.sub;
-        let authIdx = decode_token.authIdx;
-
-        if (authIdx === 3 || authIdx === 2) {
-            setAuthYn(true);
-        } else {
+        if (sessionStorage.getItem('token') == null) {
             setAuthYn(false);
+        } else {
+            const token = sessionStorage.getItem('token');
+            const decode_token = jwt_decode(token);
+            setUserId(decode_token.sub);
+            let userId = decode_token.sub;
+            let authIdx = decode_token.authIdx;
+    
+            if (authIdx === 3 || authIdx === 2) {
+                setAuthYn(true);
+            } else {
+                setAuthYn(false);
+            }
         }
 
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/mypage/${userId}`,
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
-                console.log(res);
                 setData(res.data);
                 setUserId(res.data.userId);
                 setUserName(res.data.userName);
@@ -64,13 +68,12 @@ const DevSetting = ({ history }) => {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(res => {
-                console.log(res);
-                alert(`정상적으로 수정되었습니다.`);
+                Swal.fire({text:`정상적으로 수정되었습니다.`});
                 history.push('/dev/applist');
             })
             .catch(err => {
                 console.log(err);
-                alert(`수정 중 오류가 발생했습니다.`);
+                Swal.fire({text:`수정 중 오류가 발생했습니다.`});
             })
     };
 
@@ -118,13 +121,10 @@ const DevSetting = ({ history }) => {
                                     onClick={handlerClickEdit}>수정</button>
                             </div>
                         </div>
-
-
                     </div>
                     :
                     <Auth history={history} />
             }
-
         </>
     )
 }

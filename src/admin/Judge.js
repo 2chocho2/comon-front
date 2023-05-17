@@ -8,26 +8,28 @@ import Auth from './Auth';
 
 const Judge = ({ history }) => {
 
-    const [data, setData] = useState([]);
+    const [data, setData] = useState([{}, {}, {}]);
     const [authYn, setAuthYn] = useState(false);
 
     useEffect(() => {
 
-        const token = sessionStorage.getItem('token');
-        const decode_token = jwtDecode(token);
-        let authIdx = decode_token.authIdx;
-        console.log(authIdx);
-        if (authIdx == '3') {
-            setAuthYn(true);
-        } else {
+        if (sessionStorage.getItem('token') == null) {
             setAuthYn(false);
+        } else {
+            const token = sessionStorage.getItem('token');
+            const decode_token = jwtDecode(token);
+            let authIdx = decode_token.authIdx;
+            if (authIdx === 3) {
+                setAuthYn(true);
+            } else {
+                setAuthYn(false);
+            }
         }
 
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist/regist`,
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
                 setData(res.data);
-                console.log(res.data);
             })
             .catch(err => {
                 console.log(err);
@@ -72,12 +74,13 @@ const Judge = ({ history }) => {
                         <div className='sidemenu_admin-box'>
                             <div className='admin_logo'></div>
                             <ul className='sidemenu_admin'>
-
                                 <li><Link to='/admin/setting'>회원 관리</Link></li>
                                 <li><Link to='/admin'>모든 앱</Link></li>
                                 <li id='admin-setting'><Link to='/admin/judge'>심사</Link></li>
+                                <li><Link to='/admin/chart'>통계</Link></li>
                             </ul>
                         </div>
+
                         <div className='body'>
                             <p className='body_title'>심사 요청</p>
                             <p className='body_subtitle'>심사 요청 앱 리스트</p>
@@ -87,7 +90,6 @@ const Judge = ({ history }) => {
                                     <col width="30%" />
                                     <col width="30%" />
                                     <col width="20%" />
-
 
                                 </colgroup>
                                 <thead>
@@ -106,7 +108,6 @@ const Judge = ({ history }) => {
                         </div>
                     </div>
             }
-
         </>
     )
 }

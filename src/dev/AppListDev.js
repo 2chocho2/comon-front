@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
-import NaviAdmin from '../Navi/NaviAdmin';
 import { FaUserAstronaut } from "react-icons/fa";
 import '../css/dev.css';
 import NaviDev from '../Navi/NaviDev';
 import Auth from '../admin/Auth';
+import Swal from "sweetalert2";
 
 const AppListDev = ({ history }) => {
 
@@ -16,25 +16,27 @@ const AppListDev = ({ history }) => {
     const [authYn, setAuthYn] = useState(false);
 
     useEffect(() => {
-
-        const token = sessionStorage.getItem('token');
-        const decode_token = jwt_decode(token);
-        setUserId(decode_token.sub);
-        let userId = decode_token.sub;
-        let authIdx = decode_token.authIdx;
-
-        if (authIdx === 3 || authIdx === 2) {
-            setAuthYn(true);
-        } else {
+        if (sessionStorage.getItem('token') == null) {
             setAuthYn(false);
+        } else {
+            const token = sessionStorage.getItem('token');
+            const decode_token = jwt_decode(token);
+            setUserId(decode_token.sub);
+            let userId = decode_token.sub;
+            let authIdx = decode_token.authIdx;
+    
+            if (authIdx === 3 || authIdx === 2) {
+                setAuthYn(true);
+            } else {
+                setAuthYn(false);
+            }
         }
-
+        
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/applist/${userId}`,
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
                 setData(res.data.list1);
                 setDenyList(res.data.list2);
-                console.log(res.data.list1);
             })
             .catch(err => {
                 console.log(err);
@@ -42,19 +44,29 @@ const AppListDev = ({ history }) => {
     }, []);
 
     const handlerClickDelete = (i) => {
-        if (window.confirm("정말 삭제하시겠습니까?")) {
-            axios.put(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/registdelete/${i}`,
-                { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
-                .then(res => {
-                    console.log(res.data);
-                    alert('삭제 요청이 완료되었습니다.')
-                })
-                .catch(err => {
-                    console.log(err);
-                })
-        } else {
-            history.push('/dev/applist');
-        }
+
+        new Swal({
+            title: "정말 삭제하시겠습니까?",
+            text: "한 번 삭제하면 복구가 불가능합니다.",
+            showCancelButton: true,
+            confirmButtonText: 'OK',
+            cancelButtonText: 'Cancel',
+            dangerMode: true,
+            reverseButtons: true
+        })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    axios.put(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/registdelete/${i}`,
+                    { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
+                    .then(res => {
+                        Swal.fire({text:'삭제 요청이 완료되었습니다.'});
+                        history.push('/dev/applist');
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+                }
+            })
     };
 
     // 넘어온 데이터를 사용해 테이블 생성
@@ -108,7 +120,6 @@ const AppListDev = ({ history }) => {
         })
     };
 
-
     return (
         <>
             {
@@ -126,7 +137,6 @@ const AppListDev = ({ history }) => {
                         </div>
                         <div className='body'>
                             <p className='body_title'>모든 앱</p>
-
                             <p className='userName'><FaUserAstronaut className='userIcon' title='유저 아이디입니다.' />{userId}</p>
                             <table className='AppTable'>
                                 <thead>

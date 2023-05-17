@@ -5,6 +5,7 @@ import NaviAdmin from '../Navi/NaviAdmin';
 import '../css/dev.css';
 import jwtDecode from 'jwt-decode';
 import Auth from './Auth';
+import Swal from "sweetalert2";
 
 const AdminAppDetail = ({ match, history }) => {
 
@@ -13,24 +14,23 @@ const AdminAppDetail = ({ match, history }) => {
     const [data, setData] = useState({});
     const [authYn, setAuthYn] = useState(false);
 
-
     useEffect(() => {
-
-        const token = sessionStorage.getItem('token');
-        const decode_token = jwtDecode(token);
-        let authIdx = decode_token.authIdx;
-        console.log(authIdx);
-        if (authIdx === 3) {
-            setAuthYn(true);
-        } else {
+        if (sessionStorage.getItem('token') == null) {
             setAuthYn(false);
+        } else {
+            const token = sessionStorage.getItem('token');
+            const decode_token = jwtDecode(token);
+            let authIdx = decode_token.authIdx;
+            if (authIdx === 3) {
+                setAuthYn(true);
+            } else {
+                setAuthYn(false);
+            }
         }
-
 
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist/${imageidx}`,
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
-                console.log(res.data);
                 setData(res.data);
             })
             .catch(err => {
@@ -93,16 +93,30 @@ const AdminAppDetail = ({ match, history }) => {
     };
 
     const handlerClickDelete = () => {
-        axios.delete(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/registdelete/${imageidx}`,
-            { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
-            .then(res => {
-                console.log(res);
-                alert(`삭제 처리가 완료되었습니다.`);
-                history.push('/admin');
-            })
-            .catch(err => {
-                console.log(err);
-                alert(`삭제 처리 중 오류가 발생했습니다.`);
+
+        new Swal({
+            title: "정말 삭제하시겠습니까?",
+            text: "한 번 삭제하면 복구가 불가능합니다.",
+            showCancelButton: true,
+            confirmButtonText: 'OK',
+            cancelButtonText: 'Cancel',
+            dangerMode: true,
+            reverseButtons: true
+        })
+
+            .then((result) => {
+                if (result.isConfirmed) {
+                    axios.delete(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/registdelete/${imageidx}`,
+                        { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
+                        .then(res => {
+                            Swal.fire({ text: `삭제 처리가 완료되었습니다.` });
+                            history.push('/admin');
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            Swal.fire({ text: `삭제 처리 중 오류가 발생했습니다.` });
+                        })
+                }
             })
     };
 
@@ -118,10 +132,10 @@ const AdminAppDetail = ({ match, history }) => {
                         <div className='sidemenu_admin-box'>
                             <div className='admin_logo'></div>
                             <ul className='sidemenu_admin'>
-
                                 <li><Link to='/admin/setting'>회원 관리</Link></li>
                                 <li id='admin-setting'><Link to='/admin'>모든 앱</Link></li>
                                 <li><Link to='/admin/judge'>심사</Link></li>
+                                <li><Link to='/admin/chart'>통계</Link></li>
                             </ul>
                         </div>
                         <div className='body'>

@@ -16,7 +16,6 @@ const Main = ({ history }) => {
     useEffect(() => {
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/main`)
             .then(res => {
-                console.log(res);
                 setRecommendList(res.data.list1);
                 setRankingList(res.data.list2);
             })
@@ -31,7 +30,8 @@ const Main = ({ history }) => {
             <div className='main-background'>
                 <div className='main-1'>
                     <div className='main-back'>
-                        <Recommend recommendList={recommendList} />
+                        <Recommend recommendList={recommendList}
+                                    history={history} />
                     </div>
                 </div>
                 <div className='main-2'>
@@ -42,7 +42,7 @@ const Main = ({ history }) => {
                     </div>
                 </div>
                 <MainSide />
-                <Footer />
+                <Footer history={history}/>
 
             </div>
         </>

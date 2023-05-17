@@ -6,6 +6,7 @@
 .Stars svg {
  color: #878787;
  cursor: pointer;
+ padding: 2px;
 }
 
 .Stars:hover svg {

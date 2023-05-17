@@ -11,7 +11,6 @@ const ReviewCheckButton = (props) => {
     const [userIdx, setUserIdx] = useState(props.userIdx);
     const [imageName, setimageName] = useState(props.imageName);
 
-
     useEffect(() => {
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/myservice/${imageIdx}/${userIdx}`,
         { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })

@@ -14,12 +14,14 @@ const NaviMain = (props) => {
     const [userName, setUserName] = useState('');
 
     useEffect(() => {
-        const token = sessionStorage.getItem('token');
-
-        if (token != null) {
+        if (sessionStorage.getItem('token') != null) {
+            const token = sessionStorage.getItem('token');
             const decode_token = jwtDecode(token);
             setIsLoggedIn(true);
             setUserName(decode_token.name);
+        } else if (window.localStorage.getItem('userName')!= null) {
+            setIsLoggedIn(true);
+            setUserName(window.localStorage.getItem('userName'));
         } else {
             setIsLoggedIn(false);
         }
@@ -52,6 +54,7 @@ const NaviMain = (props) => {
     const handlerClickLogout = () => {
         setIsLoggedIn(false);
         sessionStorage.clear();
+        localStorage.clear();
         props.history.push('/');
         showToastMessage();
     };

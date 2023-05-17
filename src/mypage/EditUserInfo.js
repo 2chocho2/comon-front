@@ -5,6 +5,7 @@ import axios from "axios";
 import { RiUserSettingsFill, RiPhoneFill } from "react-icons/ri";
 import { MdMarkEmailRead } from "react-icons/md";
 import jwtDecode from 'jwt-decode';
+import Swal from "sweetalert2";
 
 const EditUserInfo = ({ history }) => {
     const [data, setData] = useState('');
@@ -21,7 +22,6 @@ const EditUserInfo = ({ history }) => {
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/mypage/edit/${userId}`,
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
-                console.log(res.data);
                 setUserId(userId);
                 setData(res.data);
                 setUserName(res.data.userName);
@@ -34,7 +34,6 @@ const EditUserInfo = ({ history }) => {
     }, [])
 
     const handlerChangePhoneNumber = (e) => {
-        console.log(e.target.value);
         const before = e.target.value.replaceAll('-', '');
 
         // 숫자 여부 체크
@@ -61,8 +60,7 @@ const EditUserInfo = ({ history }) => {
             { userId, userName, userEmail, userPhoneNumber: userPhoneNumber.replaceAll('-', '') },
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
-                console.log(res.data);
-                alert(`회원 정보 수정이 완료되었습니다.`);
+                Swal.fire({text:`회원 정보 수정이 완료되었습니다.`});
                 history.push('/mypage');
             })
             .catch(err => {

@@ -9,6 +9,17 @@
   font-style: normal;
 }
 
+.all {
+  width: 100%;
+  height: 950px;
+  background-image: url(../notice/logo.png);
+  background-size: 35%;
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  background-attachment: fixed;
+  background-position-y: 75%;
+}
+
 .notice-container {
   margin-left: 10%;
   margin-right: 10%;
@@ -70,20 +81,21 @@
 }
 
 .btn {
-  position : relative;
+  font-family: 'TheJamsil5Bold';
+  position: relative;
   color: #fff;
   border: none;
   padding: 5px 10px 5px 10px;
   font-size: 14px;
   cursor: pointer;
-  display : block;
-  border : 2px solid rgb(94, 94, 94);
-  border-radius : 4px;
+  display: block;
+  border: 2px solid rgb(94, 94, 94);
+  border-radius: 4px;
   background-color: #fcfcfc;
   font-weight: 400;
-  color : rgb(124, 124, 124);
-  width :60px;
-  z-index :1;
+  color: rgb(124, 124, 124);
+  width: 60px;
+  z-index: 1;
 }
 
 .category-name {
@@ -122,7 +134,8 @@
 }
 
 .notice-list td {
-  line-height: 12px;
+  height: 40px;
+  line-height: 2.5;
   border-bottom: 1px dashed black;
   text-align: center;
 }
@@ -148,11 +161,13 @@
 }
 
 .list-btn {
-  margin-top: 10px;
+  font-family: 'TheJamsil5Bold';
+  margin-top: 2%;
+  margin-bottom: 30px;
   float: right;
   border: #000000 3px solid;
   margin-left: 10px;
-  line-height: 17px;
+  line-height: 25px;
   background: #000000;
   color: #fff;
   padding: 5px 10px 5px 10px;
@@ -160,12 +175,26 @@
   width: 100px;
   height: 40px;
   cursor: pointer;
+  text-align: center;
 }
 
 .paging {
-  display: block;
-  text-align: center;
+  font-family: 'TheJamsil5Bold';
+  margin-top: 5%;
+  display: flex;
+  justify-content: center;
 }
+
+.paging-numbers {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.paging-numbers span {
+  margin-right: 15px;
+}
+
 
 /* 공지 상세 */
 
@@ -177,13 +206,13 @@
 
 .detail {
   width: 100%;
-  min-width: 970px;
+  line-height: 2;
 }
 
 .detail-top {
   background-color: #EBEAEA;
   margin-top: 50px;
-  padding-top: 5px;
+  padding-top: 12px;
   width: 100%;
   height: 120px;
   border-top: 5px solid black;
@@ -191,11 +220,12 @@
 }
 
 .detail-list {
+  padding-left: 40px;
   list-style: none;
 }
 
 .detail-category-name {
-  font-size: 17px;
+  font-size: 15px;
   font-weight: bold;
 }
 
@@ -205,24 +235,27 @@
 }
 
 .detail-dt {
-  font-size: 17px;
+  font-size: 15px;
 }
 
 .detail-content {
   padding-top: 30px;
-  padding-bottom: 300px;
   padding-left: 40px;
+  padding-bottom: 30px;
   width: 100%;
   height: 100%;
   border-bottom: 5px solid black;
 }
 
 .detail-input {
+  font-family: 'TheJamsil5Bold';
   margin-top: 10px;
   float: right;
 }
 
 .detail-btn {
+  margin-bottom: 30px;
+  font-family: 'TheJamsil5Bold';
   border: #000000 3px solid;
   margin-left: 10px;
   line-height: 17px;
@@ -238,6 +271,7 @@
 /* 글쓰기 */
 
 .write {
+  line-height: 2;
   margin-left: 10%;
   margin-right: 10%;
 }
@@ -252,8 +286,21 @@
   border-bottom: 5px solid black;
 }
 
-.select-category {
+.write-category {
   padding-left: 40px;
+}
+
+.select-category {
+  margin-left: 10px;
+  width: inherit;
+  height: 25px;
+  background-color: #FFC700;
+  border: 2px solid #FFC700;
+  outline: 0 none;
+  padding: 0 5px;
+  position: relative;
+  border-radius: 4px;
+  z-index: 3;
 }
 
 .write-title {
@@ -261,14 +308,36 @@
   padding-left: 40px;
 }
 
+.input-title {
+  margin-left: 10px;
+  width: 80%;
+  height: 25px;
+  font-size: 15px;
+  border: 0;
+  border-radius: 4px;
+  outline: none;
+  padding-left: 10px;
+  background-color: white;
+}
+
+.write-header-title {
+  /* border: 1px solid red; */
+  width: 80px;
+  float: left;
+}
+
 .write-content {
   border: none;
   padding-top: 30px;
-  padding-bottom: 300px;
+  padding-bottom: 5%;
   padding-left: 40px;
   width: 100%;
-  height: 100%;
+  height: 500px;
   border-bottom: 5px solid black;
+  background-color: transparent;
+  white-space: pre-wrap;
+  font-family: 'TheJamsil5Bold';
+  line-height: 25px;
 }
 
 .write-content:focus {
@@ -276,11 +345,13 @@
 }
 
 .write-btn {
+  font-family: 'TheJamsil5Bold';
   margin-top: 10px;
   float: right;
 }
 
 .save-btn {
+  font-family: 'TheJamsil5Bold';
   border: #000000 3px solid;
   margin-left: 10px;
   line-height: 17px;
@@ -291,4 +362,93 @@
   width: 100px;
   height: 40px;
   cursor: pointer;
+  margin-bottom: 30px;
+}
+
+/* 수정하기 */
+.edit-notice {
+  line-height: 2;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.edit-top {
+  background-color: #EBEAEA;
+  margin-top: 50px;
+  padding-top: 20px;
+  width: 100%;
+  height: 120px;
+  border-top: 5px solid black;
+  border-bottom: 5px solid black;
+}
+
+.edit-category {
+  padding-left: 40px;
+}
+
+.edit-title {
+  margin-top: 5px;
+  padding-left: 40px;
+}
+
+.input-title {
+  margin-left: 10px;
+  width: 80%;
+  height: 25px;
+  font-size: 15px;
+  border: 0;
+  border-radius: 4px;
+  outline: none;
+  padding-left: 10px;
+  background-color: white;
+}
+
+.edit-content {
+  border: none;
+  padding-top: 30px;
+  padding-bottom: 300px;
+  padding-left: 40px;
+  width: 100%;
+  height: 100%;
+  border-bottom: 5px solid black;
+  background-color: transparent;
+  white-space: pre-line;
+}
+
+.edit-content:focus {
+  outline: none;
+}
+
+.bottom-btn {
+  margin-top: 10px;
+  float: right;
+}
+
+.edit-btn {
+  margin-bottom: 30px;
+  font-family: 'TheJamsil5Bold';
+  border: #000000 3px solid;
+  margin-left: 10px;
+  line-height: 17px;
+  background: #000000;
+  color: #fff;
+  padding: 5px 10px 5px 10px;
+  font-size: 14px;
+  width: 100px;
+  height: 40px;
+  cursor: pointer;
+}
+
+/* 드롭다운 */
+.notice-drop-container {
+  width: 100px;
+  box-shadow: 0 4px 5px 0 #00000026;
+  position: relative;
+  z-index: 10;
+}
+
+#notice-dropdown {
+  left: 0;
+  visibility: hidden;
+  position: absolute;
 }

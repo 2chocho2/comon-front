@@ -1,0 +1,328 @@
+* {
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'TheJamsil5Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+}
+
+/* 얇은 고딕 */
+@font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+.body{
+    margin: auto;
+}
+
+
+/* 전체 통계 카운트 */
+.total-Container {
+    height: 150px;
+    width: 100%;
+    text-align: center;
+}
+
+
+/* 사용자 수 카운트 box */
+.totalUser-Box {
+    float: left;
+    height:  100%;
+    width: 30%;
+    border: 2px solid black;
+    box-shadow: 2px 2px 3px #a8a8a8;
+}
+
+.totalUser-P {
+    /* background-color: #EB3223; */
+    background-color: black;
+    font-size: 20px;
+    line-height: 50px;
+    color: #EB3223;
+}
+
+/* 다운로드 수 카운트 box */
+.totalDownloadCount-Box{
+    height:  100%;
+    width: 30%;
+    display: inline-block;
+    border: 2px solid black;
+    /* border-radius: 8px 8px 0px 0px ; */
+    box-shadow: 2px 2px 3px #a8a8a8;
+}
+
+.totalDownloadCount-P {
+    /* background-color: #FFBA4A; */
+    background-color: black;
+    font-size: 20px;
+    line-height: 50px;
+    color: #FFBA4A;
+}
+
+/* 오픈 앱 수 카운트 box */
+.totalOpenApp-Box {
+    float: right;
+    height:  100%;
+    width: 30%;
+    border: 2px solid black;
+    box-shadow: 2px 2px 3px #a8a8a8;
+}
+
+.totalOpenApp-P {
+    /* background-color: #23A2CD; */
+    background-color: black;
+    font-size: 20px;
+    line-height: 50px;
+    color: #23A2CD;
+}
+
+/* 전체 통계 data box */
+.totalDownloadCount-Data, .totalOpenApp-Data, .totalUser-Data {
+    display: inline-block;
+    height: auto;
+    line-height: 100px;
+}
+
+.total-Data {
+    display: inline-block;
+    height: auto;
+    position: relative;
+    margin-right: 5px;
+}
+
+.totalUser-Data p, .totalOpenApp-Data p, .totalDownloadCount-Data p {
+    display: inline;
+    position: relative;
+}
+
+
+/* 전체 통계 data - spac 애니메이션 숫자 */
+#total-Data span{
+    width: 80%;
+    color: #EB3223;
+    font-size: 45px;
+}
+
+/* 전체 앱 다운로드 수 */
+.chartBox1 {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    display: inline-block;
+    height: 460px;
+    width: 100%;
+    border: 2px solid black;
+    box-shadow: 2px 2px 3px #a8a8a8;
+}
+
+.totalAppDownload-title {
+    font-size: 25px;
+    line-height: 50px;
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+
+/* 사용자수 통계 + 앱 다운로드 랭킹 리스트 */
+.chartBox2 {
+    margin-bottom: 10px;
+    display: inline-block;
+    height: 500px;
+    width: 100%;
+    vertical-align: middle;
+}
+
+/* 사용자 수 통계 */
+.pieChartBox {
+    border: 2px solid black;
+    display: inline;
+    position: relative;
+    float: left;
+    text-align: center;
+    height: 460px;
+    width: 50%;
+    box-shadow: 2px 2px 3px #a8a8a8;
+}
+
+.pieChart-title {
+    font-size: 25px;
+    line-height: 50px;
+    background-color: black;
+    color: white;
+}
+
+/* 앱 다운로드 랭킹 리스트 */
+.AppRankBox {
+    border: 2px solid black;
+    display: inline-block;
+    height: 460px;
+    width: calc(50% - 20px);
+    margin-left: 20px;
+    text-align: center;
+    vertical-align: middle;
+    box-shadow: 2px 2px 3px #a8a8a8;
+}
+
+.AppRankBoxTitle {
+    font-size: 25px;
+    height: 50px;
+    position: relative;
+    font-family: 'TheJamsil5Bold';
+    line-height: 50px;
+    background-color: black;
+    color: white;
+}
+
+.AppRackContent {
+    margin-top: 20px;
+    width: 90%;
+    display: inline-block;
+    overflow: scroll;
+    height: auto;
+    min-height: 30px;
+    max-height: 380px;
+    overflow-y: auto;
+}
+
+  /* 스크롤바css */
+  .AppRackContent::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  .AppRackContent::-webkit-scrollbar-thumb {
+    background-color: #0D4BBE;
+    border-radius: 5px;
+    transition: width 0.2s ease-in-out;
+  }
+  
+  .AppRackContent::-webkit-scrollbar-thumb:hover {
+    background-color: #a5c9fc;
+  }
+
+  /* 앱 다운로드 랭킹 each box */
+.AppRankEach{
+    display: inline-block;
+    height: auto;
+    width: 95%;
+    vertical-align: middle;
+    text-align: center;
+    border-bottom: solid 2px gray;
+    cursor: pointer;
+}
+
+.AppRankEach:hover {
+    background-color: rgb(0, 0, 0, 0.5);
+    color: white;
+}
+
+.appRank-thumbnail {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    vertical-align: middle;
+    border-radius: 10px;
+    background-color: #0D4BBE;;
+    box-shadow: 2px 2px 3px #a8a8a8;
+}
+
+.appRankEach-content-container {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    height: 50px;  
+    width: 400px;
+    margin: 10px 0px 10px 10px;
+}
+
+.appRank-imageName {
+    float: left;
+    position: relative;
+    text-align: left;
+    height: 100%;
+    width: auto;
+    line-height: 50px;
+    margin-left: 20px;
+    font-size: 20px;
+}
+
+.appRank-devName {
+    float: left;
+    position: relative;
+    text-align: left;
+    margin-left: 20px;
+    height: 100%;
+    width: auto;
+    line-height: 50px;
+    color:#a8a8a8;
+}
+
+.appRank-downloadCount {
+    float: right;
+    position: relative;
+    height: 100%;
+    width: 80px;
+    margin-right: 5px;
+    line-height: 50px;
+    text-align: right;
+}
+
+.appRank-dowbloadData {
+    width: 80%;
+    float: left;
+    position: relative;
+    color: #EB3223;
+    font-size: 20px;
+}
+
+.appRank-dowbloadData2 {
+    float: left;
+    position: relative;
+    width: 20%;
+}
+
+/* 월별 앱 다운로드 통계 */
+.MonthlyCountBox {
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+    border: 2px solid black;
+    display: inline-block;
+    height: 460px;
+    box-shadow: 2px 2px 3px #a8a8a8;
+}
+
+.monthlyCountChart-title {
+    font-size: 25px;
+    height: 50px;
+    position: relative;
+    font-family: 'TheJamsil5Bold';
+    line-height: 50px;
+    background-color: black;
+    color: white;
+}
+
+/* 차트 폰트 */
+#pieChart .highcharts-title, #monthlyCountChart .highcharts-title, #totalAppDownload .highcharts-title {
+    font-family: 'TheJamsil5Bold';
+}
+
+#monthlyCountChart .highcharts-data-labels, #pieChart .highcharts-data-labels{
+    font-family: 'TheJamsil5Bold';
+}
+
+#totalAppDownload .highcharts-subtitle, #totalAppDownload .highcharts-no-tooltip, #totalAppDownload .highcharts-caption, #totalAppDownload .highcharts-xaxis-labels, #totalAppDownload .highcharts-yaxis-labels{
+    font-family: 'TheJamsil5Bold';
+    color: 'black';
+    font-weight: bold;
+}
+
+#monthlyCountChart .highcharts-subtitle, #monthlyCountChart .highcharts-no-tooltip, #monthlyCountChart .highcharts-caption, #monthlyCountChart .highcharts-xaxis-labels,#monthlyCountChart .highcharts-yaxis-labels{
+    font-family: 'TheJamsil5Bold';
+    color: 'black';
+    font-weight: bold;
+}

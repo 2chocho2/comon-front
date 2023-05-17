@@ -1,21 +1,19 @@
 import { useState, useEffect } from "react";
-import './footer.css'
+import '../css/footer.css'
 import axios from "axios";
 
 const Footer = (props) => {
 
     const [noticeList, setNoticeList] = useState([]);
-    
+
     const handlerClickNotice = () => {
         props.history.push(`/notice`);
     }
 
     useEffect(() => {
-        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/notice`,
-        { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
+        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/notice/main`)
             .then(res => {
-                console.log(res);
-                setNoticeList(res.data.list1);
+                setNoticeList(res.data);
             })
             .catch(err => {
                 console.log(err);
@@ -34,9 +32,22 @@ const Footer = (props) => {
                 </div>
                 <div className="footer2">
                     <h2 className="title1">공지사항</h2>
-                    <div className="notice" onClick={handlerClickNotice}>
-                        공지사항나올곳어쩌고저쩢고 하드코딩어쩌고기저쩢고
-                        두개는 나올거니까 엊쩌고 저쩌고
+                    <div className='footer-notice-container'>
+                    {
+                        noticeList
+                        &&
+                        noticeList.map((notice, index) => (
+                            <>
+                                <div className='notice'
+                                    onClick={handlerClickNotice}
+                                    key={index}>
+                                    <p className='footer-notice-content'>{notice.registDt.substring(0, 10)}</p>
+                                    <p className='footer-notice-content'>[{notice.noticeCategoryName}]</p>
+                                    <p className='footer-notice-content'>{notice.noticeTitle}</p>
+                                </div>
+                            </>
+                        ))
+                    }
                     </div>
                     <p className="grey">서울 종로구 인사동길12, 7층</p>
                     <p className="grey">사이트 운영자:주식회사 컴온 코리아</p>

@@ -6,6 +6,7 @@ import '../css/scoreCount.css';
 import MyPageSide from "./MyPageSide";
 import Navi from "../Navi/Navi";
 import jwt_decode from "jwt-decode";
+import Swal from "sweetalert2";
 
 const WriteReview = ({ history }) => {
     const location = useLocation();
@@ -24,7 +25,6 @@ const WriteReview = ({ history }) => {
         for (let i = 0; i < 5; i++) {
             clickState[i] = i <= index ? true : false;
         }
-
         setClicked(clickState);
         setScoreCount(clickState.filter(Boolean).length);
     }
@@ -47,13 +47,12 @@ const WriteReview = ({ history }) => {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(response => {
-                console.log(response);
-                alert(`정상적으로 등록되었습니다.`);
+                Swal.fire({text:`정상적으로 등록되었습니다.`})
                 window.location.replace('/mypage/review');
             })
             .catch(error => {
                 console.log(error);
-                alert(`리뷰 등록에 실패했습니다. (${error.message})`);
+                Swal.fire({text:`리뷰 등록에 실패했습니다.`})
                 return;
             })
     }

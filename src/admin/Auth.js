@@ -6,7 +6,6 @@ const Auth = ({ history }) => {
     return (
         <>
             <Reset />
-            {console.log(sessionStorage.getItem('token'))}
             <div className='auth_body'>
                 <div className='auth-content'>
                     <p>접근 권한이 없습니다.</p>

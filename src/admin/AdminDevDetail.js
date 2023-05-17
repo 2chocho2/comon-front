@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import NaviAdmin from "../Navi/NaviAdmin";
 import axios from "axios";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
-import jwtDecode from 'jwt-decode';
-import Auth from './Auth';
 
 
 const AdminDevDetail = ({ history, match }) => {
@@ -15,7 +13,6 @@ const AdminDevDetail = ({ history, match }) => {
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/applist/${userId}`,
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
-                console.log(res.data.list1);
                 setData(res.data.list1);
             })
             .catch(err => {
@@ -36,7 +33,9 @@ const AdminDevDetail = ({ history, match }) => {
             return (
                 <>
                     <tr>
-                        <td><img src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/icon/${d.iconImage}`} style={{ width: '80px', height: '80px' }} /></td>
+                        <td><img src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/icon/${d.iconImage}`} 
+                                style={{ width: '80px', height: '80px' }}
+                                key={index} /></td>
                         <td>{d.imageName}</td>
                         <td>{categoryName}</td>
                         <td>{d.registDt.substring(0, 10)}</td>
@@ -50,7 +49,7 @@ const AdminDevDetail = ({ history, match }) => {
 
     const handlerClickList = () => {
         history.push(`/admin/setting`);
-    }
+    };
 
     return (
         <>
@@ -60,12 +59,13 @@ const AdminDevDetail = ({ history, match }) => {
                 <div className='sidemenu_admin-box'>
                     <div className='admin_logo'></div>
                     <ul className='sidemenu_admin'>
-
                         <li id='admin-setting'><Link to='/admin/setting'>회원 관리</Link></li>
                         <li><Link to='/admin'>모든 앱</Link></li>
                         <li><Link to='/admin/judge'>심사</Link></li>
+                        <li><Link to='/admin/chart'>통계</Link></li>
                     </ul>
                 </div>
+
                 <div className='body'>
                     <p className='body_title'>개발자 관리-{userId}
                         <button type='button'

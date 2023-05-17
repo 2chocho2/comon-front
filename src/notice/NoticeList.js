@@ -7,6 +7,7 @@ import "../css/notice.css";
 import notice1 from "./notice1.png";
 import Navi from '../Navi/Navi';
 import jwtDecode from 'jwt-decode';
+import { FaAngleDown } from "react-icons/fa";
 
 const NoticeList = ({ history }) => {
     const [noticeList, setNoticeList] = useState([]);
@@ -16,24 +17,26 @@ const NoticeList = ({ history }) => {
     const [isDropdownVisible, setIsDropdownVisible] = useState(false);
     const [categoryList, setCategoryList] = useState([]);
     const [authYn, setAuthYn] = useState(false);
+    const [categoryName, setCategoyName] = useState('전체');
 
     useEffect(() => {
-
-        const token = sessionStorage.getItem('token');
-        const decode_token = jwtDecode(token);
-        let authIdx = decode_token.authIdx;
-        console.log(authIdx);
-
-        if (authIdx == '3') {
-            setAuthYn(true);
-        } else {
+        if (sessionStorage.getItem('token') == null) {
             setAuthYn(false);
+        } else {
+            const token = sessionStorage.getItem('token');
+            const decode_token = jwtDecode(token);
+            let authIdx = decode_token.authIdx;
+    
+            if (authIdx == '3') {
+                setAuthYn(true);
+            } else {
+                setAuthYn(false);
+            }
         }
-
+        
         axios
             .get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/notice?currentPage=${currentPage}`)
             .then((response) => {
-                console.log(response.data.list);
                 setNoticeList(response.data.list);
                 setTotalPages(response.data.pageCount);
             })
@@ -43,16 +46,11 @@ const NoticeList = ({ history }) => {
     }, [currentPage]);
 
     useEffect(() => {
-        if (sessionStorage.getItem('token') === null) {
-            alert(`로그인 후 이용 가능합니다.`);
-            history.push(`/login`);
-        }
-
         axios
-            .get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/notice/category`,
-                { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
+            .get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/notice/category`)
             .then((response) => {
-                setCategoryList(response.data);
+                const newData = [{noticeCategoryIdx: 0, noticeCategoryName: '전체'}, ...response.data];
+                setCategoryList(newData);
             })
             .catch((error) => {
                 console.error(error);
@@ -64,17 +62,30 @@ const NoticeList = ({ history }) => {
         setCurrentPage(page);
     };
 
-    const handleCategorySelect = (category) => {
-        setSelectedCategory(category);
-        setIsDropdownVisible(false);
-        axios
-            .get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/notice/category/${category.noticeCategoryIdx}`)
+    const handleCategorySelect = (e) => {
+        setSelectedCategory(e.target.value);
+        setCategoyName(e.target.outerText);
+        toggleDropdownVisibility();
+        if(e.target.value == '0') {
+            axios
+            .get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/notice?currentPage=${currentPage}`)
+            .then((response) => {
+                setNoticeList(response.data.list);
+                setTotalPages(response.data.pageCount);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        } else {
+            axios
+            .get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/notice/category/${e.target.value}`)
             .then((res) => {
                 setNoticeList(res.data);
             })
             .catch((err) => {
                 console.log(err);
             });
+        }
     };
 
     const toggleDropdownVisibility = () => {
@@ -85,21 +96,34 @@ const NoticeList = ({ history }) => {
         const pageNumbers = [];
         for (let i = 1; i <= totalPages; i++) {
             pageNumbers.push(
-                <div
+                <span
                     className={currentPage === i ? "active" : ""}
                     key={i}
                     data-page={i}
                     onClick={handlePageClick}
                 >
                     {i}
-                </div>
+                </span>
             );
         }
-        return pageNumbers;
+        return <div className="paging-numbers">{pageNumbers}</div>;
+    };
+
+    const createCategoryList = () => {
+        return categoryList &&
+            categoryList.map((cat, index) => {
+                return (
+                    <li type='text'
+                        key={index}
+                        value={cat.noticeCategoryIdx}
+                        onClick={handleCategorySelect}
+                        readOnly>{cat.noticeCategoryName}</li>
+                );
+            })
     };
 
     return (
-        <div>
+        <div className="all">
             <Navi history={history} />
             <div className="notice-container">
                 <div className="notice-main">
@@ -110,30 +134,23 @@ const NoticeList = ({ history }) => {
                     </div>
                     COM:ON의 소식을 만나보세요
                 </div>
-                <div className="notice-category">
-                    <div id="app" className="category">
-                        <button className="btn" onClick={toggleDropdownVisibility}>
-                            {selectedCategory ? selectedCategory.noticeCategoryName : "전체"}
-                        </button>
-                        <NoticeCategory
-                            visibility={isDropdownVisible}
-                            setVisibility={setIsDropdownVisible}>
-                            {
-                            categoryList
-                            &&
-                            categoryList.map((category) => (
-                                <ul className="category-list" 
-                                    key={category.noticeCategoryIdx}>
-                                    <li className="category-name" 
-                                        value={category.noticeCategoryIdx} 
-                                        onClick={() => handleCategorySelect(category)}>
-                                        {category.noticeCategoryName}
-                                    </li>
+                <div className="notice-dropdown">
+                    <div className="notice-drop-container">
+                        <input id="dropdown" type="checkbox" />
+                        <label className="dropdownLabel" htmlFor="dropdown" onClick={() => setIsDropdownVisible(true)}>
+                            <div>{categoryName}</div>
+                            <FaAngleDown className="caretIcon" />
+                        </label>
+                        <div className="content">
+                            {isDropdownVisible &&
+                                <ul>
+                                    {createCategoryList()}
                                 </ul>
-                            ))}
-                        </NoticeCategory>
+                            }
+                        </div>
                     </div>
                 </div>
+
                 <table width="80%" className="notice-list">
                     <colgroup>
                         <col width="15%" />
@@ -172,7 +189,6 @@ const NoticeList = ({ history }) => {
                             글쓰기
                         </Link>
                     }
-
                 </div>
                 <div className="paging">{renderPageNumbers()}</div>
             </div>

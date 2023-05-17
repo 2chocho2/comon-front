@@ -13,7 +13,7 @@ const MyServiceRun = ({ data,
    
     return (
         <>
-        {console.log(closeModal)}
+        
             <div id="my-container">
                 <div className='my-service-box'>
                         {data
@@ -40,12 +40,10 @@ const MyServiceRun = ({ data,
                                                                 {data.userName}                                                            </p>
                                                             <p className='my-app-hover-description-description'>{data.imageDescription}</p>
                                                         </div>
-
                                                     </>
                                                     :
                                                     <>
                                                         <div className='my-app-header'>
-                                                            
                                                             <div className='app-header-round'></div>
                                                             <div className='app-header-round'></div>
                                                             <div className='app-header-round'></div>
@@ -63,7 +61,6 @@ const MyServiceRun = ({ data,
                                                     </>
                                             }
                                         </div>
-
                                         {
                                             modalIsOpen
                                             &&
@@ -73,13 +70,11 @@ const MyServiceRun = ({ data,
                                                         port={port}
                                             />
                                         }
-
                                     </div>
                                 </>
                             ))}
                     </div>
                 </div>
-           
         </>
     );
 };

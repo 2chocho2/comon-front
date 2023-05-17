@@ -4,8 +4,7 @@ import axios from 'axios';
 import NaviAdmin from '../Navi/NaviAdmin';
 import '../css/dev.css';
 import JudgeModal from './JudgeModal';
-import jwtDecode from 'jwt-decode';
-import Auth from './Auth';
+import Swal from "sweetalert2";
 
 const JudgeDetail = ({ match, history }) => {
 
@@ -22,7 +21,6 @@ const JudgeDetail = ({ match, history }) => {
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist/${imageidx}`,
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
-                console.log(res.data);
                 setData(res.data);
             })
             .catch(err => {
@@ -32,22 +30,36 @@ const JudgeDetail = ({ match, history }) => {
 
     // 승인 후 자동 앱 출시
     const handlerOnSubmit = () => {
-        console.log(`Bearer ${sessionStorage.getItem('token')}`)
 
-        axios.put(
-            `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/access/${imageidx}`,
-            '',
-            { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } }
-        )
-            .then(res => {
-                console.log(res);
-                alert('정상적으로 처리되었습니다.');
-                history.push(`/admin`);
+        new Swal({
+            title: "앱을 출시하시겠습니까?",
+            text: "앱을 출시하게 되면 바로 사용자가 사용 가능한 상태가 됩니다.",
+            showCancelButton: true,
+            confirmButtonText: 'OK',
+            cancelButtonText: 'Cancel',
+            dangerMode: true,
+            reverseButtons: true
+        })
+
+            .then((result) => {
+                if (result.isConfirmed) {
+                    axios.put(
+                        `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/access/${imageidx}`,
+                        '',
+                        { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } }
+                    )
+                        .then(res => {
+                            Swal.fire("앱이 출시되었습니다.");
+                            history.push(`/admin`);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            Swal.fire("승인 처리 중 오류가 발생했습니다.");
+                        })
+                }
             })
-            .catch(err => {
-                console.log(err);
-                alert('승인 처리 중 오류가 발생했습니다.')
-            })
+
+
     };
 
 
@@ -58,9 +70,7 @@ const JudgeDetail = ({ match, history }) => {
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/denylist`,
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
-                console.log(res);
                 setDenyList(res.data);
-
             })
             .catch(err => {
                 console.log(err);
@@ -78,8 +88,7 @@ const JudgeDetail = ({ match, history }) => {
         axios.put(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/deny/${imageidx}/${denyIdx}`,
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
-                console.log(res);
-                alert(`심사 거절 처리가 완료되었습니다.`);
+                Swal.fire({ text: `심사 거절 처리가 완료되었습니다.` });
                 setModalIsOpen(false);
                 history.push(`/admin`);
             })
@@ -144,19 +153,18 @@ const JudgeDetail = ({ match, history }) => {
 
     return (
         <>
-
-
             <div>
                 <NaviAdmin history={history} />
                 <div className='sidemenu_admin-box'>
                     <div className='admin_logo'></div>
                     <ul className='sidemenu_admin'>
-
                         <li><Link to='/admin/setting'>회원 관리</Link></li>
                         <li><Link to='/admin'>모든 앱</Link></li>
                         <li id='admin-setting'><Link to='/admin/judge'>심사</Link></li>
+                        <li><Link to='/admin/chart'>통계</Link></li>
                     </ul>
                 </div>
+
                 <div className='body'>
                     <p className='body_title'>심사 앱 관리</p>
                     <p className='body_subtitle'>앱 세부 정보</p>
@@ -166,6 +174,7 @@ const JudgeDetail = ({ match, history }) => {
                                 <p className='detailform-title'>카테고리</p>
                                 {handlerSetCategoryName()}
                             </li>
+
                             <li className='detailform-each'>
                                 <p className='detailform-title'>앱 이름</p>
                                 <input type='text'
@@ -173,6 +182,7 @@ const JudgeDetail = ({ match, history }) => {
                                     value={data.imageName}
                                     readOnly />
                             </li>
+
                             <li className='detailform-each'>
                                 <p className='detailform-title'>간단한 앱 설명</p>
                                 <input type='text'
@@ -180,6 +190,7 @@ const JudgeDetail = ({ match, history }) => {
                                     value={data.imageDescription}
                                     readOnly />
                             </li>
+
                             <li className='detailform-each'>
                                 <p className='detailform-title'>자세한 설명</p>
                                 <textarea type='text'
@@ -187,6 +198,7 @@ const JudgeDetail = ({ match, history }) => {
                                     value={data.imageDetail}
                                     readOnly />
                             </li>
+
                             <div className='img-container'>
                                 <div id='img-box'>
                                     <li className='imgform-each'>
@@ -194,8 +206,8 @@ const JudgeDetail = ({ match, history }) => {
                                         <div className='icon-img-box'>
                                             <img className='iconImg' src={iconImage} />
                                         </div>
-
                                     </li>
+
                                     <li className='imgform-each'>
                                         <p className='imgform-title1'>썸네일 이미지 </p>
                                         <div className='icon-img-box'>
@@ -203,6 +215,7 @@ const JudgeDetail = ({ match, history }) => {
                                         </div>
                                     </li>
                                 </div>
+
                                 <li className='sh-imgform-each'>
                                     <p className='imgform-title2'>스크린샷 이미지</p>
                                     <div className='sh-img-box'>
@@ -212,6 +225,7 @@ const JudgeDetail = ({ match, history }) => {
                                     </div>
                                 </li>
                             </div>
+                            
                             <li className='detailform-each'>
                                 <p className='fileform-title'>실행 파일 다운로드</p>
                                 <button className='file-button' type='button'

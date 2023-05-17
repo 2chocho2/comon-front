@@ -33,6 +33,7 @@
     float: left;
     margin: 0px;
     margin-right: 40px;
+    cursor: pointer;
 }
 
 .default-navi .default-link {
@@ -194,6 +195,7 @@ menu::after {
     float: left;
     margin: 0px;
     margin-right: 40px;
+    cursor: pointer;
 }
 
 .user-navi .user-link {
@@ -258,10 +260,14 @@ menu::after {
 .login-btn {
     background-color: black;
     border: none;
-    font-family: 'TheJamsil5Bold';
     color: white;
     width: 80px;
     cursor: pointer;
+    font-family: 'TheJamsil5Bold';
+}
+
+.login-msg {
+    float: left;
 }
 
 .main-link {
@@ -282,11 +288,9 @@ menu::after {
 #user-button {
     margin-right: 150px;
     float: right;
-    cursor: pointer;
 }
 #default-button {
     float: right;
-    cursor: pointer;
 }
 
 .logout-navi-icon,
@@ -298,9 +302,4 @@ menu::after {
     margin: 0px 10px;
     vertical-align: middle;
     cursor: pointer;
-}
-
-/* 환영합니다 메시지 */
-.login-msg {
-    float: left;
 }

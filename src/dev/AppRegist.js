@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import '../css/dev.css';
 import NaviDev from '../Navi/NaviDev';
 import Auth from '../admin/Auth';
+import Swal from "sweetalert2";
 
 const AppRegist = ({ history }) => {
 
@@ -164,15 +165,15 @@ const AppRegist = ({ history }) => {
         }
 
         if (files.length > MAX_FILE_COUNT) {
-            invalidFile("이미지는 최대 6개 까지 업로드가 가능합니다.");
+            Swal.fire({text:"이미지는 최대 6개 까지 업로드가 가능합니다."});
             return;
         }
         for (let i = 0; i < files.length; i++) {
             if (!files[i].type.match("image/.*")) {
-                invalidFile("이미지 파일만 업로드 가능합니다.");
+                Swal.fire({text:"이미지 파일만 업로드 가능합니다."});
                 return;
             } else if (files[i].size > MAX_FILE_SIZE) {
-                invalidFile("이미지 크기는 1MB를 초과할 수 없습니다.");
+                Swal.fire({text:"이미지 크기는 1MB를 초과할 수 없습니다."});
                 return;
             }
         }
@@ -190,7 +191,7 @@ const AppRegist = ({ history }) => {
         setYamlFile(e.target.files);
 
         if (files.length > 1) {
-            alert("실행 파일은 1개만 등록할 수 있습니다.");
+            Swal.fire({text:'실행 파일은 1개만 등록할 수 있습니다.'});
             inputFiles4.current.value = '';
             setYamlFile([]);
         }
@@ -226,12 +227,12 @@ const AppRegist = ({ history }) => {
         })
             .then(res => {
                 res.data.split('\n').forEach(data => console.log(data));
-                alert(`정상적으로 신청이 완료되었습니다.`);
+                Swal.fire({text:`정상적으로 신청이 완료되었습니다.`});
                 history.push('/admin');
             })
             .catch(err => {
                 console.log(err);
-                alert('업로드 중 오류가 발생했습니다.');
+                Swal.fire({text:'업로드 중 오류가 발생했습니다.'});
             })
     };
 

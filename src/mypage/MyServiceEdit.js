@@ -1,7 +1,6 @@
 import { RiUserSmileFill } from 'react-icons/ri';
 import { TiDelete } from 'react-icons/ti';
 
-
 const MyServiceEdit = ({ data,
     handlerMouseOut,
     handlerMouseOver,
@@ -34,13 +33,10 @@ const MyServiceEdit = ({ data,
                                                         </p>
                                                         <p className='my-app-hover-description-description'>{data.imageDescription}</p>
                                                     </div>
-
                                                 </>
                                                 :
                                                 <>
                                                     <div className='my-app-header'>
-                                                        {/* <div className='app-header-round-left'></div>
-                                                            <div className='app-header-round-right'></div> */}
                                                         <div className='app-header-round'></div>
                                                         <div className='app-header-round'></div>
                                                         <div className='app-header-round'></div>
@@ -69,7 +65,6 @@ const MyServiceEdit = ({ data,
                         ))}
                 </div>
             </div>
-
         </>
     );
 };

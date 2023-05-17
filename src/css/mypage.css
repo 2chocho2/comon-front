@@ -1,28 +1,35 @@
-* {
-    box-sizing: border-box;
-}
-
 @font-face {
     font-family: 'TheJamsil5Bold';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
     font-weight: 300;
     font-style: normal;
 }
+@font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
 #my-container {
     height: 100vh;
     overflow: hidden;
 }
+
 /* 마이페이지 사이드 메뉴 */
 .mypage-side-box {
-    /* background-color: #D9D9D9; */
-    /* background: linear-gradient(to top, #e5e8e9, #898c8f); */
     width: 25%;
     height: 93.6vh;
     float: left;
     text-align: center;
-    /* padding-top: 100px; */
     font-family: 'TheJamsil5Bold';
 }
+
 .sidebox-bg {
     width: 25%;
     height: 93.6vh;
@@ -57,6 +64,7 @@
     margin-left: auto;
     margin-right: auto;
 }
+
 /* 메뉴 */
 .mypage-side-link li {
     line-height: 50px;
@@ -83,23 +91,26 @@
 .mypage-side-link li:first-child {
     border-top: 3px solid black;
 }
+
 .mypage-side-link li:last-child {
     border-bottom: 3px solid black;
 }
+
 #my-setting {
     background-color: rgb(0, 0, 0, 0.2);
 }
+
 /* 사용 중 서비스 */
 .my-service-body {
     width: 75%;
     height: 93.6vh;
-    /* background-color: antiquewhite; */
     display: inline-block;
     padding: 100px 150px;
     text-align: center;
     font-family: 'TheJamsil5Bold';
     overflow-y: auto;
 }
+
 /* 스크롤바 css */
 .my-service-body::-webkit-scrollbar {
     width: 5px;
@@ -135,17 +146,15 @@
     width: 1100px;
     height: 100%;
     margin-top: 50px;
-    /* background-color: skyblue; */
     display: inline-block;
 }
 
 .my-app-each-contain-delete {
     width: 490px;
     height: 440px;
-    margin: 0px 30px 30px 30px ;
+    margin: 0px 30px 30px 30px;
     float: left;
     position: relative;
-    /* border: 1px solid #0000FF; */
 }
 
 .my-app-each {
@@ -178,37 +187,18 @@
     float: right;
     margin: 13px 0px 13px 20px;
 }
+
 .app-header-round:nth-child(1) {
     background-color: #74da79;
 }
+
 .app-header-round:nth-child(2) {
     background-color: #ffdf87;
 }
+
 .app-header-round:nth-child(3) {
     background-color: #fda5a5;
 }
-
-/* .app-header-round-left {
-    width: 20px;
-    height: 20px;
-    border-radius: 50px;
-    background-color: white;
-    float: left;
-    vertical-align: middle;
-    margin-left: 30px;
-    margin-top: 13px;
-}
-
-.app-header-round-right {
-    width: 20px;
-    height: 20px;
-    border-radius: 50px;
-    background-color: white;
-    float: left;
-    vertical-align: middle;
-    margin-left: 340px;
-    margin-top: 13px;
-} */
 
 .my-app-image {
     width: 100%;
@@ -235,7 +225,8 @@
 
 .my-app-devname {
     text-align: left;
-    font-size: 0.8em;
+    font-size: 1em;
+    color: gray;
     vertical-align: middle;
     margin: 5px 0px 10px 0px;
 }
@@ -275,11 +266,10 @@
 .my-app-hover-devname {
     color: gray;
     text-align: right;
-    /* vertical-align: top; */
-    /* background-color: #5e5e5e; */
     font-size: 1em;
     margin: 20px 0;
 }
+
 .my-app-hover-devicon {
     vertical-align: middle;
     font-size: 1.5em;
@@ -312,16 +302,18 @@
     box-shadow: 0px 0px 8px black;
     cursor: pointer;
     animation: vibration 0.2s infinite ease-in-out;
-    
+
 }
+
 @keyframes vibration {
     from {
-      transform: rotate(5deg);
+        transform: rotate(5deg);
     }
+
     to {
-      transform: rotate(-5deg);
+        transform: rotate(-5deg);
     }
-  }
+}
 
 /* 회원 정보 수정 */
 .edit-user-info-body {
@@ -342,7 +334,6 @@
 }
 
 .edit-user-info-form {
-    /* background-color: skyblue; */
     margin-top: 100px;
 }
 
@@ -355,10 +346,12 @@
     margin-bottom: 15px;
     position: relative;
 }
+
 .edit-user-info {
     width: 90%;
     float: left;
 }
+
 .user-info-icon {
     background-color: black;
     width: 10%;
@@ -367,6 +360,7 @@
     color: white;
     float: left;
 }
+
 .edit-user-info-form-title {
     background-color: white;
     text-align: left;
@@ -387,6 +381,7 @@
     font-size: 1.2em;
     padding: 5px 10px;
 }
+
 .edit-user-info-form span {
     color: red;
     font-size: 12px;
@@ -413,70 +408,124 @@
 
 
 /* --------------------------------------------------------------- */
-/* 리뷰 작성 */
-.my-service-titleName {
-    font-size: 30px;
-    color: #0000FF;
+/* 리뷰 작성하기 */
+.my-review-body {
+    width: 75%;
+    height: 93.6vh;
+    display: inline-block;
+    padding: 100px;
+    text-align: center;
+    font-family: 'TheJamsil5Bold';
+    overflow-y: auto;
 }
 
-.my-service-titleName2 {
-    font-size: 30px;
+/* 스크롤 css */
+.my-review-body::-webkit-scrollbar {
+    width: 5px;
+}
+
+.my-review-body::-webkit-scrollbar-thumb {
+    background-color: gray;
+    border-radius: 5px;
+}
+
+.my-review-container {
+    border: 3px solid black;
+    background-color: white;
+}
+
+.my-review-window {
+    background-color: black;
+    width: 100%;
+    height: 35px;
+    line-height: 35px;
+    color: white;
+}
+
+.my-review-content-box {
+    padding: 50px 150px;
+}
+
+.my-review-header {
+    text-align: center;
+    width: 100%;
+    margin: auto;
+    padding-bottom: 15px;
+    border-bottom: 3px solid black;
+}
+
+.my-review-titleName {
+    font-size: 2.3em;
+    margin-bottom: 5px;
+    color: #32b482;
+}
+
+.my-review-titleName2 {
+    font-size: 1.5em;
     color: black;
     text-align: left;
 }
 
-.Stars{
-    margin-top: 20px;
-}
-
-.ReviewContent {
-    width: 100%;
-    height: 500px;
-    display: block;
-    padding: 20px;
-    margin-top: 40px;
-    justify-content: center;
-    border: 3px solid #878787;
-    box-shadow: 5px 5px 3px #666;
-    background-color: #F2F2F2;
+.Stars {
+    margin: 20px 0px;
 }
 
 .ReviewContentInput {
     width: 100%;
-    height: 100%;
-    font-family: 'TheJamsil5Bold';
-    line-height: normal;  /* line-height 초기화 */
-    padding: .8em .5em;  /* 여백 설정 */
-    font-size: 20px;
-    overflow-wrap: break-word;
+    height: 300px;
+    padding: 15px;
+    font-family: 'SUITE-Regular';
+    font-size: 1.5em;
+    font-weight: bold;
+    line-height: 1.5em;
     word-break: break-all;
     white-space: pre-wrap;
-    border: none;
+    justify-content: center;
+    border: 3px solid black;
     outline: none;
-    background-color: #F2F2F2;
+    background-color: white;
     color: black;
+    resize: none;
+}
+
+.ReviewContentInput::placeholder {
+    font-size: 0.8em;
+}
+
+/* 스크롤바css */
+.ReviewContentInput::-webkit-scrollbar {
+    width: 5px;
+}
+
+.ReviewContentInput::-webkit-scrollbar-thumb {
+    background-color: gray;
+    border-radius: 5px;
 }
 
 .ReviewSubmit {
     height: 40px;
-    width: 250px;
-    margin-top: 60px;
+    width: 100%;
+    background-color: black;
     color: white;
+    margin-top: 30px;
     outline: none;
     border: none;
-    background-color: black;
     cursor: pointer;
-    font-size: 17px;
     font-family: 'TheJamsil5Bold';
+    font-size: 1.2em;
+    transition: all .1s ease;
+}
+
+.ReviewSubmit:hover {
+    background: linear-gradient(40deg, #d7ffc1, #b4fce6);
+    color: black;
 }
 
 /* 사용 중 서비스 리뷰 */
 .my-review-box {
     text-align: center;
-    width: 1060px;
-    height: 100%;
-    margin-top: 100px;
-    /* background-color: skyblue; */
+    width: 1100px;
+    margin-top: 60px;
     display: inline-block;
 }
 
@@ -486,9 +535,9 @@
     border: 3px solid black;
     float: left;
     position: relative;
-    margin: 0px 40px 30px 40px;
+    margin: 40px 50px;
     box-shadow: 3px 3px 3px rgb(0, 0, 0, 0.5);
-} 
+}
 
 .my-review-description {
     background-color: rgba(0, 0, 0, 0.9);
@@ -514,16 +563,19 @@
     margin: 10px 0px 15px 0px;
     border-bottom: 3px solid white;
 }
+
 .my-review-devicon {
     font-size: 1.2em;
     vertical-align: middle;
 }
+
 .my-review-description-description {
     font-size: 1em;
 }
 
 /* 앱리뷰 작성하기 hover 버튼 */
-.WriteReviewButton, .CompleteReviewButton {
+.WriteReviewButton,
+.CompleteReviewButton {
     height: 40px;
     width: 250px;
     margin-top: 30px;
@@ -533,22 +585,30 @@
     font-family: 'TheJamsil5Bold';
     font-size: 1.2em;
 }
+
 .WriteReviewButton {
     background: linear-gradient(40deg, #d7ffc1, #b4fce6);
     color: black;
 }
+
 .CompleteReviewButton {
     background-color: white;
     color: black;
 }
 
 /* 작성한 리뷰 리스트 */
+.my-review-list-box {
+    margin: 80px 0px;
+}
+
 .my-app-review-content {
     width: 100%;
-    height: 180px;
-    margin-top: 50px;
-    margin-bottom: 20px;
-    border-bottom: solid 2px;
+    height: 250px;
+    padding: 50px 0px;
+    margin-bottom: 50px;
+    border: 3px solid black;
+    border-radius: 20px;
+    box-shadow: 3px 3px 3px rgb(0, 0, 0, 0.5);
 }
 
 .reviewlist-content-each {
@@ -559,7 +619,7 @@
 
 .reviewlist-icon {
     float: left;
-    height: 150px;  
+    height: 150px;
     width: 15%;
     text-align: center;
 }
@@ -570,14 +630,14 @@
     margin-top: 15px;
     margin-bottom: 15px;
     border-radius: 10px;
-    background-color: #0000FF;
-    box-shadow: 2px 2px 3px #a8a8a8;
+    box-shadow: 0px 0px 3px 3px rgb(0, 0, 0, 0.5);
 }
 
 .reviewlist-each-content-container {
-    height: 150px;  
-    width: calc(75% - 20px);
-    margin: 0px 10px;
+    height: 150px;
+    width: calc(75% - 10px);
+    margin-left: 10px;
+    padding: 15px 15px;
     background-color: #D9D9D9;
     border-radius: 10px;
     text-align: left;
@@ -585,25 +645,57 @@
 }
 
 .reviewlist-each-content {
-    margin-top: 20px;
-    margin-left: 20px;
     height: 100px;
+    padding-right: 5px;
+    margin-bottom: 10px;
+    font-family: 'SUITE-Regular';
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+    white-space: inherit;
+    text-align: justify;
+    overflow-y: auto;
+}
+
+/* 스크롤 css */
+.reviewlist-each-content::-webkit-scrollbar {
+    width: 5px;
+}
+
+.reviewlist-each-content::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 5px;
 }
 
 .reviewlist-each-regisDt {
-    margin-bottom: 20px;
-    margin-right: 20px;
+    font-size: 14px;
+    padding-right: 5px;
     text-align: end;
-    color: #616161;
+    color: gray;
 }
 
 .delete-box {
     float: left;
     width: 10%;
     height: 150px;
+    position: relative;
 }
 
 .ReviewDeleteButton {
-    height: 150px;
-    font-size: 40px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: 3px solid black;
+    color: black;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all .2s ease;
+}
+
+.ReviewDeleteButton:hover {
+    background-color: black;
+    color: white;
 }

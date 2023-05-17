@@ -3,8 +3,9 @@ import axios from "axios";
 import NaviDefault from "../Navi/NaviDefault";
 import '../css/login.css'
 import { BiShowAlt, BiHide } from "react-icons/bi";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Swal from "sweetalert2";
 
 const DevLogin = ({ history }) => {
 
@@ -18,7 +19,6 @@ const DevLogin = ({ history }) => {
     // 변수 선언 
     const [userId, setUserId] = useState('');
     const [userPassword, setUserPassword] = useState('');
-    // const [passwordOption, setPasswordOption] = useState(false);
 
     // 핸들러 정의
     const handlerChangeUserId = e => setUserId(e.target.value);
@@ -34,19 +34,18 @@ const DevLogin = ({ history }) => {
     const handlerOnClick = e => {
         axios.post(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/login`, { userId, userPassword })
             .then(response => {
-                console.log(response);
                 if (response.data) {
                     sessionStorage.setItem("token", response.data);
                     showToastMessage(`🦄 환영합니다!`);
                     history.push('/dev/applist');
                 } else {
-                    alert('ID, PW가 일치하지 않습니다. 확인 후 다시 시도해주세요.')
+                    Swal.fire({text:`ID, PW가 일치하지 않습니다. 확인 후 다시 시도해주세요.`});
                     sessionStorage.clear();
                 }
             })
             .catch(error => {
                 console.log(error);
-                alert('ID, PW가 일치하지 않습니다. 확인 후 다시 시도해주세요.')
+                Swal.fire({text:`ID, PW가 일치하지 않습니다. 확인 후 다시 시도해주세요.`});
                 sessionStorage.clear();
             });
     };
@@ -68,22 +67,27 @@ const DevLogin = ({ history }) => {
     return (
         <>
             <div id="my-container">
-                <NaviDefault />
-                <div className="login-bg">
+                <NaviDefault history={history}/>
+                <div className="dev-login-bg">
                     <div className="login-container">
                         <div className="login-box">
-                            <div className="login-header">
+                            <div className="dev-login-header">
                                 <div className="round1" />
                                 <div className="round2" />
                                 <div className="round3" />
                             </div>
+                            
                             <div className="login-body">
                                 <div className="rotate-box">
                                     <div className="rotation-text" />
                                     <div className="login-logo" />
                                 </div>
-                                <div className="login-content">
-                                    <p>Hello! COM:ON! Developer Login</p>
+                                
+                                <div className="dev-login-content">
+                                    <div className="login-content-title">
+                                        <p>Hello! COM:ON!!</p>
+                                        <p>Developer</p>
+                                    </div>
                                     <input className='login-id'
                                         type="text"
                                         value={userId}
@@ -105,16 +109,6 @@ const DevLogin = ({ history }) => {
                                         </div>
                                     </div>
 
-                                    {/* <span className="checkbox-item">
-                                    <input
-                                        type="checkbox"
-                                        checked={passwordOption}
-                                        onChange={() => setPasswordOption(!passwordOption)}
-                                    />
-                                    <label>
-                                        <span>비밀번호 표시</span>
-                                    </label>
-                                    </span> */}
                                     {/* 아이디, 비밀번호 두개다 입력했을 때 색깔 변화 */}
                                     <section>
                                         <button className="loginBtn"
@@ -126,21 +120,9 @@ const DevLogin = ({ history }) => {
                                             개발자 로그인
                                         </button>
                                     </section>
+                                    
                                     <button className='register-btn' onClick={handlerRegist}>개발자 계정이 없으신가요?</button>
                                 </div>
-                                {/* <div className="social-login-box">
-                                    <p>소셜 로그인</p> */}
-                                    {/* 다양한 방식의 로그인 컴포넌트를 추가 */}
-                                    {/* <div className="login-btn-box">
-                                        <div className="naver-btn">
-                                            <NaverLogin />
-                                        </div>
-                                        <div className="kakao-btn">
-                                            <KakaoLogin />
-                                        </div>
-                                    </div> */}
-
-                                {/* </div> */}
                             </div>
                         </div>
                     </div>

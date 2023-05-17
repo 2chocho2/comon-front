@@ -6,6 +6,7 @@ import { BsPencilFill } from 'react-icons/bs';
 import jwt_decode from "jwt-decode";
 import MyServiceEdit from "./MyServiceEdit";
 import MyServiceRun from "./MyServiceRun";
+import Swal from "sweetalert2";
 
 const MyService = ({ history }) => {
 
@@ -17,9 +18,8 @@ const MyService = ({ history }) => {
     const [port, setPort] = useState('');
 
     useEffect(() => {
-        console.log(modalIsOpen);
         if (sessionStorage.getItem('token') === null) {
-            alert(`로그인 후 이용 가능합니다.`);
+            Swal.fire({text:`로그인 후 이용 가능합니다.`})
             history.push(`/login`);
         }
 
@@ -27,8 +27,7 @@ const MyService = ({ history }) => {
         const decode_token = jwt_decode(token);
         setUserId(decode_token.sub);
         let userId = decode_token.sub;
-        console.log(decode_token);
-
+        
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/myservice/${userId}`,
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
@@ -70,21 +69,37 @@ const MyService = ({ history }) => {
     async function handlerRunApp(index) {
         try {
             setIsLoading(true);
-            const result = await axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/runapp/${userId}/${index}`,
-                { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } });
+            const result = await axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/runapp/${userId}/${index}`, {
+                headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
+            });
 
             console.log("exitCode", result.data.exitCode);
 
             if (result.data.exitCode != '0') {
-                handlerRunApp(index);
-            } else if (result.data.exitCode == '0') {
-                setIsLoading(false);
-                setPort(result.data.endpointPort)
+                setTimeout(() => handlerRunApp(index), 10000);
+            } else {
+                setPort(result.data.endpointPort);
+                setTimeout(() => checkServerHealth(result.data.endpointPort), 10000);
             }
         } catch (err) {
             console.log(err);
             return;
         }
+    }
+
+    function checkServerHealth(endpointPort) {
+        fetch(`http://${process.env.REACT_APP_IP}:${endpointPort}`, { mode: 'no-cors' } )
+            .then(response => {
+                if (response) {
+                    setIsLoading(false);
+                } else {
+                    console.error('Server is not healthy');
+                }
+            })
+            .catch(error => {
+                console.error('error:', error);
+                setTimeout(() => checkServerHealth(endpointPort), 10000);
+            });
     };
 
     const closeModal = () => {
@@ -101,8 +116,7 @@ const MyService = ({ history }) => {
         axios.delete(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/mypage/${e}/${userId}`,
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
-                console.log(res.data);
-                alert(`삭제가 완료되었습니다.`);
+                Swal.fire({text:'삭제가 완료되었습니다.'})
                 window.location.reload();
             })
             .catch(err => {
@@ -120,7 +134,6 @@ const MyService = ({ history }) => {
                     <BsPencilFill title="사용중인 앱 설정"
                         className='my-service-delete-button'
                         onClick={handlerClickDelete} />
-
                     {
                         isEditing
                             ?

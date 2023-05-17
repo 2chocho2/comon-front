@@ -15,24 +15,24 @@ const AdminSetting = ({ history }) => {
     const [authYn, setAuthYn] = useState(true);
 
     useEffect(() => {
-
-        const token = sessionStorage.getItem('token');
-        const decode_token = jwtDecode(token);
-        let authIdx = decode_token.authIdx;
-        console.log(authIdx);
-        if (authIdx == '3') {
-            setAuthYn(true);
-        } else {
+        if (sessionStorage.getItem('token') == null) {
             setAuthYn(false);
+        } else {
+            const token = sessionStorage.getItem('token');
+            const decode_token = jwtDecode(token);
+            let authIdx = decode_token.authIdx;
+            if (authIdx === 3) {
+                setAuthYn(true);
+            } else {
+                setAuthYn(false);
+            }
         }
         
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/setting`,
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
-                console.log(res);
                 setUserData(res.data.userList);
                 setDevData(res.data.devList);
-                console.log(res.data.devList);
             })
             .catch(err => {
                 console.log(err);
@@ -57,13 +57,11 @@ const AdminSetting = ({ history }) => {
     const toggleFilterButton = (e) => {
 
         setFilterActive(e.target.id);
-        console.log(filterActive);
-
+        
         if (e.target.id == 1) {
             axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/setting`,
                 { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
                 .then(res => {
-                    console.log(res.data);
                     setUserData(res.data.userList);
                     setDevData(res.data.devList);
                 })
@@ -76,7 +74,6 @@ const AdminSetting = ({ history }) => {
             axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/setting`,
                 { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
                 .then(res => {
-                    console.log(res.data);
                     setUserData(res.data.userList);
                 })
                 .catch(err => {
@@ -88,7 +85,6 @@ const AdminSetting = ({ history }) => {
             axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/setting`,
                 { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
                 .then(res => {
-                    console.log(res.data);
                     setDevData(res.data.devList);
                 })
                 .catch(err => {
@@ -105,7 +101,6 @@ const AdminSetting = ({ history }) => {
         history.push(`/admin/devdetail/${e}`);
     };
 
-
     return (
         <>
         {
@@ -118,12 +113,13 @@ const AdminSetting = ({ history }) => {
                 <div className='sidemenu_admin-box'>
                     <div className='admin_logo'></div>
                     <ul className='sidemenu_admin'>
-
                         <li id='admin-setting'><Link to='/admin/setting'>회원 관리</Link></li>
                         <li><Link to='/admin'>모든 앱</Link></li>
                         <li><Link to='/admin/judge'>심사</Link></li>
+                        <li><Link to='/admin/chart'>통계</Link></li>
                     </ul>
                 </div>
+
                 <div className='body'>
                     <p className='body_title'>회원 관리</p>
                     <div className='filterSetButton'>
@@ -184,15 +180,11 @@ const AdminSetting = ({ history }) => {
                                     )
                                 })
                             }
-
-
-
                         </tbody>
                     </table>
                 </div>
             </div>
-        }
-            
+        }         
         </>
     )
 }

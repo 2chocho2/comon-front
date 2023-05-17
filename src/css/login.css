@@ -23,7 +23,7 @@
     overflow: hidden;
 }
 
-.login-bg {
+.select-login-bg {
     width: 100%;
     height: 937px;
     background-image: url('../img/bg-login.png');
@@ -32,24 +32,52 @@
     background-position: center;
 }
 
+.login-bg {
+    width: 100%;
+    height: 937px;
+    background-image: url('../img/bg-userlogin.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+}
+
+.dev-login-bg {
+    width: 100%;
+    height: 937px;
+    background-image: url('../img/bg-devlogin.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+}
+
 .login-container {
-    /* border: 3px solid blue; */
-    height: 100vh;
+    height: 93.6vh;
     padding: 100px 400px;
+    position: relative;
 }
 
 .login-box {
+    width: 60%;
     border: 3px solid black;
     background-color: white;
     text-align: center;
     box-shadow: 3px 3px 5px 3px rgb(0, 0, 0, 0.5);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 /* 헤더 */
 .login-header {
-    /* height: 35px; */
     padding: 15px 40px;
     background-color: rgb(155, 155, 155);
+    border-bottom: 3px solid black;
+}
+
+.dev-login-header {
+    padding: 15px 40px;
+    background-color: #ffbb00;
     border-bottom: 3px solid black;
 }
 
@@ -159,7 +187,6 @@
     float: left;
     padding: 0px 10px;
     margin-top: 10px;
-    /* background-color: skyblue; */
 }
 
 .dev-login-content {
@@ -212,11 +239,9 @@
 /* 패스워드 아이콘 */
 .login-pwd-input {
     position: relative;
-    /* border: 1px solid pink; */
 }
 
 .login-pwd-show {
-    /* border: 3px solid blue; */
     font-size: 1.5em;
     position: absolute;
     top: 20%;
@@ -229,49 +254,32 @@
 .select-login-content {
     display: inline-block;
     text-align: center;
-    margin: 80px auto 100px auto;
+    margin: 60px auto 80px auto;
+    width: 80%;
 }
 
 .select-login-content .select-login-title {
     font-family: 'TheJamsil5Bold';
     font-size: 5em;
-    margin-bottom: 80px;
+    margin-bottom: 50px;
     background: linear-gradient(40deg, rgb(255, 162, 162), rgb(118, 87, 255));
     animation: huerotator 10s infinite alternate;
     color: transparent;
     -webkit-background-clip: text;
 }
 
-/* 로그인 버튼 */
-.loginBtn {
-    width: 100%;
-    height: 40px;
-    font-family: 'TheJamsil5Bold';
-    font-size: 1em;
-    cursor: pointer;
-    border: 3px solid black;
-    background-color: black;
-    color: white;
-}
-
-.loginBtn:disabled {
-    border: 3px solid black;
-    background-color: lightgray;
-    color: black;
-    cursor: none;
-}
-
 /* 선택 로그인 */
 .select-login-box {
     display: inline-block;
+    width: 100%;
 }
 
 .select-dev-loginBtn,
 .select-user-loginBtn {
     float: left;
-    width: 300px;
+    width: calc(50% - 60px);
     margin: 0px 30px;
-    padding: 40px;
+    padding: 40px 20px;
     font-family: 'TheJamsil5Bold';
     font-size: 1em;
     cursor: pointer;
@@ -280,8 +288,12 @@
 .select-login-content div>p {
     padding: 0px;
     margin: 0px;
-    margin-top: 20px;
-    font-size: 2em;
+    margin-top: 40px;
+    font-size: 1.2em;
+}
+
+.select-login-content span {
+    font-size: 1.5em;
 }
 
 .select-dev-loginBtn {
@@ -314,6 +326,51 @@
     height: 100px;
 }
 
+.select-go-register-btn {
+    height: 40px;
+    line-height: 40px;
+    margin: 50px 30px 0px 30px;
+    border-radius: 12px;
+    font-size: 1em;
+    font-family: 'GongGothicMedium';
+    background: linear-gradient(to right, #00c3ff, #ffff1c);
+    animation: huerotator 3s infinite alternate;
+    cursor: pointer;
+}
+
+.select-go-register-btn:hover {
+    background: pink;
+    box-shadow: 0px 0px 10px 2px yellow;
+}
+
+.select-go-register-icon {
+    margin-left: 10px;
+}
+
+.select-go-register-icon svg {
+    font-size: 0.8em;
+    vertical-align: middle;
+    margin-right: -6px;
+}
+
+/* 로그인 버튼 */
+.loginBtn {
+    width: 100%;
+    height: 40px;
+    font-family: 'TheJamsil5Bold';
+    font-size: 1em;
+    cursor: pointer;
+    border: 3px solid black;
+    background-color: black;
+    color: white;
+}
+
+.loginBtn:disabled {
+    border: 3px solid black;
+    background-color: lightgray;
+    color: black;
+    cursor: none;
+}
 
 /* 회원가입 버튼 */
 .register-btn {
@@ -347,7 +404,6 @@
 /* 로그인 버튼 박스 */
 .login-btn-box {
     display: inline-block;
-    /* background-color: beige; */
 }
 
 /* 네이버 버튼 */
@@ -355,10 +411,32 @@
     width: 55px;
     height: 55px;
     border-radius: 50%;
-    background-color: rgb(3, 199, 90);
     margin-right: 30px;
     float: left;
     position: relative;
+}
+
+.naver-btn-bg {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background-color: rgb(3, 199, 90);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+
+.user-naver-icon {
+    font-size: 25px;
+    margin-right: 12px;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
 }
 
 /* NaverLogin.js 파일 css */
@@ -366,14 +444,7 @@
     display: none;
     width: 50px;
     height: 50px;
-}
-
-.login-naver {
-    /* border: 1px solid pink; */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    z-index: 10;
 }
 
 /* 카카오 버튼 로그인 */
@@ -381,21 +452,34 @@
     width: 55px;
     height: 55px;
     border-radius: 50%;
-    background-color: #FEE500;
     float: left;
     position: relative;
 }
 
-/* kakaoLogin.js css */
-.login-kakao {
+.kakao-btn-bg {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background-color: #FEE500;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: -1;
+}
+
+.user-kakao-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 37px;
+    color: #3B1E1E;
 }
 
 /* 클리어 */
 .login-header::after,
+.dev-login-header::after,
 .login-body::after,
 .login-content::after,
 .login-btn-box::after,
@@ -406,20 +490,24 @@
     clear: both;
 }
 
-
 /* ------------------------------------------------------------------------------------ */
 /* 선택 회원가입 */
 .select-register-container {
-    height: 100vh;
+    height: 93.6vh;
     overflow: hidden;
-    padding: 100px 600px;
+    padding: 100px 400px;
     position: relative;
 }
 
 .select-register-box {
+    width: 40%;
     border: 3px solid black;
     background-color: white;
     box-shadow: 3px 3px 5px rgb(0, 0, 0, 0.5);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .select-register-bg {
@@ -430,22 +518,31 @@
     position: absolute;
 }
 
-.select-register-body {
-    padding: 40px 150px;
+.select-register-body,
+.select-user-register-body {
+    padding: 80px 150px;
 }
 
-.select-register-body .title {
+.select-register-body .title,
+.select-user-register-body .title {
     font-family: 'TheJamsil5Bold';
     font-size: 3em;
-    padding: 30px 0px 50px 0px;
+    margin-bottom: 50px;
+    width: 100%;
 }
 
-.dev-register-btn, .user-register-btn {
+.select-user-register-body .title p:last-child {
+    font-size: 24px;
+    margin-top: 15px;
+    color: gray;
+}
+
+.dev-register-btn,
+.user-register-btn {
     width: 100%;
-    height: 50px;
-    line-height: 44px;
+    line-height: 30px;
     text-align: center;
-    margin: 20px 0px;
+    padding: 20px;
     font-family: 'TheJamsil5Bold';
     font-size: 20px;
     background-color: black;
@@ -455,20 +552,32 @@
     transition: all .1s ease;
 }
 
+.dev-register-btn {
+    background-color: #ffbb00;
+    border: 3px solid #ffbb00;
+    margin-bottom: 30px;
+}
+
 .dev-register-btn:hover {
-    background: linear-gradient(to right, #fff099,  #ffface ,#ffcacb);
+    background: linear-gradient(to right, #fff099, #ffface, #ffcacb);
     color: black;
 }
+
 .user-register-btn:hover {
     background: linear-gradient(to right, #fffde2, #faccff, #b9faff);
     color: black;
+}
+
+.select-btn-p {
+    font-size: 30px;
+    margin: 10px;
 }
 
 /* 회원가입 소셜 */
 /* 네이버 */
 .register-naver-btn-box {
     background-color: rgb(3, 199, 90);
-    height: 50px;
+    height: 72px;
     margin: 20px 0px;
     text-align: center;
     position: relative;
@@ -476,17 +585,14 @@
 
 .select-naver-btn {
     width: 100%;
-    height: 50px;
-    /* border: 1px solid blue; */
+    height: 100%;
     position: absolute;
-    top: 0;
 }
 
 .select-naver-tag {
     display: inline-block;
-    /* border: 1px solid pink; */
-    height: 50px;
-    line-height: 50px;
+    height: 72px;
+    line-height: 72px;
     font-family: 'TheJamsil5Bold';
     font-size: 20px;
     color: white;
@@ -501,7 +607,7 @@
 /* 카카오 */
 .register-kakao-btn-box {
     background-color: #FEE500;
-    height: 50px;
+    height: 72px;
     margin-bottom: 60px;
     text-align: center;
     position: relative;
@@ -509,17 +615,15 @@
 
 .select-kakao-btn {
     width: 100%;
-    height: 50px;
-    /* border: 1px solid blue; */
+    height: 72px;
     position: absolute;
     top: 0;
 }
 
 .select-kakao-tag {
     display: inline-block;
-    /* border: 1px solid pink; */
-    height: 50px;
-    line-height: 50px;
+    height: 72px;
+    line-height: 72px;
     font-family: 'TheJamsil5Bold';
     font-size: 20px;
     color: #3B1E1E;
@@ -575,7 +679,6 @@
 /* form */
 .register-body {
     padding: 40px 150px;
-    /* background-color: #b9faff; */
 }
 
 .register-body .title {
@@ -684,7 +787,7 @@ input::placeholder {
 .registerCheck-btn {
     width: 100%;
     height: 40px;
-    border: none;
+    border: 3px solid black;
     background-color: black;
     font-family: 'TheJamsil5Bold';
     color: white;
@@ -693,12 +796,30 @@ input::placeholder {
     cursor: pointer;
 }
 
-.registerCheck-btn:hover {
-    border: 3px solid black;
-    background: linear-gradient(to right, #fffde2, #faccff, #b9faff);
+.registerCheck-btn:disabled {
+    background-color: lightgray;
     color: black;
+    cursor: none;
 }
 
+.dev-registerCheck-btn {
+    width: 100%;
+    height: 40px;
+    border: 3px solid #ffbb00;
+    background-color: #ffbb00;
+    font-family: 'TheJamsil5Bold';
+    color: white;
+    font-size: 1em;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.dev-registerCheck-btn:disabled {
+    border: 3px solid #ffbb00;
+    background-color: #fff2cf;
+    color: #ffbb00;
+    cursor: none;
+}
 
 /* 비밀번호표시 */
 /* 요소를 숨기는 class.*/
@@ -708,14 +829,11 @@ input::placeholder {
     width: 20px;
     height: 20px;
     cursor: pointer;
-    /* overflow: hidden; */
-
 }
 
 /*체크를 안 했을 때*/
 .checkbox-item>label::before {
     display: inline-block;
-    /* border: 3px solid blue; */
     content: "";
     width: 20px;
     height: 20px;
@@ -736,7 +854,6 @@ input::placeholder {
 
 .checked-box {
     position: relative;
-    /* background-color: antiquewhite; */
     margin-bottom: 30px;
     height: 60px;
 }
@@ -749,7 +866,6 @@ input::placeholder {
 }
 
 .checkbox-item label {
-    /* background-color: antiquewhite; */
     height: 20px;
 }
 
@@ -758,5 +874,4 @@ input::placeholder {
     font-size: 0.8em;
     font-weight: bold;
     vertical-align: super;
-    /* background-color: #FEE500; */
 }

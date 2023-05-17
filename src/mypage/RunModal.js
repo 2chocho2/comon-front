@@ -21,7 +21,8 @@ const RunModal = (props) => {
     }, []);
 
     const handlerClickGo = () => {
-        window.open(`http://${process.env.REACT_APP_IP}:${props.port}/`)
+        window.open(`http://${process.env.REACT_APP_IP}:${props.port}/`);
+        props.closeModal();
     };
 
     return (

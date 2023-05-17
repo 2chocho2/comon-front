@@ -27,7 +27,6 @@ const MyReview = ({ history }) => {
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/qna/${userId}`,
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
-                console.log(res);
                 const userIdx = res.data;
                 setUserIdx(userIdx);
             })

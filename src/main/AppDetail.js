@@ -8,6 +8,7 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { BsStarFill, BsStarHalf, BsStar } from "react-icons/bs";
 import jwtDecode from 'jwt-decode';
 import ReviewChart from "../reviewChart/ReviewChart";
+import Swal from "sweetalert2";
 
 // 슬라이더 화살표 정의
 function SampleNextArrow(props) {
@@ -42,7 +43,7 @@ const AppDetail = ({ match, history }) => {
 
     useEffect(() => {
         if (sessionStorage.getItem('token') === null) {
-            alert(`로그인 후 이용 가능합니다.`);
+            Swal.fire({text:`로그인 후 이용 가능합니다.`});
             history.push(`/login`);
         };
 
@@ -52,7 +53,6 @@ const AppDetail = ({ match, history }) => {
                 setData(res.data.imageDto);
                 setStar(res.data.reviewAvg);
                 setReviewList(res.data.reviewList);
-                console.log(res.data.reviewList);
             })
             .catch(err => {
                 console.log(err);
@@ -69,7 +69,6 @@ const AppDetail = ({ match, history }) => {
         const decode_token = jwtDecode(token)
         let userId = decode_token.sub;
 
-        console.log(">>>>>>")
         try {
             
             const result =
@@ -82,47 +81,20 @@ const AppDetail = ({ match, history }) => {
                     },
                     headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
                 })
-                console.log("<<<<<");
-                console.log(result);
                 
+                if (result.data.exitCode == '-1') {
+                    Swal.fire({text:`다운로드 중 오류가 발생했습니다.`});
+                } else if (result.data == null) {
+                    Swal.fire({text:`이미 다운받은 앱입니다`});
+                } else if (result.data.downloadCount == '1' || result.data.updateCount == '1') {
+                    Swal.fire({text:`앱 다운로드가 완료되었습니다.`});
+                }
         } catch (err) {
             console.log(err);
             return;
         }
     }
-    // 다운로드 로직
-    // const handlerClickDownload = () => {
-    //     const token = sessionStorage.getItem('token');
-    //     const decode_token = jwtDecode(token)
-    //     let userId = decode_token.sub;
-
-    //     axios({
-    //         method: 'POST',
-    //         url: `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/downloadapp`,
-    //         data: {
-    //             userId: userId,
-    //             imageIdx: imageIdx
-    //         },
-    //         headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
-    //     })
-    //         .then(res => {
-    //             console.log(res.data);
-    //             if (res.data === '이미 있음') {
-    //                 alert(`이미 다운받은 앱입니다`);
-    //                 window.location.reload();
-    //             } else if (res.data === '오류') {
-    //                 alert(`다운로드 중 오류가 발생했습니다.`);
-    //                 window.location.reload();
-    //             } else if (res.data === '정상') {
-    //                 alert(`앱 다운로드가 완료되었습니다.`);
-    //                 window.location.reload();
-    //             }
-    //         })
-    //         .catch(err => {
-    //             console.log(err);
-    //         })
-    // };
-
+    
     const imgArr = [data.screenshotImage1,
     data.screenshotImage2,
     data.screenshotImage3,

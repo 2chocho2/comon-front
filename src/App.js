@@ -33,12 +33,16 @@ import NoticeDetail from './notice/NoticeDetail';
 import NoticeEdit from './notice/NoticeEdit';
 import NoticeList from './notice/NoticeList';
 import NoticeWrite from './notice/NoticeWrite';
+import SelectUserRegist from './login/SelectUserRegist';
+import AdminChartDetail from './admin/adminChart/AdminChartDetail';
+import AdminChart from './admin/adminChart/AdminChart';
 
 
 function App() {
   return (
     <>
 
+      
       {/* 관리자용 */}
       <Route path="/admin" render={(props) => <AppListAdmin {...props} />} exact={true} />
       <Route path="/admin/judge" render={(props) => <Judge {...props} />} exact={true} />
@@ -49,6 +53,8 @@ function App() {
       <Route path="/admin/devdetail/:userId" render={(props) => <AdminDevDetail {...props} />} exact={true} />
       <Route path='/notice/write' render={(props) => <NoticeWrite {...props} />} exact={true} />
       <Route path='/notice/edit/:noticeIdx' render={(props) => <NoticeEdit {...props} />} exact={true} />
+      <Route path='/admin/chart' render={(props) => <AdminChart {...props} />} exact={true} />
+      <Route path='/admin/chart/:imageIdx' render={(props) => <AdminChartDetail {...props} />} exact={true} />
 
       {/* 개발자용 */}
       <Route path='/dev/applist' render={(props) => <AppListDev {...props} />} exact={true} />
@@ -79,6 +85,7 @@ function App() {
       <Route path='/userlogin' render={(props) => <Login {...props} />} exact={true} />
       <Route path='/userregist' render={(props) => <Regist {...props} />} exact={true} />
       <Route path="/kakaologin" component={KakaoLogin} exact={true} />
+      <Route path='/selectuserregist' render={(props) => <SelectUserRegist {...props} />} exact={true} />
 
       {/* 개발자용 로그인 */}
       <Route path='/devregist' render={(props) => <DevRegist {...props} />} exact={true} />

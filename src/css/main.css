@@ -48,6 +48,7 @@
     /* width: 1353.5px; */
     height: 500px;
     overflow: hidden;
+    cursor: pointer;
 }
 #slider-box::after, .slider-content::after {
     display: block;

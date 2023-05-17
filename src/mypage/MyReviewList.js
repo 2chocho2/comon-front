@@ -6,6 +6,7 @@ import '../css/mypage.css';
 import { AiOutlineClose } from "react-icons/ai";
 import moment from "moment";
 import jwt_decode from "jwt-decode";
+import Swal from "sweetalert2";
 
 const MyReviewList = ({ history }) => {
 
@@ -21,7 +22,6 @@ const MyReviewList = ({ history }) => {
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
                 setData(res.data);
-                console.log(res.data);
             })
             .catch(err => {
                 console.log(err);
@@ -35,16 +35,16 @@ const MyReviewList = ({ history }) => {
             .then(response => {
                 console.log(response);
                 if (response.data === 1) {
-                    alert('정상적으로 삭제되었습니다.');
+                    Swal.fire({ text: '삭제가 완료되었습니다.' })
                     window.location.replace(`/mypage/reviewlist`);
                 } else {
-                    alert('삭제에 실패했습니다.');
+                    Swal.fire({ text: '삭제에 실패했습니다.' });
                     return;
                 }
             })
             .catch(error => {
                 console.log(error);
-                alert(`삭제에 실패했습니다. (${error.message})`);
+                Swal.fire({ text: '삭제에 실패했습니다.' });
                 return;
             });
     };
@@ -56,8 +56,7 @@ const MyReviewList = ({ history }) => {
             <div className='my-service-body'>
                 <div className='my-service-header'>
                     <p className='my-service-title'>작성한 리뷰</p>
-                    <hr className='my-service-body-hr' />
-                </div>
+                    </div>
                 {
                     data
                     &&

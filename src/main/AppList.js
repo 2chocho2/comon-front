@@ -38,7 +38,8 @@ const AppList = ({ history }) => {
                 <>
                     <button className={categoryActive == i ? 'categoryActive' : 'categoryUnActive'}
                         onClick={toggleCategoryButton}
-                        id={i}>{categoryList[i]}</button>
+                        id={i}
+                        key={i}>{categoryList[i]}</button>
                 </>
             )
         } return result;
@@ -111,6 +112,7 @@ const AppList = ({ history }) => {
                             type='radio'
                             checked={orderActive == i}
                             onChange={handleChangeOrderButton}
+                            key={i}
                         />
                         {orderList[i]}
                     </div>
@@ -123,12 +125,10 @@ const AppList = ({ history }) => {
         e.preventDefault();
         setOrderActive(e.target.value);
 
-        console.log(typeof (e.target.value));
         if (e.target.value == 0) {
             axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/count`,
                 { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
                 .then(res => {
-                    console.log(res.data);
                     setData(res.data);
                 })
                 .catch(err => {
@@ -138,7 +138,6 @@ const AppList = ({ history }) => {
             axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/registdt`,
                 { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
                 .then(res => {
-                    console.log(res.data);
                     setData(res.data);
                 })
                 .catch(err => {
@@ -148,7 +147,6 @@ const AppList = ({ history }) => {
             axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/order`,
                 { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
                 .then(res => {
-                    console.log(res.data);
                     setData(res.data);
                 })
                 .catch(err => {
@@ -188,15 +186,16 @@ const AppList = ({ history }) => {
                         &&
                         data.map(((data, index) =>
                             <>
-                                <div className='applist-each' 
-                                    onClick={() => handlerClickAppDetail(data.imageIdx)} key={index}>
+                                <div className='applist-each'
+                                    onClick={() => handlerClickAppDetail(data.imageIdx)} 
+                                    key={index}>
                                     <div className='applist-image-box'>
-                                        <img className='applist-each-thumbnail' 
+                                        <img className='applist-each-thumbnail'
                                             src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/thumbnail/${data.thumbnailImage}`} />
                                     </div>
                                     <div className='applist-description'>
                                         <div id="applist-description-box">
-                                            <img className='applist-each-icon' 
+                                            <img className='applist-each-icon'
                                                 src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/icon/${data.iconImage}`} />
                                             <div className='applist-description-text'>
                                                 <p className='applist-description-name'>{data.imageName}</p>

@@ -1,6 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
 import "../css/notice.css";
 
 const NoticeCategory = ({ visibility, setVisibility, children }) => {

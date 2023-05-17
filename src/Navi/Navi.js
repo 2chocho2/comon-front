@@ -13,12 +13,9 @@ const Navi = (props) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
-        const token = sessionStorage.getItem('token');
-        console.log(isLoggedIn);
-        console.log(token);
-
-        if (token != null) {
-            const decode_token = jwtDecode(token);
+        if (sessionStorage.getItem('token') != null) {
+            setIsLoggedIn(true);
+        } else if (window.localStorage.getItem('userName')!= null) {
             setIsLoggedIn(true);
         } else {
             setIsLoggedIn(false);
@@ -47,6 +44,7 @@ const Navi = (props) => {
 
     const handlerClickLogout = () => {
         setIsLoggedIn(false);
+        localStorage.clear();
         sessionStorage.clear();
         props.history.push('/');
         showToastMessage();

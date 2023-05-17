@@ -5,6 +5,7 @@ import "../css/notice.css";
 import { Link } from "react-router-dom";
 import Auth from "../admin/Auth";
 import jwtDecode from 'jwt-decode';
+import Navi from "../Navi/Navi";
 
 const NoticeWrite = ({ history }) => {
   const [category, setCategory] = useState([]);
@@ -33,7 +34,6 @@ const NoticeWrite = ({ history }) => {
     axios
       .get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/notice/category`)
       .then((res) => {
-        console.log(res);
         setCategory(res.data);
         setNoticeCategoryIdx(1);
       })
@@ -57,56 +57,60 @@ const NoticeWrite = ({ history }) => {
         }
       })
       .catch((err) => {
-        console.log(err);
         alert(`게시글 등록에 실패했습니다. (${err.message})`);
         return;
       });
   };
 
   return (
-    <>
-      {
-        authYn
-          ?
-          <div className="write">
-            <div className="notice-main">
-              <div className="notice-logo">
-                <Link to={'/notice'}><img src={notice1} /></Link>
-              </div>
-              COM:ON의 소식을 만나보세요
-            </div>
-            <div className="write-top">
-              <div className="select-category">
-                <div>
-                  카테고리
-                  <select id="category" name="category" onChange={handleChangeCategory}>
-                    {category &&
-                      category.map((category, index) => (
-                        <option key={index} value={category.noticeCategoryIdx}>
-                          {category.noticeCategoryName}
-                        </option>
-                      ))}
-                  </select>
-                </div>
-              </div>
-              <div className="write-title">
-                <div>
-                  제목
-                  <input type="text" value={noticeTitle} onChange={handlerChangeTitle} />
-                </div>
-              </div>
-            </div>
-            <div>
-              <textarea className="write-content" value={noticeContent} onChange={handlerChangeContent}></textarea>
-            </div>
-            <div className="write-btn">
-              <input type="submit" className="save-btn" onClick={handlerSubmit} />
-            </div>
+    <div className="all">
+      <Navi history={history} />
+      <div className="notice-container">
+        <div className="notice-main">
+          <div className="notice-logo">
+            <Link to={"/notice"}>
+              <img className="notice-img" src={notice1} alt="notice logo" />
+            </Link>
           </div>
-          :
-          <Auth />
-      }
-    </>
+          COM:ON의 소식을 만나보세요
+        </div>
+        {
+          authYn
+            ?
+            <div className="write">
+              <div className="write-top">
+                <div className="write-category">
+                  <div>
+                    <p className='write-header-title'>카테고리</p>
+                    <select className="select-category" id="category" name="category" onChange={handleChangeCategory}>
+                      {category &&
+                        category.map((category, index) => (
+                          <option className="option-category" key={index} value={category.noticeCategoryIdx}>
+                            {category.noticeCategoryName}
+                          </option>
+                        ))}
+                    </select>
+                  </div>
+                </div>
+                <div className="write-title">
+                  <div>
+                    <p className='write-header-title'>제목</p>
+                    <input className="input-title" type="text" value={noticeTitle} onChange={handlerChangeTitle} />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <textarea className="write-content" value={noticeContent} onChange={handlerChangeContent}></textarea>
+              </div>
+              <div className="write-btn">
+                <input type="submit" className="save-btn" onClick={handlerSubmit} />
+              </div>
+            </div>
+            :
+            <Auth />
+        }
+      </div>
+    </div>
 
   )
 
