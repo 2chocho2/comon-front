@@ -8,13 +8,14 @@ import jwt_decode from "jwt-decode";
 
 const MyReview = ({ history }) => {
     const [data, setData] = useState([]);
-    const [userIdx, setUserIdx] = useState(0);
+    const [userId, setUserId] = useState('');
 
     useEffect(() => {
 
         const token = sessionStorage.getItem('token');
         const decode_token = jwt_decode(token);
         let userId = decode_token.sub;
+        setUserId(decode_token.sub);
 
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/myservice/${userId}`,
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
@@ -24,15 +25,15 @@ const MyReview = ({ history }) => {
             .catch(err => {
                 console.log(err);
             })
-        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/qna/${userId}`,
-            { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
-            .then(res => {
-                const userIdx = res.data;
-                setUserIdx(userIdx);
-            })
-            .catch(err => {
-                console.log(err);
-            })
+        // axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/qna/${userId}`,
+        //     { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
+        //     .then(res => {
+        //         const userIdx = res.data;
+        //         setUserIdx(userIdx);
+        //     })
+        //     .catch(err => {
+        //         console.log(err);
+        //     })
     }, [])
 
     // 앱 상자에 마우스 hover 됐을 때 hover 변수 변경
@@ -87,7 +88,7 @@ const MyReview = ({ history }) => {
                                             </p>
                                             {/* <p className='my-review-description-description'>{data.imageDescription}</p> */}
                                             {/* 리뷰 작성했는지 여부에 따라 노출 다르게 하는 버튼 컴포넌트를 ReviewCheckButton으로 분리 */}
-                                            <ReviewCheckButton imageIdx={data.imageIdx} userIdx={userIdx} imageName={data.imageName} />
+                                            <ReviewCheckButton imageIdx={data.imageIdx} userId={userId} imageName={data.imageName} />
                                         </div>
                                     </div>
                                 </>

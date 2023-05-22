@@ -21,7 +21,6 @@
     margin: auto;
 }
 
-
 /* 전체 통계 카운트 */
 .total-Container {
     height: 150px;
@@ -118,6 +117,15 @@
     width: 100%;
     border: 2px solid black;
     box-shadow: 2px 2px 3px #a8a8a8;
+}
+
+.chart-container{
+    height: 400px;
+    width: 100%;
+}
+
+.highcharts-container {
+    height: 400px !important;
 }
 
 .totalAppDownload-title {
@@ -220,13 +228,19 @@
     color: white;
 }
 
-.appRank-thumbnail {
+.appRank-icon {
     display: inline-block;
+    position: relative;
+    vertical-align: middle;
+}
+
+
+.appRank-thumbnail {
+    vertical-align: middle;
     width: 50px;
     height: 50px;
     vertical-align: middle;
     border-radius: 10px;
-    background-color: #0D4BBE;;
     box-shadow: 2px 2px 3px #a8a8a8;
 }
 

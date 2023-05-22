@@ -228,7 +228,7 @@ const AppRegist = ({ history }) => {
             .then(res => {
                 res.data.split('\n').forEach(data => console.log(data));
                 Swal.fire({text:`정상적으로 신청이 완료되었습니다.`});
-                history.push('/admin');
+                history.push('/dev/applist');
             })
             .catch(err => {
                 console.log(err);

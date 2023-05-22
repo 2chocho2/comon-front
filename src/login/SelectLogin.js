@@ -31,12 +31,12 @@ const SelectLogin = ({history}) => {
                                     <div className='select-login-box'>
                                         <div className="select-dev-loginBtn" onClick={handlerDev} type="submit">
                                             <FaUserAstronaut id='dev-login-btn' />
-                                            <p>지금 바로<span> 앱 개발자가 </span>되어보세요!</p>
+                                            <p><span> 앱 개발자</span>로 로그인</p>
                                         </div>
                                         
                                         <div className="select-user-loginBtn" onClick={handlerUser} type="submit">
                                             <FaUserLock id='user-login-btn' />
-                                            <p>지금 바로<span> 앱 사용자가 </span>되어보세요!</p>
+                                            <p><span> 앱 사용자</span>로 로그인</p>
                                         </div>
                                     </div>
 

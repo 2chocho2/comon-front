@@ -103,7 +103,12 @@ const AppDownload = ({match, name}) => {
         plotOptions: {
             column: {
                 pointPadding: 0.2,
-                borderWidth: 0
+                borderWidth: 0,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '{y} 회'
+                }
             },
         },
         series: [{
@@ -122,7 +127,6 @@ const AppDownload = ({match, name}) => {
     };
 
     return (
-
         <>  
             <div className="chart-container">
             <HighchartsReact highcharts={Highcharts} options={options}/>     

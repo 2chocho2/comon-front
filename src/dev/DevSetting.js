@@ -26,14 +26,7 @@ const DevSetting = ({ history }) => {
             let userId = decode_token.sub;
             let authIdx = decode_token.authIdx;
     
-            if (authIdx === 3 || authIdx === 2) {
-                setAuthYn(true);
-            } else {
-                setAuthYn(false);
-            }
-        }
-
-        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/mypage/${userId}`,
+            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/mypage/${userId}`,
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
                 setData(res.data);
@@ -44,6 +37,15 @@ const DevSetting = ({ history }) => {
             .catch(err => {
                 console.log(err);
             })
+            
+            if (authIdx === 3 || authIdx === 2) {
+                setAuthYn(true);
+            } else {
+                setAuthYn(false);
+            }
+        }
+
+        
     }, [])
 
     const handlerChangeUserName = (e) => {

@@ -8,11 +8,11 @@ const ReviewCheckButton = (props) => {
 
     const [count, setCount] = useState(0);
     const [imageIdx, setImageIdx] = useState(props.imageIdx);
-    const [userIdx, setUserIdx] = useState(props.userIdx);
+    const [userId, setUserId] = useState(props.userId);
     const [imageName, setimageName] = useState(props.imageName);
 
     useEffect(() => {
-        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/myservice/${imageIdx}/${userIdx}`,
+        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/myservice/${imageIdx}/${userId}`,
         { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
                 setCount(res.data);
@@ -29,7 +29,7 @@ const ReviewCheckButton = (props) => {
                 <Link to= {{
                     pathname: '/mypage/writereview',
                     state: {imageIdx: imageIdx,
-                            userIdx : userIdx,
+                            userId : userId,
                             imageName : imageName       
                     }
                 }}><button className="WriteReviewButton">리뷰 작성</button></Link>

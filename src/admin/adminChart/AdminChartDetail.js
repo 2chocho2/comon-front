@@ -44,9 +44,9 @@ function AdminChartDetail({ match }) {
             }
         }
 
-        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/detail/${imageIdx}`,
-        { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
+        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/detail/${imageIdx}`)
             .then(response => {
+                console.log(response.data.reviewList);
                 setName(response.data.imageDto.imageName);
                 setUsername(response.data.imageDto.userName);
                 setRegistDt(response.data.imageDto.registDt.substring(0, 10))
@@ -54,11 +54,13 @@ function AdminChartDetail({ match }) {
                 setDetail(response.data.imageDto.imageDetail);
                 setDownloadCount(response.data.imageDto.downloadCount);
                 setReviewList(response.data.reviewList);
+
             })
             .catch(error => {
                 console.log(error);
             })
     }, [page]);
+
     return (
         <>
             <div>
@@ -66,6 +68,7 @@ function AdminChartDetail({ match }) {
                 <div className='sidemenu_admin-box'>
                     <div className='admin_logo'></div>
                     <ul className='sidemenu_admin'>
+
                         <li><Link to='/admin/setting'>회원 관리</Link></li>
                         <li><Link to='/admin'>모든 앱</Link></li>
                         <li><Link to='/admin/judge'>심사</Link></li>

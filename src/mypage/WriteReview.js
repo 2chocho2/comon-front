@@ -13,7 +13,7 @@ const WriteReview = ({ history }) => {
     const [scoreCount, setScoreCount] = useState(0);
     const [reviewContent, setReviewContent] = useState('');
     const imageIdx = location.state.imageIdx;
-    const userIdx = location.state.userIdx;
+    const userId = location.state.userId;
     const imageName = location.state.imageName;
 
     //별점 찍기
@@ -40,7 +40,7 @@ const WriteReview = ({ history }) => {
         {
             imageIdx: imageIdx,
             reviewContent: reviewContent,
-            userIdx: userIdx,
+            userId: userId,
             scoreCount: scoreCount
         },
         {

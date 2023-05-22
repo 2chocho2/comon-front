@@ -115,9 +115,8 @@ const KakaoLogin = ({history}) => {
         <>
             {/* https://developers.kakao.com/tool/resource/login */}
             {!accessToken &&
-                <img className="login-kakao"
-                    style={{ width: '30px', height: '30px' }}
-                    src={kakaoIcon}
+                <div className="login-kakao"
+                    style={{ width: '100%', height: '100%', cursor: 'pointer'}}
                     onClick={handlerLogin} />
             }
         </>

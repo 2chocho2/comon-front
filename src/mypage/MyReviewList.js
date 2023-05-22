@@ -65,7 +65,7 @@ const MyReviewList = ({ history }) => {
                             <div className="reviewlist-content-each">
                                 <div className="reviewlist-icon">
                                     <img className='reviewlist-thumbnail' 
-                                        src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/thumbnail/${data.thumbnailImage}`} />
+                                        src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/icon/${data.iconImage}`} />
                                     <p>{data.imageName}</p>
                                 </div>
                                 <div className="reviewlist-each-content-container">
