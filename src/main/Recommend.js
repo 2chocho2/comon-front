@@ -53,7 +53,6 @@ const Recommend = ({ recommendList, history }) => {
                         &&
                         recommendList.map((data, index) => (
                             <>
-
                                 <div id="slider-box" key={index} onClick={() => handlerClick(data.imageIdx)}>
                                     <div className='slider-content'>
                                         <div className="slider-header">

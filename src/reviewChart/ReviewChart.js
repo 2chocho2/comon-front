@@ -12,10 +12,8 @@ const ReviewChart = ({ imageIdx }) => {
     useEffect(() => {
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/score/${imageIdx}`)
             .then(res => {
-                console.log(res.data);
                 const ratioArr = [res.data.ratio5, res.data.ratio4, res.data.ratio3, res.data.ratio2, res.data.ratio1];
                 setReviewRatio(ratioArr);
-                console.log(ratioArr);
             })
             .catch(err => {
                 console.log(err);
@@ -85,7 +83,8 @@ const ReviewChart = ({ imageIdx }) => {
                     <li>{reviewRatio[4]}%</li>
                 </ul>
             </div>
-            <HighchartsReact highcharts={Highcharts} options={options} />
+            <div ></div>
+            <HighchartsReact className="appdetial-review" highcharts={Highcharts} options={options} />
         </>)
         ;
 }

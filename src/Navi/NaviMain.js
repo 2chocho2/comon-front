@@ -1,4 +1,4 @@
-import { RiUser5Line, RiUser5Fill, RiLogoutCircleFill } from 'react-icons/ri'
+
 import '../css/dev.css';
 import '../css/navi.css';
 import * as React from 'react'
@@ -12,6 +12,7 @@ const NaviMain = (props) => {
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userName, setUserName] = useState('');
+    const [authIdx, setAuthIdx] = useState(1);
 
     useEffect(() => {
         if (sessionStorage.getItem('token') != null) {
@@ -19,7 +20,9 @@ const NaviMain = (props) => {
             const decode_token = jwtDecode(token);
             setIsLoggedIn(true);
             setUserName(decode_token.name);
-        } else if (window.localStorage.getItem('userName')!= null) {
+            setAuthIdx(decode_token.authIdx);
+            
+        } else if (window.localStorage.getItem('userName') != null) {
             setIsLoggedIn(true);
             setUserName(window.localStorage.getItem('userName'));
         } else {
@@ -36,7 +39,13 @@ const NaviMain = (props) => {
     };
 
     const handlerGoMypage = () => {
-        props.history.push(`/mypage`);
+        if (authIdx === 3) {
+            props.history.push(`/admin/chart`);
+        } if (authIdx === 2) {
+            props.history.push(`/dev/applist`);
+        } else if (authIdx === 1) {
+            props.history.push(`/mypage`);
+        }
     };
 
     const handlerGoLogin = () => {
@@ -61,8 +70,8 @@ const NaviMain = (props) => {
 
     const showToastMessage = () => {
         toast('Bye Bye~ 👋', {
-            position: "top-center",
-            autoClose: 5000,
+            position: "top-right",
+            autoClose: 1000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -81,7 +90,7 @@ const NaviMain = (props) => {
                     isLoggedIn
                         ?
                         <div className='loginButton'>
-                            <div className='login-msg'>{userName}님 환영합니다.</div>
+                            <div className='login-msg'>{userName}님 환영합니다.💞</div>
                             <button onClick={handlerClickLogout} className='login-btn' type='button'>로그아웃</button>
                             <button onClick={handlerGoMypage} className='login-btn' type='button'>마이페이지</button>
                         </div>

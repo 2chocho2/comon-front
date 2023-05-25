@@ -20,7 +20,7 @@ function Kakao() {
             return () => {
                 document.body.removeChild(script);
             };
-        } catch (err) {}
+        } catch (err) { }
     }, []);
 
     const handleChatChannel = () => {

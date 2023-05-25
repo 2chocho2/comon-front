@@ -6,6 +6,8 @@ import axios from 'axios';
 import { FcSettings } from 'react-icons/fc';
 import jwtDecode from 'jwt-decode';
 import Auth from './Auth';
+import { MdSettingsSuggest } from "react-icons/md";
+
 
 const AdminSetting = ({ history }) => {
 
@@ -27,7 +29,7 @@ const AdminSetting = ({ history }) => {
                 setAuthYn(false);
             }
         }
-        
+
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/setting`,
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
@@ -57,7 +59,7 @@ const AdminSetting = ({ history }) => {
     const toggleFilterButton = (e) => {
 
         setFilterActive(e.target.id);
-        
+
         if (e.target.id == 1) {
             axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/setting`,
                 { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
@@ -103,88 +105,88 @@ const AdminSetting = ({ history }) => {
 
     return (
         <>
-        {
-            !authYn
-            ?
-            <Auth history={history}/>
-            :
-            <div className='dev-container'>
-                <NaviAdmin history={history} />
-                <div className='sidemenu_admin-box'>
-                    <div className='admin_logo'></div>
-                    <ul className='sidemenu_admin'>
-                        <li id='admin-setting'><Link to='/admin/setting'>회원 관리</Link></li>
-                        <li><Link to='/admin'>모든 앱</Link></li>
-                        <li><Link to='/admin/judge'>심사</Link></li>
-                        <li><Link to='/admin/chart'>통계</Link></li>
-                    </ul>
-                </div>
+            {
+                !authYn
+                    ?
+                    <Auth history={history} />
+                    :
+                    <div className='dev-container'>
+                        <NaviAdmin history={history} />
+                        <div className='sidemenu_admin-box'>
+                            <div className='admin_logo'></div>
+                            <ul className='sidemenu_admin'>
+                                <li id='admin-setting'><Link to='/admin/setting'>회원 관리</Link></li>
+                                <li><Link to='/admin'>모든 앱</Link></li>
+                                <li><Link to='/admin/judge'>심사</Link></li>
+                                <li><Link to='/admin/chart'>통계</Link></li>
+                            </ul>
+                        </div>
 
-                <div className='body'>
-                    <p className='body_title'>회원 관리</p>
-                    <div className='filterSetButton'>
-                        {filterButton()}
+                        <div className='body'>
+                            <p className='body_title'>회원 관리</p>
+                            <div className='filterSetButton'>
+                                {filterButton()}
 
+                            </div>
+                            <table className='AppTable'>
+                                <colgroup>
+                                    <col width="21%" />
+                                    <col width="21%" />
+                                    <col width="21%" />
+                                    <col width="21%" />
+                                    <col width="15%" />
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <td>NAME</td>
+                                        <td>E-MAIL</td>
+                                        <td>AUTH</td>
+                                        <td>SET</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        userData &&
+                                        userData.map(data => {
+                                            return (
+                                                <tr key={data.userIdx}>
+                                                    <td>{data.userId}</td>
+                                                    <td>{data.userName}</td>
+                                                    <td>{data.userEmail}</td>
+                                                    <td>
+                                                        {data.authIdx === 1 ? (
+                                                            <p>Admin</p>)
+                                                            :
+                                                            (<p>사용자</p>
+                                                            )}
+                                                    </td>
+                                                    <td><MdSettingsSuggest onClick={() => handlerClickUserDetail(data.userId)}
+                                                        className='admin-auth-seticon' /></td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
+                                    {
+                                        devData &&
+                                        devData.map(data => {
+                                            return (
+                                                <tr key={data.userIdx}>
+                                                    <td>{data.userId}</td>
+                                                    <td>{data.userName}</td>
+                                                    <td>{data.userEmail}</td>
+                                                    <td>개발자</td>
+                                                    <td><MdSettingsSuggest onClick={() => handlerClickDevDetail(data.userId)}
+                                                        className='admin-auth-seticon' /></td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <table className='AppTable'>
-                        <colgroup>
-                            <col width="21%" />
-                            <col width="21%" />
-                            <col width="21%" />
-                            <col width="21%" />
-                            <col width="15%" />
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <td>NAME</td>
-                                <td>E-MAIL</td>
-                                <td>AUTH</td>
-                                <td>SET</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                userData &&
-                                userData.map(data => {
-                                    return (
-                                        <tr key={data.userIdx}>
-                                            <td>{data.userId}</td>
-                                            <td>{data.userName}</td>
-                                            <td>{data.userEmail}</td>
-                                            <td>
-                                                {data.authIdx === 1 ? (
-                                                    <p>Admin</p>)
-                                                    :
-                                                    (<p>사용자</p>
-                                                    )}
-                                            </td>
-                                            <td><FcSettings style={{ width: 40, height: 40, verticalAlign: 'middle' }}
-                                                            onClick={() => handlerClickUserDetail(data.userId)}/></td>
-                                        </tr>
-                                    )
-                                })
-                            }
-                            {
-                                devData &&
-                                devData.map(data => {
-                                    return (
-                                        <tr key={data.userIdx}>
-                                            <td>{data.userId}</td>
-                                            <td>{data.userName}</td>
-                                            <td>{data.userEmail}</td>
-                                            <td>개발자</td>
-                                            <td><FcSettings style={{ width: 40, height: 40, verticalAlign: 'middle' }}
-                                                            onClick={() => handlerClickDevDetail(data.userId)} /></td>
-                                        </tr>
-                                    )
-                                })
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        }         
+            }
         </>
     )
 }

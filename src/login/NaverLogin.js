@@ -5,7 +5,7 @@ import '../css/login.css'
 import axios from "axios";
 
 
-const NaverLogin = ({parent}) => {
+const NaverLogin = ({ parent }) => {
     // window 객체로 부터 naver와 관련한 항목을 객체 비구조화로 추출
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // index.html 페이지에 추가한 <script>에 의해서 설정
@@ -21,15 +21,15 @@ const NaverLogin = ({parent}) => {
     const initializeNaverLogin = () => {
         // #1
         const naverLogin = new naver.LoginWithNaverId({
-            clientId: NAVER_CLIENT_ID, 
-            callbackUrl: NAVER_CALLBACK_URL, 
-            isPopup: true, 
+            clientId: NAVER_CLIENT_ID,
+            callbackUrl: NAVER_CALLBACK_URL,
+            isPopup: true,
             loginButton: { color: 'green', type: 3, height: 60 }
         });
 
         // #2
         naverLogin.init();
-    
+
         // #3
         naverLogin.getLoginStatus(function (status) {
             // 로그인 성공 시 true를 값으로 가짐
@@ -40,43 +40,43 @@ const NaverLogin = ({parent}) => {
                 localStorage.setItem('userName', naverLogin.user.name);
                 localStorage.setItem('userNickname', naverLogin.user.nickname);
                 localStorage.setItem('userPhoto', naverLogin.user.profile_image);
-            
+
                 // 부모 브라우저 창의 주소를 홈(/)으로 변경 후 
                 // 팝업 브라우저 창을 닫음
                 // window.opener.location.href = "/";
                 // window.opener.location.href = "/regist";
                 window.close();
-                window.opener.location.reload();  
-                    const userName = naverLogin.user.name; // 로그인하는 사용자의 이름으로 설정
-                    axios.post(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/checkUserExistence`, { userName })
-                        .then(response => {
-                            if (response.data.exists) {
-                                axios.post(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/loginFromSocial`, { userName })
-                                    .then(response => {
-                                        if (response.data) {
-                                            
-                                            window.opener.location.href = "/";
-                                            
-                                            // window.close();
-                                        }
-                                    })
-                                    .catch(error => {
-                                        console.log(error);
-                                        sessionStorage.clear();
-                                    });
-                            } else {
-                                window.opener.location.href = "/userregist";
-                                window.close();
-                            }
-                        })
-                        .catch(error => {
-                            console.log(error);
-                            sessionStorage.clear();
-                            localStorage.clear();
-                        });
-            } 
+                window.opener.location.reload();
+                const userName = naverLogin.user.name; // 로그인하는 사용자의 이름으로 설정
+                axios.post(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/checkUserExistence`, { userName })
+                    .then(response => {
+                        if (response.data.exists) {
+                            axios.post(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/loginFromSocial`, { userName })
+                                .then(response => {
+                                    if (response.data) {
+
+                                        window.opener.location.href = "/";
+
+                                        // window.close();
+                                    }
+                                })
+                                .catch(error => {
+                                    console.log(error);
+                                    sessionStorage.clear();
+                                });
+                        } else {
+                            window.opener.location.href = "/userregist";
+                            window.close();
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        sessionStorage.clear();
+                        localStorage.clear();
+                    });
+            }
         });
-    };    
+    };
 
     // 최초 마운트 시 initializeNaverLogin 함수를 호출
     useEffect(() => {

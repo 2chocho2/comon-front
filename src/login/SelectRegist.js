@@ -7,7 +7,7 @@ const SelectRegist = ({history}) => {
     const handlerSelectUserRegist = e => { history.push('/selectuserregist') };
     
     // 개발자 회원가입
-    const handlerDevRegist = e => {history.push('/devRegist')}
+    const handlerDevRegist = e => {history.push('/devregist')}
 
     return (
         <>

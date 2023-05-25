@@ -8,6 +8,13 @@
     font-weight: 300;
     font-style: normal;
 }
+/* 알럿 글씨 */
+@font-face {
+    font-family: 'GyeonggiTitleM';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GyeonggiTitleM.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
 /* 라디오 버튼 */
 .order-radio {
@@ -67,12 +74,12 @@
     background-repeat: no-repeat;
     background-image: url('../img/ani-logo_3.png');
 }
+
 .ani-logo-move {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    /* border: 3px solid pink; */
     width: 150px;
     height: 150px;
     animation-name: aniLogo;
@@ -81,17 +88,18 @@
     animation-iteration-count: infinite;
 }
 
-
 @keyframes aniLogo {
-    0%,45% {
+    0%,
+    45% {
         background-size: 150px;
         background-position: center;
         background-repeat: no-repeat;
         background-image: url('../img/ani-logo_1.png');
     }
 
-    55%, 100% {
-        
+    55%,
+    100% {
+
         background-size: 150px;
         background-position: center;
         background-repeat: no-repeat;
@@ -137,8 +145,6 @@
     background-color: #ff97f4;
     border: 3px solid navy;
     position: absolute;
-    /* animation-duration: 0.7s; */
-
 }
 
 .applist-title-box1 {
@@ -153,7 +159,6 @@
     left: 39%;
     animation-name: box2;
     animation-duration: 0.8s;
-
 }
 
 .applist-title-box3 {
@@ -161,7 +166,6 @@
     left: 38%;
     animation-name: box3;
     animation-duration: 0.8s;
-
 }
 
 .applist-title-box4 {
@@ -252,20 +256,19 @@
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-    /* background-color: skyblue; */
 }
 
 .applist-each {
     width: 450px;
     height: 420px;
     border: 4px solid black;
-    /* background-color: black; */
     float: left;
     margin-left: 40px;
     margin-right: 40px;
     margin-bottom: 150px;
     border-radius: 20px;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .applist-image-box {
@@ -290,7 +293,6 @@
 }
 
 #applist-description-box {
-    /* background-color: skyblue; */
     width: 100%;
     padding: 5px 30px;
     position: absolute;
@@ -299,25 +301,13 @@
     transform: translate(-50%, -50%);
 }
 
-#applist-description-box::after {
-    display: block;
-    content: "";
-    clear: both;
-}
-
 .applist-each-icon {
     width: 60px;
     height: 60px;
     float: left;
     border-radius: 10px;
     box-shadow: 2px 2px 3px rgb(0, 0, 0, 0.5);
-
-}
-
-.applist-each-icon::after {
-    clear: both;
-    display: block;
-    content: '';
+    background-color: white;
 }
 
 .applist-description-text {
@@ -326,8 +316,6 @@
     height: 60px;
     width: 210px;
     padding: 5px 10px 5px 15px;
-
-
 }
 
 .applist-description-name {
@@ -336,12 +324,6 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-}
-
-.applist-description-name ::after {
-    display: block;
-    content: '';
-    clear: both;
 }
 
 .applist-description-detail {
@@ -362,6 +344,7 @@
     margin-right: 5px;
 }
 
+/* 알럿 */
 .swal2-popup {
     display: none;
     position: relative;
@@ -373,8 +356,8 @@
     border: solid 3px black;
     background: #fff;
     color: black;
-    font-family: 'SUITE-Regular';
-    font-size: 1rem;
+    font-family: 'GyeonggiTitleM';
+    font-size: 1.2rem;
 }
 
 /* swal 알럿창 확인 버튼 */
@@ -386,8 +369,8 @@
     background: initial;
     background-color: black;
     color: #fff;
-    font-family: 'SUITE-Regular';
-    font-size: 14px;
+    font-family: 'GyeonggiTitleM';
+    font-size: 16px;
     box-sizing: border-box;
 }
 
@@ -396,4 +379,18 @@
     color: black;
     border: 2px solid black;
     box-sizing: border-box;
+}
+
+.swal2-icon.swal2-warning {
+    border-color: gray;
+    color: black;
+}
+
+/* 클리어 */
+#applist-description-box::after,
+.applist-each-icon::after,
+.applist-description-name ::after {
+    display: block;
+    content: "";
+    clear: both;
 }

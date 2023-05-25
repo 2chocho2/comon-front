@@ -7,13 +7,8 @@
     display: none;
 }
 
-.chart-body {
-    border: 1px solid black;
-}
-
 .subtitle {
     width: 340px;
-    /* background-color: pink; */
     margin: 0px;
 }
 
@@ -33,12 +28,6 @@
     font-family: 'SUITE-Regular';
 }
 
-.subtitle::after {
-    display: block;
-    content: '';
-    clear: both;
-}
-
 .highcharts-yaxis-labels,
 .highcharts-no-tooltip {
     display: none;
@@ -56,10 +45,12 @@
 }
 
 .highcharts-background {
-    background: transparent !important;
     height: 110px !important;
 }
 
-.highcharts-container {
-    height: 110px !important;
+/* 클리어 */
+.subtitle::after {
+    display: block;
+    content: '';
+    clear: both;
 }

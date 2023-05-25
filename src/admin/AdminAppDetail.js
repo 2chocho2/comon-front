@@ -109,12 +109,21 @@ const AdminAppDetail = ({ match, history }) => {
                     axios.delete(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/registdelete/${imageidx}`,
                         { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
                         .then(res => {
-                            Swal.fire({ text: `삭제 처리가 완료되었습니다.` });
+                            Swal.fire({
+                                text: `삭제 처리가 완료되었습니다.`,
+                                showConfirmButton: false,
+                                timer: 800
+                            });
                             history.push('/admin');
+
                         })
                         .catch(err => {
                             console.log(err);
-                            Swal.fire({ text: `삭제 처리 중 오류가 발생했습니다.` });
+                            Swal.fire({
+                                text: `삭제 처리 중 오류가 발생했습니다.`,
+                                showConfirmButton: false,
+                                timer: 800
+                            });
                         })
                 }
             })

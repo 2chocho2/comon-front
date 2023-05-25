@@ -3,6 +3,7 @@ import { AiOutlineClose } from "react-icons/ai"
 import { useEffect } from "react";
 import '../css/modal.css';
 import loading from '../img/loading.gif';
+import loading2 from '../img/loading2.gif';
 
 const RunModal = (props) => {
 
@@ -36,12 +37,12 @@ const RunModal = (props) => {
                         props.isLoading
                             ?
                             <>
-                                <img src={loading} />
-                                <p>잠시 기다려 주세요</p>
+                                <img src={loading2} className="run-loading-img" />
+                                <p className="run-loading-text">잠시 기다려 주세요</p>
                             </>
                             :
                             <>
-                                <p>준비 끝 {props.port}</p>
+                                <p className="run-ok-text">🎠 준비 끝 {props.port} 🎠</p>
                                 <button type='button'
                                     className="run_modalBtn"
                                     onClick={handlerClickGo} >이동하기</button>

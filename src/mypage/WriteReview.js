@@ -37,22 +37,28 @@ const WriteReview = ({ history }) => {
         let userId = decode_token.sub;
 
         axios.post(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/writereview/${imageIdx}`,
-        {
-            imageIdx: imageIdx,
-            reviewContent: reviewContent,
-            userId: userId,
-            scoreCount: scoreCount
-        },
-        {
-            headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
-        })
+            {
+                imageIdx: imageIdx,
+                reviewContent: reviewContent,
+                userId: userId,
+                scoreCount: scoreCount,
+                showConfirmButton: false,
+            },
+            {
+                headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
+            })
             .then(response => {
-                Swal.fire({text:`정상적으로 등록되었습니다.`})
-                window.location.replace('/mypage/review');
+                Swal.fire({
+                    text: '정상적으로 등록되었습니다📂',
+                    showConfirmButton: false,
+                    timer: 1000
+                }).then(() => {
+                    window.location.replace('/mypage/review');
+                });
             })
             .catch(error => {
                 console.log(error);
-                Swal.fire({text:`리뷰 등록에 실패했습니다.`})
+                Swal.fire({ text: `리뷰 등록에 실패했습니다☠️` })
                 return;
             })
     }
@@ -61,29 +67,37 @@ const WriteReview = ({ history }) => {
         <>
             <Navi history={history} />
             <MyPageSide />
-            <div className='my-service-body'>
-                <div className='my-service-header'>
-                    <span className='my-service-titleName'>'{imageName}'&nbsp;&nbsp;</span>
-                    <span className='my-service-titleName2'>애플리케이션을 추천하시겠어요?</span>
-                </div><br />
-
-                <div className='my-writeReview-box'>
-                    <div className="Stars">
-                        {array.map((el, idx) => {
-                            return (
-                                <ImStarFull
-                                    key={idx}
-                                    size="50"
-                                    onClick={() => handleStarClick(el)}
-                                    className={clicked[el] && 'Pick'}
-                                />
-                            );
-                        })}
+            <div className='my-reviewWrite-body'>
+                <div className="my-service-container">
+                    <div className='my-review-top'>
+                        <div className='app-header-round'></div>
+                        <div className='app-header-round'></div>
+                        <div className='app-header-round'></div>
                     </div>
-                    <div className="ReviewContent">
-                        <textarea className="ReviewContentInput" placeholder="리뷰를 작성해 주세요." value={reviewContent} onChange={handlerChange} required />
+                    <div className="my-service-bodybox">
+                        <div className='my-review-header'>
+                            <p className='my-review-titleName'>'{imageName}'</p>
+                            <p className='my-review-titleName2'>애플리케이션을 추천하시겠어요?</p>
+                        </div>
+                        <div className='my-writeReview-box'>
+                            <div className="Stars">
+                                {array.map((el, idx) => {
+                                    return (
+                                        <ImStarFull
+                                            key={idx}
+                                            size="50"
+                                            onClick={() => handleStarClick(el)}
+                                            className={clicked[el] && 'Pick'}
+                                        />
+                                    );
+                                })}
+                            </div>
+                            <div className="ReviewContent">
+                                <textarea className="ReviewContentInput" placeholder="리뷰를 작성해 주세요." value={reviewContent} onChange={handlerChange} required />
+                            </div>
+                            <button className='ReviewSubmit' onClick={handlerSubmit}>리뷰 등록</button>
+                        </div>
                     </div>
-                    <button className='ReviewSubmit' onClick={handlerSubmit}>리뷰 등록</button>
                 </div>
             </div>
         </>

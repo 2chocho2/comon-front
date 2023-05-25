@@ -44,31 +44,17 @@ const Login = ({ history }) => {
             .then(response => {
                 if (response.data) {
                     sessionStorage.setItem("token", response.data);
-                    showToastMessage();
                     history.push('/');
 
                 } else {
-                    Swal.fire({text: `ID, PW가 일치하지 않습니다. 확인 후 다시 시도해주세요.`});
+                    Swal.fire({ text: `ID, PW가 일치하지 않습니다. 확인 후 다시 시도해주세요.` });
                     sessionStorage.clear();
                 }
             })
             .catch(error => {
                 console.log(error);
-                Swal.fire({text: `ID, PW가 일치하지 않습니다. 확인 후 다시 시도해주세요.`});
+                Swal.fire({ text: `ID, PW가 일치하지 않습니다. 확인 후 다시 시도해주세요.` });
                 sessionStorage.clear();
-            });
-    };
-
-    const showToastMessage = () => {
-        toast('🦄 환영합니다!', {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
             });
     };
 
@@ -76,7 +62,7 @@ const Login = ({ history }) => {
         <>
             <ToastContainer />
             <div id="my-container">
-                <NaviDefault history={history}/>
+                <NaviDefault history={history} />
                 <div className="login-bg">
                     <div className="login-container">
                         <div className="login-box">
@@ -85,26 +71,26 @@ const Login = ({ history }) => {
                                 <div className="round2" />
                                 <div className="round3" />
                             </div>
-                            
+
                             <div className="login-body">
                                 <div className="rotate-box">
                                     <div className="rotation-text" />
                                     <div className="login-logo" />
                                 </div>
-                                
+
                                 <div className="login-content">
                                     <div className="login-content-title">
                                         <p>Hello! COM:ON!!</p>
                                         <p>User</p>
                                     </div>
-                                    
+
                                     <input className='login-id'
                                         type="text"
                                         value={userId}
                                         placeholder="아이디를 입력하세요."
                                         onChange={handlerChangeUserId} />
                                     <br />
-                                    
+
                                     <div className='login-pwd-input'>
                                         <input className='login-pwd'
                                             type={hidePassword ? "password" : "text"}
@@ -131,10 +117,10 @@ const Login = ({ history }) => {
                                             로그인
                                         </button>
                                     </section>
-                                    
+
                                     <button className='register-btn' onClick={handlerRegist}>아이디가 없으신가요?</button>
                                 </div>
-                               
+
                                 <div className="social-login-box">
                                     <p>소셜 로그인</p>
                                     {/* 다양한 방식의 로그인 컴포넌트를 추가 */}

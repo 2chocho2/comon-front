@@ -21,8 +21,6 @@ const KakaoLogin = ({history}) => {
         });
     };
 
-
-
     useEffect(() => {
         if (!Kakao.isInitialized()) {
             Kakao.init(JAVASCRIPT_APP_KEY);
@@ -57,16 +55,12 @@ const KakaoLogin = ({history}) => {
                 })
                 .then(response => {
                     // 사용자 정보 로깅
-                    console.log(response);
-
                     // 애플리케이션에서 필요한 정보를 추출해서 로컬 스토리지에 저장
                     const { kakao_account } = response;
                     const userName = kakao_account.profile.nickname; // 로그인하는 사용자의 이름으로 설정
-                    console.log(kakao_account.profile.nickname);
                     localStorage.setItem('userName', kakao_account.profile.nickname);
                     localStorage.setItem('userNickname', kakao_account.profile.nickname);
                     localStorage.setItem('userPhoto', kakao_account.profile.profile_image_url);
-
 
                     axios.post(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/checkUserExistence`, { userName })
                     .then(response => {

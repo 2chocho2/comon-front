@@ -8,9 +8,9 @@
 * {
     box-sizing: border-box;
 }
+
 /* 기본 네비 */
 .default-navi {
-    /* border-bottom: 5px solid rgb(255, 150, 0); */
     background-color: black;
     box-sizing: border-box;
     width: 100%;
@@ -60,6 +60,7 @@
     border-left: 3px solid white;
 
 }
+
 /* 관리자 */
 .menu {
     border-bottom: 5px solid #0d4bbe;
@@ -71,13 +72,6 @@
     float: left;
     font-family: 'TheJamsil5Bold';
     z-index: 5;
-}
-
-#navi::after,
-menu::after {
-    content: '';
-    display: block;
-    clear: both;
 }
 
 .menu .home {
@@ -128,7 +122,6 @@ menu::after {
     float: left;
     font-family: 'TheJamsil5Bold';
     z-index: 5;
-
 }
 
 .dev-menu .dev-home {
@@ -180,7 +173,6 @@ menu::after {
     float: left;
     font-family: 'TheJamsil5Bold';
     z-index: 5;
-
 }
 
 .user-navi .user-home {
@@ -227,7 +219,6 @@ menu::after {
     padding: 30px 150px;
     width: 100%;
     height: 25vh;
-    /* line-height: 60px; */
     font-family: 'TheJamsil5Bold';
     color: white;
     text-align: center;
@@ -248,13 +239,6 @@ menu::after {
 
 .loginButton {
     float: right;
-    /* margin-right: 30px; */
-}
-
-.loginButton::after {
-    display: block;
-    clear: both;
-    content: '';
 }
 
 .login-btn {
@@ -289,6 +273,7 @@ menu::after {
     margin-right: 150px;
     float: right;
 }
+
 #default-button {
     float: right;
 }
@@ -302,4 +287,13 @@ menu::after {
     margin: 0px 10px;
     vertical-align: middle;
     cursor: pointer;
+}
+
+/* 클리어 */
+#navi::after,
+menu::after,
+.loginButton::after {
+    content: '';
+    display: block;
+    clear: both;
 }

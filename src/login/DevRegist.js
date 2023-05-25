@@ -4,6 +4,8 @@ import axios from "axios";
 import NaviDefault from '../Navi/NaviDefault';
 import '../css/login.css';
 import Swal from 'sweetalert2';
+import $ from 'jquery';
+import { ToastContainer, toast } from 'react-toastify';
 
 const DevRegist = ({ history }) => {
 
@@ -30,6 +32,11 @@ const DevRegist = ({ history }) => {
         type: "password",
         autoComplete: "current-password",
     });
+
+    //아이디 중복 확인
+    let isValidId = false; // 중복확인 여부를 나타내는 상태값
+    //이름 중복 확인
+    // let isValidName = false;
 
     useEffect(() => {
         if (passwordOption === false)
@@ -96,25 +103,155 @@ const DevRegist = ({ history }) => {
         } else if (numberFormat.length >= 8) {
             numberFormat = numberFormat.substr(0, 3) + '-' + numberFormat.substr(3, 4) + '-' + numberFormat.substr(7, 4);
         }
-
         setUserPhoneNumber(numberFormat);
     }
+
+    // 아이디 중복 확인
+    function checkId() {
+        var id = $('#id').val(); //id값이 "id"인 입력란의 값을 저장
+
+        if (id.trim() === '') {
+            toast.error('아이디를 입력해주세요.', {
+                position: "top-center",
+                autoClose: 500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            return;
+        };
+        $.ajax({
+            url: `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/idCheck`, //Controller에서 요청 받을 주소
+            type: 'post', //POST 방식으로 전달
+            data: { id: id },
+            success: function (cnt) { //컨트롤러에서 넘어온 cnt값을 받는다 
+                if (cnt == 0) { //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디 
+                    $('.id_ok').css("display", "inline-block");
+                    $('.id_already').css("display", "none");
+                    toast.success('👌 사용가능한 아이디입니다.', {
+                        position: "top-center",
+                        autoClose: 500,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+                    isValidId = true; //사용가능한 아이디로 확인이 되면 true값으로 바뀜면서 회원가입 가능
+                } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
+                    $('.id_already').css("display", "inline-block");
+                    $('.id_ok').css("display", "none");
+                    toast.error('❌이미 사용중인 아이디입니다.', {
+                        position: "top-center",
+                        autoClose: 500,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+                    $('#id').val('');
+                    isValidId = false; // 중복확인을 실패한 경우에는 isValidId 값을 false로 변경
+                }
+            },
+
+            error: function () {
+                alert("에러입니다");
+            }
+        });
+    };
+
+
+    // 이름 중복 확인
+    // function checkName() {
+    //     var name = $('#name').val(); //name값이 "name"인 입력란의 값을 저장
+    //     if (name.trim() === '') {
+    //         toast.error('이름을 입력해주세요.', {
+    //             position: "top-center",
+    //             autoClose: 500,
+    //             hideProgressBar: false,
+    //             closeOnClick: true,
+    //             pauseOnHover: true,
+    //             draggable: true,
+    //             progress: undefined,
+    //             theme: "light",
+    //             });
+    //         return;
+    //     };
+    //     $.ajax({
+    //         url: `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/nameCheck`, //Controller에서 요청 받을 주소
+    //         type: 'post', //POST 방식으로 전달
+    //         data: { name:name },
+    //         success: function (cntN) { //컨트롤러에서 넘어온 cntN값을 받는다 
+    //             if (cntN === 0) { //cntN가 0일 경우 -> 사용 가능한 이름
+    //                 $('.name_ok').css("display", "inline-block");
+    //                 $('.name_already').css("display", "none");
+    //                 toast.success('👌 사용가능한 이름입니다.', {
+    //                     position: "top-center",
+    //                     autoClose: 500,
+    //                     hideProgressBar: false,
+    //                     closeOnClick: true,
+    //                     pauseOnHover: true,
+    //                     draggable: true,
+    //                     progress: undefined,
+    //                     theme: "light",
+    //                 });
+    //                 isValidName = true; //사용가능한 이름으로 확인이 되면 true값으로 바뀜면서 회원가입 가능
+    //             } else { // cntN가 1일 경우 -> 이미 존재하는 이름
+    //                 $('.name_already').css("display", "inline-block");
+    //                 $('.name_ok').css("display", "none");
+    //                 toast.error('❌이미 사용중인 이름입니다.', {
+    //                     position: "top-center",
+    //                     autoClose: 500,
+    //                     hideProgressBar: false,
+    //                     closeOnClick: true,
+    //                     pauseOnHover: true,
+    //                     draggable: true,
+    //                     progress: undefined,
+    //                     theme: "light",
+    //                 });
+    //                 $('#name').val('');
+    //                 isValidName = false; // 중복확인을 실패한 경우에는 isValidId 값을 false로 변경
+    //             }
+    //         },
+    //         error: function () {
+    //             alert("에러입니다");
+    //         }
+    //     });
+    // }
+
 
     // 회원가입 값 푸쉬 버튼
     const handlerOnClick = e => {
         e.preventDefault();
 
+        // 아이디 중복 확인을 수행하지 않은 경우
+        if (!isValidId) {
+            Swal.fire({ text: '아이디 중복확인을 해주세요.' });
+            return;
+        }
+        // 이름 중복 확인을 수행하지 않은 경우
+        // if(!isValidName){
+        //     Swal.fire({text : '이름 중복확인을 해주세요.' });
+        //     return;
+        // }
+
         axios.post(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/regist`,
             { userId, userName, userPassword, userPhoneNumber: userPhoneNumber.replaceAll('-', ''), userEmail, authIdx: 2 })
             .then(response => {
                 if (response.data) {
-                    Swal.fire({text:`정상적으로 가입 되었습니다. 로그인 페이지로 이동합니다.`});
+                    Swal.fire({ text: `정상적으로 가입 되었습니다. 로그인 페이지로 이동합니다.` });
                     history.push('/devlogin');
                 }
             })
             .catch(error => {
                 console.log(error);
-                Swal.fire({text:`확인 후 다시 시도해주세요.`});
+                Swal.fire({ text: `확인 후 다시 시도해주세요.` });
                 sessionStorage.clear();
             });
     };
@@ -122,7 +259,7 @@ const DevRegist = ({ history }) => {
     return (
         <>
             <div id="my-container">
-                <NaviDefault history={history}/>
+                <NaviDefault history={history} />
                 <div className='dev-register-bg' />
                 <div className='register-container'>
                     <div className='register-box'>
@@ -138,10 +275,11 @@ const DevRegist = ({ history }) => {
                                 <p>Developer</p>
                             </div>
 
-                            <div className='input-register'>
+                            <div className='input-register-id'>
                                 <label><span style={{ color: 'red' }}>*</span> 아이디</label>
-                                <input type="text" value={userId} onChange={handlerChangeUserId}
-                                    placeholder="아이디를 입력하세요." />
+                                <input type="text" id="id" value={userId} onChange={handlerChangeUserId}
+                                    placeholder="아이디를 입력하고 중복확인을 해주세요." />
+                                <button id='doublecheck-btn' onClick={checkId}>중복 확인</button>
                             </div>
 
                             <div className='input-register'>
@@ -182,10 +320,10 @@ const DevRegist = ({ history }) => {
 
                             <div className='input-register'>
                                 <label><span style={{ color: 'red' }}>*</span> 이름</label>
-                                <input type="text" text="이름" value={userName}
+                                <input type="text" text="이름" id="name" value={userName}
                                     onChange={handlerChangeUserName}
-                                    placeholder="이름을 입력하세요."
-                                />
+                                    placeholder="이름을 입력하세요." />
+                                {/* <button id='doublecheck-btn' onClick={checkName }>중복 확인</button> */}
                             </div>
 
                             <div className='input-email'>
@@ -201,7 +339,7 @@ const DevRegist = ({ history }) => {
                                 <input type="text" text="전화번호" value={userPhoneNumber} onChange={handlerChangeUserPhoneNumber}
                                     placeholder="전화번호를 입력하세요." />
                             </div>
-                            
+
                             <section>
                                 <button className="dev-registerCheck-btn"
                                     onClick={handlerOnClick}

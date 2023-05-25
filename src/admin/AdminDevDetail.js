@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import NaviAdmin from "../Navi/NaviAdmin";
 import axios from "axios";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
-
+import { TbHomeMove } from "react-icons/tb";
 
 const AdminDevDetail = ({ history, match }) => {
 
@@ -33,9 +33,9 @@ const AdminDevDetail = ({ history, match }) => {
             return (
                 <>
                     <tr>
-                        <td><img src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/icon/${d.iconImage}`} 
-                                style={{ width: '80px', height: '80px' }}
-                                key={index} /></td>
+                        <td><img src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/icon/${d.iconImage}`}
+                            style={{ width: '80px', height: '80px' }}
+                            key={index} /></td>
                         <td>{d.imageName}</td>
                         <td>{categoryName}</td>
                         <td>{d.registDt.substring(0, 10)}</td>
@@ -43,8 +43,7 @@ const AdminDevDetail = ({ history, match }) => {
                     </tr>
                 </>
             )
-        }
-        )
+        })
     };
 
     const handlerClickList = () => {
@@ -68,9 +67,9 @@ const AdminDevDetail = ({ history, match }) => {
 
                 <div className='body'>
                     <p className='body_title'>개발자 관리-{userId}
-                        <button type='button'
-                            onClick={handlerClickList}>목록으로</button></p>
-
+                        <TbHomeMove className="back-icon" onClick={handlerClickList} title="목록으로" />
+                    </p>
+                    <div className='AppSerch' />
                     <table className='AppTable'>
                         <colgroup>
                             <col width="21%" />
@@ -95,7 +94,7 @@ const AdminDevDetail = ({ history, match }) => {
                 </div>
 
             </div>
-           
+
         </>
     );
 }

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Auth from "../admin/Auth";
 import jwtDecode from 'jwt-decode';
 import Navi from "../Navi/Navi";
+import Swal from "sweetalert2";
 
 const NoticeWrite = ({ history }) => {
   const [category, setCategory] = useState([]);
@@ -23,7 +24,6 @@ const NoticeWrite = ({ history }) => {
     const token = sessionStorage.getItem('token');
     const decode_token = jwtDecode(token);
     let authIdx = decode_token.authIdx;
-    console.log(authIdx);
 
     if (authIdx == '3') {
       setAuthYn(true);
@@ -49,15 +49,24 @@ const NoticeWrite = ({ history }) => {
       })
       .then((res) => {
         if (res.data === '정상처리') {
-          alert('게시글이 정상적으로 등록되었습니다.');
-          history.push('/notice');
+          Swal.fire({
+            title: '게시글 등록',
+            text: '📢 게시글이 정상적으로\n등록되었습니다.',
+            showConfirmButton: false,
+            timer: 800
+          }).then(() => {
+            history.push('/notice');
+          });
         } else {
-          alert('게시글 등록에 실패했습니다.');
-          return;
+          Swal.fire({
+            text: '게시글 등록 실패☠️',
+            showConfirmButton: false,
+            timer: 800
+          });
         }
       })
       .catch((err) => {
-        alert(`게시글 등록에 실패했습니다. (${err.message})`);
+        alert(`게시글 등록에 실패했습니다☠️ (${err.message})`);
         return;
       });
   };
@@ -66,44 +75,50 @@ const NoticeWrite = ({ history }) => {
     <div className="all">
       <Navi history={history} />
       <div className="notice-container">
-        <div className="notice-main">
-          <div className="notice-logo">
-            <Link to={"/notice"}>
-              <img className="notice-img" src={notice1} alt="notice logo" />
-            </Link>
+
+        <div className="notice-header">
+          <div className="notice-main">
+            <div className="notice-logo">
+              <Link to={"/notice"}>
+                <img className="notice-img" src={notice1} alt="notice logo" />
+              </Link>
+            </div>
+            <p> COM:ON의 소식을 만나보세요 </p>
           </div>
-          COM:ON의 소식을 만나보세요
         </div>
+
         {
           authYn
             ?
             <div className="write">
               <div className="write-top">
+
                 <div className="write-category">
-                  <div>
-                    <p className='write-header-title'>카테고리</p>
-                    <select className="select-category" id="category" name="category" onChange={handleChangeCategory}>
-                      {category &&
-                        category.map((category, index) => (
-                          <option className="option-category" key={index} value={category.noticeCategoryIdx}>
-                            {category.noticeCategoryName}
-                          </option>
-                        ))}
-                    </select>
-                  </div>
+                  <p className='write-header-title'>카테고리</p>
+                  <select className="select-category" id="category" name="category" onChange={handleChangeCategory}>
+                    {category &&
+                      category.map((category, index) => (
+                        <option className="option-category" key={index} value={category.noticeCategoryIdx}>
+                          {category.noticeCategoryName}
+                        </option>
+                      ))}
+                  </select>
                 </div>
+
                 <div className="write-title">
                   <div>
                     <p className='write-header-title'>제목</p>
-                    <input className="input-title" type="text" value={noticeTitle} onChange={handlerChangeTitle} />
+                    <input className="input-title" type="text" value={noticeTitle} onChange={handlerChangeTitle} placeholder="제목을 입력해주세요" />
                   </div>
                 </div>
               </div>
+
               <div>
                 <textarea className="write-content" value={noticeContent} onChange={handlerChangeContent}></textarea>
               </div>
+
               <div className="write-btn">
-                <input type="submit" className="save-btn" onClick={handlerSubmit} />
+                <input type="submit" className="save-btn" value="제출" onClick={handlerSubmit} />
               </div>
             </div>
             :

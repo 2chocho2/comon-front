@@ -15,7 +15,7 @@ const NaviAdmin = (props) => {
     useEffect(() => {
         if (sessionStorage.getItem('token') != null) {
             setIsLoggedIn(true);
-        } else if (window.localStorage.getItem('userName')!= null) {
+        } else if (window.localStorage.getItem('userName') != null) {
             setIsLoggedIn(true);
         } else {
             setIsLoggedIn(false);
@@ -31,7 +31,7 @@ const NaviAdmin = (props) => {
     };
 
     const handlerGoMypage = () => {
-        props.history.push(`/mypage`);
+        props.history.push(`/admin/chart`);
     };
 
     const handlerClickNotice = () => {
@@ -45,22 +45,22 @@ const NaviAdmin = (props) => {
         props.history.push('/');
         showToastMessage();
     };
-
+   
     const handlerClickLogin = () => {
         props.history.push(`/login`)
     };
 
     const showToastMessage = () => {
         toast('Bye Bye~ 👋', {
-            position: "top-center",
-            autoClose: 5000,
+            position: "top-right",
+            autoClose: 500,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
             theme: "light",
-            });
+        });
     };
 
     return (
@@ -78,21 +78,23 @@ const NaviAdmin = (props) => {
                         ?
                         <>
                             <div id="user-button">
-                                < RiLogoutCircleFill className='logout-navi-icon'   
-                                                        title='로그아웃'
-                                                        onClick={handlerClickLogout} />
-                                < RiUser5Fill className='mypage-navi-icon' 
-                                                title='마이페이지' 
-                                                onClick={handlerGoMypage} />
+                                < RiLogoutCircleFill className='logout-navi-icon'
+                                    title='로그아웃'
+                                    onClick={handlerClickLogout}
+                                    style={{ color: '#0d4bbe' }} />
+                                < RiUser5Fill className='mypage-navi-icon'
+                                    title='마이페이지'
+                                    onClick={handlerGoMypage}
+                                    style={{ color: '#0d4bbe' }} />
                             </div>
                         </>
                         :
                         <>
                             <div id="user-button">
-                                < RiUser5Line className='login-navi-icon' 
-                                            title='로그인'
-                                            onClick={handlerClickLogin}
-                                             />
+                                < RiUser5Line className='login-navi-icon'
+                                    title='로그인'
+                                    onClick={handlerClickLogin}
+                                    style={{ color: '#0d4bbe' }} />
                             </div></>
 
                 }

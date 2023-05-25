@@ -19,7 +19,7 @@ const MyService = ({ history }) => {
 
     useEffect(() => {
         if (sessionStorage.getItem('token') === null) {
-            Swal.fire({text:`로그인 후 이용 가능합니다.`})
+            Swal.fire({ text: `로그인 후 이용 가능합니다.` })
             history.push(`/login`);
         }
 
@@ -27,7 +27,7 @@ const MyService = ({ history }) => {
         const decode_token = jwt_decode(token);
         setUserId(decode_token.sub);
         let userId = decode_token.sub;
-        
+
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/myservice/${userId}`,
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
@@ -61,7 +61,6 @@ const MyService = ({ history }) => {
 
     // 앱 실행 핸들러
     const handlerClick = (index) => {
-        console.log('>>>>>>>>>>> 클릭');
         setModalIsOpen(true);
         handlerRunApp(index);
     };
@@ -72,9 +71,6 @@ const MyService = ({ history }) => {
             const result = await axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/runapp/${userId}/${index}`, {
                 headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
             });
-
-            console.log("exitCode", result.data.exitCode);
-
             if (result.data.exitCode != '0') {
                 setTimeout(() => handlerRunApp(index), 10000);
             } else {
@@ -88,7 +84,7 @@ const MyService = ({ history }) => {
     }
 
     function checkServerHealth(endpointPort) {
-        fetch(`http://${process.env.REACT_APP_IP}:${endpointPort}`, { mode: 'no-cors' } )
+        fetch(`http://${process.env.REACT_APP_IP}:${endpointPort}`, { mode: 'no-cors' })
             .then(response => {
                 if (response) {
                     setIsLoading(false);
@@ -113,20 +109,35 @@ const MyService = ({ history }) => {
 
     // 각각 앱 삭제 버튼
     const handlerClickDeleteEach = (e) => {
-        axios.delete(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/mypage/${e}/${userId}`,
-            { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
-            .then(res => {
-                Swal.fire({text:'삭제가 완료되었습니다.'})
-                window.location.reload();
-            })
-            .catch(err => {
-                console.log(err);
-            })
+        Swal.fire({
+            text: '서비스를 정말로 삭제하시겠습니까?😱',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: '삭제',
+            cancelButtonText: '취소',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.delete(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/mypage/${e}/${userId}`,
+                    { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
+                    .then(res => {
+                        Swal.fire({
+                            text: '삭제가 완료되었습니다😱',
+                            showConfirmButton: false,
+                            timer: 800
+                        }).then(() => {
+                            window.location.reload();
+                        })
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+            }
+        })
     };
 
     return (
         <>
-            <div id="my-container">
+            <div id="mypage-container">
                 <Navi history={history} />
                 <MyPageSide />
                 <div className='my-service-body'>
@@ -137,24 +148,28 @@ const MyService = ({ history }) => {
                     {
                         isEditing
                             ?
-                            <MyServiceEdit data={data}
-                                handlerMouseOver={handlerMouseOver}
-                                handlerMouseOut={handlerMouseOut}
-                                userId={userId}
-                                handlerClickDeleteEach={handlerClickDeleteEach}
-                                isEditing={isEditing} />
+                            <div className="edit-box">
+                                <MyServiceEdit data={data}
+                                    handlerMouseOver={handlerMouseOver}
+                                    handlerMouseOut={handlerMouseOut}
+                                    userId={userId}
+                                    handlerClickDeleteEach={handlerClickDeleteEach}
+                                    isEditing={isEditing} />
+                            </div>
                             :
-                            <MyServiceRun data={data}
-                                handlerMouseOver={handlerMouseOver}
-                                handlerMouseOut={handlerMouseOut}
-                                handlerClick={handlerClick}
-                                userId={userId}
-                                closeModal={closeModal}
-                                handlerRunApp={handlerRunApp}
-                                isEditing={isEditing}
-                                modalIsOpen={modalIsOpen}
-                                port={port}
-                                isLoading={isLoading} />
+                            <div className="edit-box">
+                                <MyServiceRun data={data}
+                                    handlerMouseOver={handlerMouseOver}
+                                    handlerMouseOut={handlerMouseOut}
+                                    handlerClick={handlerClick}
+                                    userId={userId}
+                                    closeModal={closeModal}
+                                    handlerRunApp={handlerRunApp}
+                                    isEditing={isEditing}
+                                    modalIsOpen={modalIsOpen}
+                                    port={port}
+                                    isLoading={isLoading} />
+                            </div>
                     }
                 </div>
             </div>

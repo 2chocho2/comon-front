@@ -11,11 +11,15 @@ import 'react-toastify/dist/ReactToastify.css';
 const Navi = (props) => {
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [authIdx, setAuthIdx] = useState(1);
 
     useEffect(() => {
         if (sessionStorage.getItem('token') != null) {
+            const token = sessionStorage.getItem('token');
+            const decode_token = jwtDecode(token);
             setIsLoggedIn(true);
-        } else if (window.localStorage.getItem('userName')!= null) {
+            setAuthIdx(decode_token.authIdx);
+        } else if (window.localStorage.getItem('userName') != null) {
             setIsLoggedIn(true);
         } else {
             setIsLoggedIn(false);
@@ -31,7 +35,13 @@ const Navi = (props) => {
     };
 
     const handlerGoMypage = () => {
-        props.history.push(`/mypage`);
+        if (authIdx === 3) {
+            props.history.push(`/admin/chart`);
+        } if (authIdx === 2) {
+            props.history.push(`/dev/applist`);
+        } else {
+            props.history.push(`/mypage`);
+        }
     };
 
     const handlerClickNotice = () => {
@@ -52,8 +62,8 @@ const Navi = (props) => {
 
     const showToastMessage = () => {
         toast('Bye Bye~ 👋', {
-            position: "top-center",
-            autoClose: 5000,
+            position: "top-right",
+            autoClose: 500,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,

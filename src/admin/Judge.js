@@ -67,7 +67,7 @@ const Judge = ({ history }) => {
             {
                 !authYn
                     ?
-                    <Auth history={history}/>
+                    <Auth history={history} />
                     :
                     <div>
                         <NaviAdmin history={history} />

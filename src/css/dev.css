@@ -26,6 +26,27 @@ input:focus,
     font-style: normal;
 }
 
+/* 태나다 */
+@font-face {
+    font-family: 'Tenada';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Tenada.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'GongGothicMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 전체 */
+.dev-container {
+    height: 100vh;
+    overflow: hidden;
+}
+
 /* 사이드메뉴 */
 /* 관리자 버전 */
 .sidemenu_admin-box {
@@ -197,19 +218,18 @@ input:focus,
 
 /* 스크롤바css */
 .body::-webkit-scrollbar {
-    width: 13px;
+    width: 5px;
 }
 
 .body::-webkit-scrollbar-thumb {
-    background-color: gray;
-    border-radius: 10px;
-    background-clip: padding-box;
-    border: 4px solid transparent;
-    transition: width 0.2s ease-in-out;
+    background-color: lightgray;
+    border-radius: 5px;
 }
-
+.body::-webkit-scrollbar-track {
+    background-color: white;
+}
 .body::-webkit-scrollbar-thumb:hover {
-    background-color: black;
+    background-color: #0d4bbe;
 }
 
 .body .body_title {
@@ -246,6 +266,7 @@ input:focus,
     font-weight: bold;
     letter-spacing: 1px;
 }
+
 .text-inputbox::placeholder,
 .text-inputbox-description::placeholder {
     font-weight: 400;
@@ -358,12 +379,6 @@ input:focus,
     padding: 30px;
 }
 
-.thumbnailImg-submit::after {
-    display: block;
-    content: "";
-    clear: both;
-}
-
 .register-thumbnail {
     width: 180px;
     height: 100px;
@@ -411,12 +426,6 @@ input:focus,
     padding: 50px 0px;
 }
 
-.AppSerch::after {
-    display: block;
-    content: "";
-    clear: both;
-}
-
 /* admin 앱 리스트 필터 버튼 */
 .filterButton {
     margin: 30px 0px 50px 0px;
@@ -429,7 +438,6 @@ input:focus,
 }
 
 .filterAppButton {
-    /* margin: 30px 0px 40px 0px; */
     font-family: 'TheJamsil5Bold';
     float: left;
 }
@@ -557,6 +565,35 @@ input:focus,
     height: 10px;
 }
 
+/* 설정 버튼 아이콘 */
+.admin-auth-seticon {
+    vertical-align: middle;
+    background: #0d4bbe;
+    color: white;
+    width: 60px;
+    height: 60px;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* 홈 버튼 */
+.back-icon {
+    border: none;
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+    border-radius: 5px;
+    margin-left: 20px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.back-icon:hover {
+    background-color: #d9eeff;
+    color: #0d4bbe;
+}
+
 /* 심사 폼 */
 .detailform-each,
 .sh-imgform-each {
@@ -580,13 +617,6 @@ input:focus,
     margin-left: 10px;
     float: left;
     width: calc(50% - 10px);
-}
-
-.img-container::after,
-#img-box::after {
-    display: block;
-    content: "";
-    clear: both;
 }
 
 /* 타이틀 */
@@ -619,6 +649,7 @@ input:focus,
     font-weight: bold;
     letter-spacing: 1px;
 }
+
 .detailtext-inputbox-description {
     border: 2px solid black;
     width: 100%;
@@ -631,6 +662,7 @@ input:focus,
     font-weight: bold;
     letter-spacing: 1px;
 }
+
 /* 스크롤바 css */
 .text-inputbox-description::-webkit-scrollbar {
     width: 5px;
@@ -702,7 +734,6 @@ input:focus,
 .sh-img-box::-webkit-scrollbar-track {
     background-color: grey;
     box-shadow: inset 0px 0px 5px white;
-
 }
 
 .screenshot-detail {
@@ -774,7 +805,6 @@ input:focus,
 
 /* /dev Setting*/
 .devSetting-container {
-    /* background-color: #c7c7c7; */
     width: 80%;
     margin: auto;
     border-top: 1px solid black;
@@ -795,7 +825,14 @@ input:focus,
     margin-bottom: 10px;
 }
 
-.devSetting-input {
+.devSetting-id:focus {
+    border-radius: none;
+    background-color: transparent;
+    cursor: none;
+}
+
+.devSetting-input,
+.devSetting-id {
     border: 2px solid black;
     width: 100%;
     height: 50px;
@@ -834,6 +871,8 @@ input:focus,
     margin-top: 30px;
     padding: 50px;
     border-top: 3px solid black;
+    display: flex;
+    justify-content: center;
 }
 
 .button-box-noborder {
@@ -863,7 +902,6 @@ input:focus,
     width: 100px;
     height: 50px;
     line-height: 42px;
-    margin-top: 40px;
     text-align: center;
     font-family: 'TheJamsil5Bold';
     font-size: 18px;
@@ -875,4 +913,62 @@ input:focus,
     background-color: #c7c7c7;
     border: 3px solid black;
     color: black;
+}
+
+/* 접근권한에러 */
+.auth_body {
+    height: 937px;
+    background-image: url('../img/auth-error-bg.png');
+    background-position: center;
+    background-size: cover;
+    position: relative;
+}
+
+.auth-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.auth-title {
+    font-family: 'Tenada';
+    font-size: 4em;
+    background-color: rgb(255, 255, 255, 0.8);
+    padding: 35px 20px 20px;
+    border-radius: 20px;
+    margin-bottom: 30px;
+    vertical-align: middle;
+}
+
+.auth-btn {
+    background-color: white;
+    border: 5px solid rgb(70, 70, 204);
+    font-family: 'GongGothicMedium';
+    font-weight: bold;
+    font-size: 2em;
+    vertical-align: middle;
+    padding: 15px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.auth-btn:hover {
+    background-color: rgb(247, 120, 183);
+    border: 5px solid rgb(70, 70, 204);
+    color: white;
+}
+
+/* 클리어 */
+#applist-description-box::after,
+.applist-each-icon::after,
+.applist-description-name ::after,
+.thumbnailImg-submit::after,
+.AppSerch::after,
+.img-container::after,
+#img-box::after {
+    display: block;
+    content: "";
+    clear: both;
 }

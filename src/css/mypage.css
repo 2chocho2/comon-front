@@ -4,6 +4,7 @@
     font-weight: 300;
     font-style: normal;
 }
+
 @font-face {
     font-family: 'SUITE-Regular';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
@@ -11,12 +12,11 @@
     font-style: normal;
 }
 
-
 * {
     box-sizing: border-box;
 }
 
-#my-container {
+#mypage-container {
     height: 100vh;
     overflow: hidden;
 }
@@ -104,11 +104,10 @@
 .my-service-body {
     width: 75%;
     height: 93.6vh;
-    display: inline-block;
     padding: 100px 150px;
     text-align: center;
     font-family: 'TheJamsil5Bold';
-    overflow-y: auto;
+    overflow-y: scroll;
 }
 
 /* 스크롤바 css */
@@ -117,8 +116,48 @@
 }
 
 .my-service-body::-webkit-scrollbar-thumb {
-    background-color: gray;
+    background-color: black;
     border-radius: 5px;
+}
+
+/* 리뷰작성 */
+.my-reviewWrite-body {
+    width: 75%;
+    height: 93.6vh;
+    padding: 100px 150px;
+    text-align: center;
+    font-family: 'TheJamsil5Bold';
+    overflow-y: scroll;
+    background-color: #eaf0e3;
+}
+
+/* 스크롤바 css */
+.my-service-body::-webkit-scrollbar {
+    width: 5px;
+}
+
+.my-service-body::-webkit-scrollbar-thumb {
+    background-color: black;
+    border-radius: 5px;
+}
+
+.my-service-container {
+    border: 3px solid black;
+    background-color: white;
+    box-shadow: 3px 3px 5px rgb(0, 0, 0, .5);
+}
+
+.my-service-bodybox {
+    width: 100%;
+    padding: 50px 100px;
+}
+
+.my-review-top {
+    background-color: #A7A7A7;
+    width: 100%;
+    height: 50px;
+    padding: 0px 30px;
+    border-bottom: 3px solid black;
 }
 
 .my-service-header {
@@ -146,7 +185,6 @@
     width: 1100px;
     height: 100%;
     margin-top: 50px;
-    display: inline-block;
 }
 
 .my-app-each-contain-delete {
@@ -167,6 +205,7 @@
     top: 50%;
     transform: translate(-50%, -50%);
     box-shadow: 5px 5px 3px rgb(0, 0, 0, 0.5);
+    cursor: pointer;
 }
 
 .my-app-header {
@@ -221,6 +260,9 @@
     text-align: left;
     font-size: 2em;
     font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .my-app-devname {
@@ -234,6 +276,9 @@
 .my-app-description-description {
     font-size: 1em;
     text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* 사용 중 서비스 hover */
@@ -254,6 +299,9 @@
     height: 350px;
     font-family: 'TheJamsil5Bold';
     text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .my-app-hover-imagename {
@@ -261,6 +309,8 @@
     font-size: 2em;
     font-weight: bold;
     color: black;
+    white-space: pre-wrap;
+    word-break: keep-all;
 }
 
 .my-app-hover-devname {
@@ -302,7 +352,6 @@
     box-shadow: 0px 0px 8px black;
     cursor: pointer;
     animation: vibration 0.2s infinite ease-in-out;
-
 }
 
 @keyframes vibration {
@@ -337,7 +386,6 @@
     margin-top: 100px;
 }
 
-
 .edit-user-info-name,
 .edit-user-info-phone,
 .edit-user-info-email {
@@ -370,7 +418,6 @@
     left: 13%;
     z-index: 1;
 }
-
 
 .edit-user-info-form-input {
     width: 100%;
@@ -405,7 +452,6 @@
     background: linear-gradient(to right, #fffde2, #faccff, #b9faff);
     color: black;
 }
-
 
 /* --------------------------------------------------------------- */
 /* 리뷰 작성하기 */
@@ -463,7 +509,7 @@
 .my-review-titleName2 {
     font-size: 1.5em;
     color: black;
-    text-align: left;
+    text-align: center;
 }
 
 .Stars {
@@ -472,7 +518,7 @@
 
 .ReviewContentInput {
     width: 100%;
-    height: 300px;
+    height: 250px;
     padding: 15px;
     font-family: 'SUITE-Regular';
     font-size: 1.5em;
@@ -486,6 +532,7 @@
     background-color: white;
     color: black;
     resize: none;
+    overflow-y: auto;
 }
 
 .ReviewContentInput::placeholder {
@@ -498,7 +545,7 @@
 }
 
 .ReviewContentInput::-webkit-scrollbar-thumb {
-    background-color: gray;
+    background-color: black;
     border-radius: 5px;
 }
 
@@ -540,7 +587,7 @@
 }
 
 .my-review-description {
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(0, 0, 0, 0.8);
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -624,12 +671,19 @@
     text-align: center;
 }
 
+.reviewlist-icon p {
+    width: 150px;
+    word-break: break-all;
+    margin: auto;
+}
+
 .reviewlist-thumbnail {
     width: 90px;
     height: 90px;
     margin-top: 15px;
     margin-bottom: 15px;
     border-radius: 10px;
+    background-color: white;
     box-shadow: 0px 0px 3px 3px rgb(0, 0, 0, 0.5);
 }
 
@@ -698,4 +752,42 @@
 .ReviewDeleteButton:hover {
     background-color: black;
     color: white;
+}
+
+/* 런 모달 */
+.run-loading-img {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 20px;
+    animation: sideboxHue 5s infinite alternate;
+}
+.run-loading-text {
+    font-size: 1.5em;
+}
+.run-ok-text {
+    font-size: 2em;
+    margin-top: 45px;
+    margin-bottom: 30px;
+}
+
+.run_modalBtn {
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-family: 'TheJamsil5Bold';
+    font-size: 1em;
+    cursor: pointer;
+    border: 1px solid black;
+}
+
+.run_modalBtn:hover {
+    box-shadow: 0px 0px 5px 2px black;
+}
+
+/* 클리어 */
+.my-service-box::after {
+    display: block;
+    content: "";
+    clear: both;
 }

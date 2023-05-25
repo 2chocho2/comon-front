@@ -9,6 +9,7 @@ import { BsStarFill, BsStarHalf, BsStar } from "react-icons/bs";
 import jwtDecode from 'jwt-decode';
 import ReviewChart from "../reviewChart/ReviewChart";
 import Swal from "sweetalert2";
+import { IoIosArrowDropleftCircle, IoIosArrowDropdownCircle, IoIosArrowDropupCircle } from "react-icons/io";
 
 // 슬라이더 화살표 정의
 function SampleNextArrow(props) {
@@ -43,7 +44,11 @@ const AppDetail = ({ match, history }) => {
 
     useEffect(() => {
         if (sessionStorage.getItem('token') === null) {
-            Swal.fire({text:`로그인 후 이용 가능합니다.`});
+            Swal.fire({
+                text: `🗝️로그인 후 이용 가능합니다.`,
+                showConfirmButton: false,
+                timer: 800
+            })
             history.push(`/login`);
         };
 
@@ -70,7 +75,7 @@ const AppDetail = ({ match, history }) => {
         let userId = decode_token.sub;
 
         try {
-            
+
             const result =
                 await axios({
                     method: 'POST',
@@ -81,20 +86,23 @@ const AppDetail = ({ match, history }) => {
                     },
                     headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
                 })
-                
-                if (result.data.exitCode == '-1') {
-                    Swal.fire({text:`다운로드 중 오류가 발생했습니다.`});
-                } else if (result.data == null) {
-                    Swal.fire({text:`이미 다운받은 앱입니다`});
-                } else if (result.data.downloadCount == '1' || result.data.updateCount == '1') {
-                    Swal.fire({text:`앱 다운로드가 완료되었습니다.`});
-                }
+            if (result.data.exitCode == '-1') {
+                Swal.fire({ text: `다운로드 중 오류가 발생했습니다☠️` });
+            } else if (result.data.downloadCount == '1' || result.data.updateCount == '1') {
+                Swal.fire({ text: `앱 다운로드가 완료되었습니다.📂` });
+            } else {
+                Swal.fire({
+                    text: `이미 다운받은 앱입니다🗂️`,
+                    showConfirmButton: false,
+                    timer: 800
+            });
+            }
         } catch (err) {
             console.log(err);
             return;
         }
     }
-    
+
     const imgArr = [data.screenshotImage1,
     data.screenshotImage2,
     data.screenshotImage3,
@@ -154,6 +162,21 @@ const AppDetail = ({ match, history }) => {
         return <p>{appRegistDt}</p>;
     };
 
+    // 목록으로
+    const handlerClickAppList = () => {
+        history.push(`/user/applist`);
+    };
+
+    const scrollToBottom = () => {
+        const element = document.getElementById('down');
+        element.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    };
+
+    const scrollToTop = () => {
+        const element = document.getElementById('up');
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+
     return (
         <>
             <div className='detail-back'>
@@ -180,12 +203,18 @@ const AppDetail = ({ match, history }) => {
                             </div>
                         </div>
                     </div>
-
                 </div>
+
                 <div className='detail-right'>
+
+                    <div className="detail-side-btn">
+                        <IoIosArrowDropleftCircle onClick={handlerClickAppList} className="detail-home-btn" title="목록으로" />
+                        <IoIosArrowDropupCircle onClick={scrollToTop} className="detail-up-btn" title="up" />
+                        <IoIosArrowDropdownCircle onClick={scrollToBottom} className="detail-down-btn" title="down" />
+                    </div>
                     <div className="detail-right-content">
                         <div className='detail-screenshot'>
-                            <p className="screenshot-title">스크린샷</p>
+                            <p className="screenshot-title" id="up">스크린샷</p>
                             <div className="appdetail-slider-box">
                                 <Slider className='appdetail-slider' {...settings}>
 
@@ -275,7 +304,7 @@ const AppDetail = ({ match, history }) => {
                             </div>
                         </div>
 
-                        <div className='detail-image-download-app'>
+                        <div className='detail-image-download-app' id='down'>
                             <img className='detail-image-download-app-icon' src={iconImage} />
                             <div>
                                 <p className='detail-image-download-app-name'>{data.imageName}</p>

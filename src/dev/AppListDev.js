@@ -24,25 +24,23 @@ const AppListDev = ({ history }) => {
             setUserId(decode_token.sub);
             let userId = decode_token.sub;
             let authIdx = decode_token.authIdx;
-    
+
             axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/applist/${userId}`,
-            { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
-            .then(res => {
-                setData(res.data.list1);
-                setDenyList(res.data.list2);
-            })
-            .catch(err => {
-                console.log(err);
-            })
-            
+                { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
+                .then(res => {
+                    setData(res.data.list1);
+                    setDenyList(res.data.list2);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+
             if (authIdx === 3 || authIdx === 2) {
                 setAuthYn(true);
             } else {
                 setAuthYn(false);
             }
         }
-        
-        
     }, []);
 
     const handlerClickDelete = (i) => {
@@ -59,14 +57,18 @@ const AppListDev = ({ history }) => {
             .then((result) => {
                 if (result.isConfirmed) {
                     axios.put(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/registdelete/${i}`,
-                    { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
-                    .then(res => {
-                        Swal.fire({text:'삭제 요청이 완료되었습니다.'});
-                        history.push('/dev/applist');
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    })
+                        { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
+                        .then(res => {
+                            Swal.fire({
+                                text: '삭제 요청이 완료되었습니다.',
+                                showConfirmButton: false,
+                                time: 800
+                            });
+                            history.push('/dev/applist');
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        })
                 }
             })
     };
@@ -152,17 +154,13 @@ const AppListDev = ({ history }) => {
                                 <tbody>
                                     {createTable()}
                                 </tbody>
-
                             </table>
                         </div>
-
                     </div>
                     :
                     <Auth history={history} />
             }
         </>
-
-
     )
 }
 

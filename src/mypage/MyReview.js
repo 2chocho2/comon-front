@@ -25,15 +25,6 @@ const MyReview = ({ history }) => {
             .catch(err => {
                 console.log(err);
             })
-        // axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/qna/${userId}`,
-        //     { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
-        //     .then(res => {
-        //         const userIdx = res.data;
-        //         setUserIdx(userIdx);
-        //     })
-        //     .catch(err => {
-        //         console.log(err);
-        //     })
     }, [])
 
     // 앱 상자에 마우스 hover 됐을 때 hover 변수 변경
@@ -78,7 +69,7 @@ const MyReview = ({ history }) => {
                                             <div className='app-header-round'></div>
                                             <div className='app-header-round'></div>
                                         </div>
-                                        <img className='my-app-image' 
+                                        <img className='my-app-image'
                                             src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/thumbnail/${data.thumbnailImage}`} />
                                         <div className='my-review-description'>
                                             <p className='my-review-imagename'>{data.imageName}</p>
@@ -92,7 +83,6 @@ const MyReview = ({ history }) => {
                                         </div>
                                     </div>
                                 </>
-
                             ))}
                     </div>
                 </div>

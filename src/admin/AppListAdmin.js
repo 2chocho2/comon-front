@@ -22,7 +22,6 @@ const AppListAdmin = ({ history }) => {
             const token = sessionStorage.getItem('token');
             const decode_token = jwtDecode(token);
             let authIdx = decode_token.authIdx;
-            console.log(authIdx);
             if (authIdx === 3) {
                 setAuthYn(true);
             } else {
@@ -126,7 +125,7 @@ const AppListAdmin = ({ history }) => {
     const toggleFilterButton = (e) => {
 
         setFilterActive(e.target.id);
-        
+
         if (e.target.id == 1) {
             axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/applist`,
                 { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })

@@ -47,12 +47,13 @@ const AppRankingList = ({ history }) => {
                             <img className='appRank-thumbnail'
                                 src={`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/getimage/icon/${data.iconImage}`} />
                         </div>
+                        
                         <div className="appRankEach-content-container">
                             <p className='appRank-imageName'>{data.imageName}</p>
                             <p className='appRank-devName'>{data.userName}</p>
                             <div className='appRank-downloadCount'>
-                                <p className="appRank-dowbloadData">{data.downloadCount}</p>
-                                <p className="appRank-dowbloadData2">건</p>
+                                <span className="appRank-dowbloadData">{data.downloadCount}</span>
+                                <span className="appRank-dowbloadData2">건</span>
                             </div>
                         </div>
                     </div>

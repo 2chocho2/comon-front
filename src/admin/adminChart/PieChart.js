@@ -4,6 +4,7 @@ import HighchartsReact from "highcharts-react-official";
 import axios from "axios";
 import './adminChart.css';
 import jwtDecode from "jwt-decode";
+import styled from "styled-components";
 
 function PieChart() {
 
@@ -28,7 +29,7 @@ function PieChart() {
 
         axios
             .get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/chart/countalluseranddev`,
-            { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
+                { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then((response) => {
                 const { countAllUser, countAllDev } = response.data;
                 setCountAllUser(countAllUser);
@@ -45,7 +46,8 @@ function PieChart() {
             plotBackgroundColor: null,
             plotBorderWidth: null,
             plotShadow: false,
-            type: 'pie'
+            type: 'pie',
+            height: '350px'
         },
         credits: {
             enabled: false,
@@ -55,7 +57,11 @@ function PieChart() {
             align: 'center'
         },
         tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+            style: {
+                'color': 'black',
+                'fontFamily': 'SUITE-Regular',
+            }
         },
         accessibility: {
             point: {
@@ -68,8 +74,13 @@ function PieChart() {
                 cursor: 'pointer',
                 dataLabels: {
                     enabled: true,
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-                }
+                    format: '<b>{point.name}</b><br />{point.percentage:.1f} %',
+                    style: {
+                        'color': 'black',
+                        'fontFamily': 'SUITE-Regular',
+                        'fontSize': '16px'
+                    }
+                },
             }
         },
         series: [{
@@ -80,23 +91,23 @@ function PieChart() {
                 y: countAllUser || 0,
                 sliced: true,
                 selected: true,
-                color: '#0D4BBE'
+                color: '#74a1f3'
             }, {
                 name: `개발자 ${countAllDev}명`,
                 y: countAllDev || 0,
-                color: '#FFBA4A'
+                color: '#0D4BBE'
             }]
         }]
     }
 
     return (
         <>
-        <div id="pieChart" className="pieChartBox">
-            <div className="pieChart-title">
-                <p>사용자수 통계</p>
+            <div id="pieChart" className="pieChartBox">
+                <div className="pieChart-title">
+                    <p>사용자수 통계</p>
+                </div>
+                <HighchartsReact highcharts={Highcharts} options={options} />
             </div>
-            <HighchartsReact highcharts={Highcharts} options={options} />
-        </div>
         </>
     )
 };

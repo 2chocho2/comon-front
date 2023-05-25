@@ -50,8 +50,7 @@ const AppList = ({ history }) => {
         setCategoryActive(e.target.id);
 
         if (e.target.id == 0) {
-            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist`,
-                { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
+            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist`)
                 .then(res => {
                     setData(res.data);
                 })
@@ -59,8 +58,7 @@ const AppList = ({ history }) => {
                     console.log(err);
                 })
         } else if (e.target.id == 1) {
-            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/1`,
-                { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
+            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/1`)
                 .then(res => {
                     setData(res.data);
                 })
@@ -68,8 +66,7 @@ const AppList = ({ history }) => {
                     console.log(err);
                 })
         } else if (e.target.id == 2) {
-            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/2`,
-                { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
+            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/2`)
                 .then(res => {
                     setData(res.data);
                 })
@@ -81,8 +78,7 @@ const AppList = ({ history }) => {
 
     // 앱별 별점 출력 기능
     const starAvg = (e) => {
-        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/average/${e}`,
-            { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
+        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/average/${e}`)
             .then(res => {
                 setStarAverage((prev) => ({ ...prev, [e]: res.data }));
             })
@@ -126,8 +122,7 @@ const AppList = ({ history }) => {
         setOrderActive(e.target.value);
 
         if (e.target.value == 0) {
-            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/count`,
-                { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
+            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/count`)
                 .then(res => {
                     setData(res.data);
                 })
@@ -135,8 +130,7 @@ const AppList = ({ history }) => {
                     console.log(err);
                 })
         } else if (e.target.value == 1) {
-            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/registdt`,
-                { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
+            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/registdt`)
                 .then(res => {
                     setData(res.data);
                 })
@@ -144,8 +138,7 @@ const AppList = ({ history }) => {
                     console.log(err);
                 })
         } else {
-            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/order`,
-                { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
+            axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/order`)
                 .then(res => {
                     setData(res.data);
                 })
@@ -187,7 +180,7 @@ const AppList = ({ history }) => {
                         data.map(((data, index) =>
                             <>
                                 <div className='applist-each'
-                                    onClick={() => handlerClickAppDetail(data.imageIdx)} 
+                                    onClick={() => handlerClickAppDetail(data.imageIdx)}
                                     key={index}>
                                     <div className='applist-image-box'>
                                         <img className='applist-each-thumbnail'

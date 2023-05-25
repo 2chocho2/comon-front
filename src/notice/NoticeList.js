@@ -8,6 +8,7 @@ import notice1 from "./notice1.png";
 import Navi from '../Navi/Navi';
 import jwtDecode from 'jwt-decode';
 import { FaAngleDown } from "react-icons/fa";
+import { TbSpeakerphone } from "react-icons/tb";
 
 const NoticeList = ({ history }) => {
     const [noticeList, setNoticeList] = useState([]);
@@ -26,16 +27,14 @@ const NoticeList = ({ history }) => {
             const token = sessionStorage.getItem('token');
             const decode_token = jwtDecode(token);
             let authIdx = decode_token.authIdx;
-    
+
             if (authIdx == '3') {
                 setAuthYn(true);
             } else {
                 setAuthYn(false);
             }
         }
-        
-        axios
-            .get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/notice?currentPage=${currentPage}`)
+        axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/notice?currentPage=${currentPage}`)
             .then((response) => {
                 setNoticeList(response.data.list);
                 setTotalPages(response.data.pageCount);
@@ -49,7 +48,7 @@ const NoticeList = ({ history }) => {
         axios
             .get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/notice/category`)
             .then((response) => {
-                const newData = [{noticeCategoryIdx: 0, noticeCategoryName: '전체'}, ...response.data];
+                const newData = [{ noticeCategoryIdx: 0, noticeCategoryName: '전체' }, ...response.data];
                 setCategoryList(newData);
             })
             .catch((error) => {
@@ -66,25 +65,25 @@ const NoticeList = ({ history }) => {
         setSelectedCategory(e.target.value);
         setCategoyName(e.target.outerText);
         toggleDropdownVisibility();
-        if(e.target.value == '0') {
+        if (e.target.value == '0') {
             axios
-            .get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/notice?currentPage=${currentPage}`)
-            .then((response) => {
-                setNoticeList(response.data.list);
-                setTotalPages(response.data.pageCount);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+                .get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/notice?currentPage=${currentPage}`)
+                .then((response) => {
+                    setNoticeList(response.data.list);
+                    setTotalPages(response.data.pageCount);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
         } else {
             axios
-            .get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/notice/category/${e.target.value}`)
-            .then((res) => {
-                setNoticeList(res.data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+                .get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/notice/category/${e.target.value}`)
+                .then((res) => {
+                    setNoticeList(res.data);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         }
     };
 
@@ -126,37 +125,53 @@ const NoticeList = ({ history }) => {
         <div className="all">
             <Navi history={history} />
             <div className="notice-container">
-                <div className="notice-main">
-                    <div className="notice-logo">
-                        <Link to={"/notice"}>
-                            <img className="notice-img" src={notice1} alt="notice logo" />
-                        </Link>
-                    </div>
-                    COM:ON의 소식을 만나보세요
-                </div>
-                <div className="notice-dropdown">
-                    <div className="notice-drop-container">
-                        <input id="dropdown" type="checkbox" />
-                        <label className="dropdownLabel" htmlFor="dropdown" onClick={() => setIsDropdownVisible(true)}>
-                            <div>{categoryName}</div>
-                            <FaAngleDown className="caretIcon" />
-                        </label>
-                        <div className="content">
-                            {isDropdownVisible &&
-                                <ul>
-                                    {createCategoryList()}
-                                </ul>
-                            }
+                <div className="notice-header">
+                    <div className="notice-main">
+                        <div className="notice-logo">
+                            <Link to={"/notice"}>
+                                <img className="notice-img" src={notice1} alt="notice logo" />
+                            </Link>
                         </div>
+                        <p>COM:ON의 소식을 만나보세요</p>
+                    </div>
+
+                    <div className="notice-dropdown">
+                        <div className="notice-drop-container">
+                            <input id="dropdown" type="checkbox" />
+                            <label className="notice-dropdownLabel" htmlFor="dropdown"
+                                onClick={() => setIsDropdownVisible(true)}
+                            >
+                                <div>{categoryName}</div>
+                                <FaAngleDown className="caretIcon" />
+                            </label>
+                            <div className="content">
+                                {isDropdownVisible &&
+                                    <ul>
+                                        {createCategoryList()}
+                                    </ul>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        {
+                            authYn
+                            &&
+                            <Link to={"/notice/write"} className="list-btn">
+                                <TbSpeakerphone className="wirte-icon" /> 공지 등록
+                            </Link>
+                        }
                     </div>
                 </div>
 
-                <table width="80%" className="notice-list">
+                <table className="notice-list">
                     <colgroup>
-                        <col width="15%" />
+                        <col width="10%" />
                         <col width="*" />
-                        <col width="15%" />
+                        <col width="20%" />
                     </colgroup>
+
                     <thead>
                         <tr>
                             <th scope="col">카테고리</th>
@@ -164,11 +179,12 @@ const NoticeList = ({ history }) => {
                             <th scope="col">작성일</th>
                         </tr>
                     </thead>
+
                     <tbody>
                         {noticeList &&
                             noticeList.map((notice) => (
                                 <tr key={notice.noticeIdx}>
-                                    <td>{notice.noticeCategoryName}</td>
+                                    <td> {notice.noticeCategoryName} </td>
                                     <td>
                                         <p>
                                             <Link to={`/notice/detail/${notice.noticeIdx}`}>
@@ -181,16 +197,8 @@ const NoticeList = ({ history }) => {
                             ))}
                     </tbody>
                 </table>
-                <div>
-                    {
-                        authYn
-                        &&
-                        <Link to={"/notice/write"} className="list-btn">
-                            글쓰기
-                        </Link>
-                    }
-                </div>
-                <div className="paging">{renderPageNumbers()}</div>
+
+                <div className="paging"> {renderPageNumbers()} </div>
             </div>
         </div>
     );

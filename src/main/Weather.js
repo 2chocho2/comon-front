@@ -29,13 +29,13 @@ function Weather({ setCold }) {
     function selectIcon() {
         let iconId = weather.id === 800 ? 0 : (parseInt(weather.id) / 100).toFixed(0);
 
-        if(iconId === 0) return <TiWeatherSunny size="2rem" />;
-        else if(iconId === 2) return <TiWeatherStormy size="2rem" />;
-        else if(iconId === 3) return <TiWeatherShower size="2rem" />;
-        else if(iconId === 5) return <TiWeatherDownpour size="2rem" />;
-        else if(iconId === 6) return <TiWeatherSnow size="2rem" />;
-        else if(iconId === 7) return <BsCloudFog size="2rem" />;
-        else if(iconId === 8) return <TiWeatherCloudy size="2rem" />;
+        if (iconId === 0) return <TiWeatherSunny size="2rem" />;
+        else if (iconId === 2) return <TiWeatherStormy size="2rem" />;
+        else if (iconId === 3) return <TiWeatherShower size="2rem" />;
+        else if (iconId === 5) return <TiWeatherDownpour size="2rem" />;
+        else if (iconId === 6) return <TiWeatherSnow size="2rem" />;
+        else if (iconId === 7) return <BsCloudFog size="2rem" />;
+        else if (iconId === 8) return <TiWeatherCloudy size="2rem" />;
         else return <TiWeatherSunny size="2rem" />;
     }
     return (

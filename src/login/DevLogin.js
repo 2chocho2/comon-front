@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 const DevLogin = ({ history }) => {
 
     useEffect(() => {
-        if(sessionStorage.getItem('token') != null) {
+        if (sessionStorage.getItem('token') != null) {
             history.push('/');
             showToastMessage(`already Logined`);
         }
@@ -36,24 +36,23 @@ const DevLogin = ({ history }) => {
             .then(response => {
                 if (response.data) {
                     sessionStorage.setItem("token", response.data);
-                    showToastMessage(`🦄 환영합니다!`);
                     history.push('/dev/applist');
                 } else {
-                    Swal.fire({text:`ID, PW가 일치하지 않습니다. 확인 후 다시 시도해주세요.`});
+                    Swal.fire({ text: `ID, PW가 일치하지 않습니다. 확인 후 다시 시도해주세요.` });
                     sessionStorage.clear();
                 }
             })
             .catch(error => {
                 console.log(error);
-                Swal.fire({text:`ID, PW가 일치하지 않습니다. 확인 후 다시 시도해주세요.`});
+                Swal.fire({ text: `ID, PW가 일치하지 않습니다. 확인 후 다시 시도해주세요.` });
                 sessionStorage.clear();
             });
     };
 
     const showToastMessage = (msg) => {
         toast(msg, {
-            position: "top-center",
-            autoClose: 5000,
+            position: "top-right",
+            autoClose: 500,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -63,11 +62,10 @@ const DevLogin = ({ history }) => {
         });
     };
 
-
     return (
         <>
             <div id="my-container">
-                <NaviDefault history={history}/>
+                <NaviDefault history={history} />
                 <div className="dev-login-bg">
                     <div className="login-container">
                         <div className="login-box">
@@ -76,13 +74,13 @@ const DevLogin = ({ history }) => {
                                 <div className="round2" />
                                 <div className="round3" />
                             </div>
-                            
+
                             <div className="login-body">
                                 <div className="rotate-box">
                                     <div className="rotation-text" />
                                     <div className="login-logo" />
                                 </div>
-                                
+
                                 <div className="dev-login-content">
                                     <div className="login-content-title">
                                         <p>Hello! COM:ON!!</p>
@@ -120,7 +118,7 @@ const DevLogin = ({ history }) => {
                                             개발자 로그인
                                         </button>
                                     </section>
-                                    
+
                                     <button className='register-btn' onClick={handlerRegist}>개발자 계정이 없으신가요?</button>
                                 </div>
                             </div>

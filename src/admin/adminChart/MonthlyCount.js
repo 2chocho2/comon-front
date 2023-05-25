@@ -26,7 +26,7 @@ function MonthlyCount() {
     }
 
     axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/chart/monthlycount`,
-    { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
+      { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
       .then(res => {
         setList(res.data.list);
       })
@@ -43,7 +43,8 @@ function MonthlyCount() {
 
   const options = {
     chart: {
-      type: 'column'
+      type: 'column',
+      height: '340px'
     },
     credits: {
       enabled: false
@@ -51,12 +52,10 @@ function MonthlyCount() {
     title: {
       text: null
     },
-
     subtitle: {
       text: '(건)',
       align: 'left'
     },
-
     xAxis: {
       categories: xData,
       crosshair: true
@@ -66,20 +65,17 @@ function MonthlyCount() {
         text: null
       }
     },
-
     tooltip: {
       crosshairs: true,
       shared: true,
       valueSuffix: '건',
       style: {
-        'font-family': 'TheJamsil5Bold'
+        'font-family': 'SUITE-Regular'
       }
     },
-
     legend: {
       enabled: false
     },
-
     plotOptions: {
       column: {
         pointPadding: 0.2,
@@ -87,7 +83,11 @@ function MonthlyCount() {
         cursor: 'pointer',
         dataLabels: {
           enabled: true,
-          format: '{y} 건'
+          format: '{y} 건',
+          style: {
+            'font-family': 'SUITE-Regular',
+            'font-size': '18px'
+          }
         }
       }
     },
@@ -95,17 +95,18 @@ function MonthlyCount() {
       {
         name: '월별 앱 출시',
         data: yData,
-        color: '#FFBA4A'
+        color: '#0D4BBE'
       }]
   }
 
   return (
-    <div id="monthlyCountChart" className='MonthlyCountBox'>
-      <div className="monthlyCountChart-title">
-        <p>월별 앱 출시 통계</p>
+    <>
+      <p className="monthlyCountChart-title"> 월별 앱 출시 통계</p>
+      <div id="monthlyCountChart" className='MonthlyCountBox'>
+        <HighchartsReact highcharts={Highcharts} options={options} />
       </div>
-      <HighchartsReact highcharts={Highcharts} options={options} />
-    </div>
+    </>
+
   );
 }
 

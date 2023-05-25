@@ -26,24 +26,25 @@ const Main = ({ history }) => {
 
     return (
         <>
-            <NaviMain history={history} />
-            <div className='main-background'>
-                <div className='main-1'>
-                    <div className='main-back'>
-                        <Recommend recommendList={recommendList}
-                                    history={history} />
+            <div id='main-container'>
+                <NaviMain history={history} />
+                <div className='main-background'>
+                    <div className='main-1'>
+                        <div className='main-back'>
+                            <Recommend recommendList={recommendList}
+                                history={history} />
+                        </div>
                     </div>
-                </div>
-                <div className='main-2'>
-                    <p className='today-rank'>
-                        <FaStar className='thumbs-icon' />Today Rank<FaStar className='thumbs-icon' />
-                    </p>
-                    <div className='rank-box'><Ranking rankingList={rankingList} history={history} />
+                    <div className='main-2'>
+                        <p className='today-rank'>
+                            <FaStar className='thumbs-icon' />Today Rank<FaStar className='thumbs-icon' />
+                        </p>
+                        <div className='rank-box'><Ranking rankingList={rankingList} history={history} />
+                        </div>
                     </div>
+                    <MainSide />
+                    <Footer history={history} />
                 </div>
-                <MainSide />
-                <Footer history={history}/>
-
             </div>
         </>
     );

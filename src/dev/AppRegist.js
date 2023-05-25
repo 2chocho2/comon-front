@@ -44,7 +44,6 @@ const AppRegist = ({ history }) => {
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
                 setUserIdx(res.data);
-                console.log(res.data);
             })
             .catch(err => {
                 console.log(err);
@@ -59,8 +58,6 @@ const AppRegist = ({ history }) => {
 
     // 카테고리 토글 버튼
     const categoryButton = () => {
-        console.log(categoryList);
-
         const result = [];
         for (let i = 1; i < categoryList.length; i++) {
             result.push(
@@ -74,11 +71,9 @@ const AppRegist = ({ history }) => {
     };
 
     const toggleCategoryButton = (e) => {
-        console.log(e.target.id);
         e.preventDefault();
         setCategoryActive(e.target.id);
         setCategoryIdx(e.target.id);
-        console.log(categoryActive);
     };
 
     const inputFiles1 = useRef();
@@ -96,7 +91,6 @@ const AppRegist = ({ history }) => {
 
     // 아이콘, 썸네일, 스크린샷 이미지 변경 이벤트 핸들러
     const handleChangeFile = e => {
-        console.log(e.target.name);
         const name = e.target.name;
         // input type file에서 name에 해당
         const files = e.target.files;
@@ -115,13 +109,11 @@ const AppRegist = ({ history }) => {
 
                 const reader = new FileReader();
                 reader.onload = () => {
-                    console.log(reader.result);
                     imageURLs[i] = reader.result;
                     setIconImage([...imageURLs]);
                 };
                 reader.readAsDataURL(image);
             }
-            console.log(imageArr);
         }
 
         if (e.target.name == 'thumbnailimage') {
@@ -135,13 +127,11 @@ const AppRegist = ({ history }) => {
 
                 const reader = new FileReader();
                 reader.onload = () => {
-                    console.log(reader.result);
                     imageURLs[i] = reader.result;
                     setThumbnailImage([...imageURLs]);
                 };
                 reader.readAsDataURL(image);
             }
-            console.log(imageArr);
         }
 
         if (e.target.name == 'screenshotimage') {
@@ -155,25 +145,23 @@ const AppRegist = ({ history }) => {
 
                 const reader = new FileReader();
                 reader.onload = () => {
-                    console.log(reader.result);
                     imageURLs[i] = reader.result;
                     setScreenshotImgs([...imageURLs]);
                 };
                 reader.readAsDataURL(image);
             }
-            console.log(imageArr);
         }
 
         if (files.length > MAX_FILE_COUNT) {
-            Swal.fire({text:"이미지는 최대 6개 까지 업로드가 가능합니다."});
+            Swal.fire({ text: "이미지는 최대 6개 까지 업로드가 가능합니다." });
             return;
         }
         for (let i = 0; i < files.length; i++) {
             if (!files[i].type.match("image/.*")) {
-                Swal.fire({text:"이미지 파일만 업로드 가능합니다."});
+                Swal.fire({ text: "이미지 파일만 업로드 가능합니다." });
                 return;
             } else if (files[i].size > MAX_FILE_SIZE) {
-                Swal.fire({text:"이미지 크기는 1MB를 초과할 수 없습니다."});
+                Swal.fire({ text: "이미지 크기는 1MB를 초과할 수 없습니다." });
                 return;
             }
         }
@@ -187,11 +175,10 @@ const AppRegist = ({ history }) => {
     const handleChangeYamlFile = e => {
         const name = e.target.name;
         const files = e.target.files;
-        console.log(files);
         setYamlFile(e.target.files);
 
         if (files.length > 1) {
-            Swal.fire({text:'실행 파일은 1개만 등록할 수 있습니다.'});
+            Swal.fire({ text: '실행 파일은 1개만 등록할 수 있습니다.' });
             inputFiles4.current.value = '';
             setYamlFile([]);
         }
@@ -226,13 +213,21 @@ const AppRegist = ({ history }) => {
             data: formData
         })
             .then(res => {
-                res.data.split('\n').forEach(data => console.log(data));
-                Swal.fire({text:`정상적으로 신청이 완료되었습니다.`});
+                Swal.fire({
+                    text: `정상적으로 신청이 완료되었습니다.`,
+                    showConfirmButton: false,
+                    timer: 800
+                });
                 history.push('/dev/applist');
             })
+
             .catch(err => {
                 console.log(err);
-                Swal.fire({text:'업로드 중 오류가 발생했습니다.'});
+                Swal.fire({
+                    text: '업로드 중 오류가 발생했습니다.',
+                    showConfirmButton: false,
+                    timer: 800
+                });
             })
     };
 
@@ -305,7 +300,7 @@ const AppRegist = ({ history }) => {
                                             <p className='description'>PNG 또는 JPEG, 최대 1MB</p>
                                         </li>
                                         <li className='form-each'>
-                                            <p className='form-title'>썸네일 이미지 등록<span>(1024 px * 500 px)</span></p>
+                                            <p className='form-title'>썸네일 이미지 등록<span>(960 px * 960 px)</span></p>
                                             <div>
                                                 {thumbnailImage &&
                                                     thumbnailImage.map((image, id) => (
@@ -343,7 +338,11 @@ const AppRegist = ({ history }) => {
                                                     multiple
                                                     accept="image/*" />
                                             </div>
-                                            <p className='description'>PNG 또는 JPEG, 스크린 샷당 최대 1MB</p>
+                                            <p className='description'>
+                                                <p>PNG 또는 JPEG, 스크린 샷당 최대 1MB</p>
+                                                <p>스크린샷 이미지는 최대 6장까지 등록이 가능합니다.</p>
+                                            </p>
+
                                         </li>
                                     </div>
                                     <div className='registerFile-box'>
@@ -380,7 +379,7 @@ const AppRegist = ({ history }) => {
                         </div>
                     </div>
                     :
-                    <Auth history={history}/>
+                    <Auth history={history} />
             }
         </>
 

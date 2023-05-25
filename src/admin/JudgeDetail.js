@@ -49,20 +49,26 @@ const JudgeDetail = ({ match, history }) => {
                         { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } }
                     )
                         .then(res => {
-                            Swal.fire("앱이 출시되었습니다.");
-                            history.push(`/admin`);
+                            Swal.fire({
+                                title: "🎉앱이 출시되었습니다.🎉",
+                                showConfirmButton: false,
+                                timer: 800
+                            });
+                            history.push(`/admin`);                            
                         })
                         .catch(err => {
                             console.log(err);
-                            Swal.fire("승인 처리 중 오류가 발생했습니다.");
+                            Swal.fire({
+                                text: "승인 처리 중 오류가 발생했습니다.",
+                                showConfirmButton: false,
+                                timer: 800
+                            });
                         })
                 }
             })
 
 
     };
-
-
 
     // 클릭 시 심사 거절 사유 선택 모달 오픈
     const handlerDeny = () => {
@@ -225,7 +231,7 @@ const JudgeDetail = ({ match, history }) => {
                                     </div>
                                 </li>
                             </div>
-                            
+
                             <li className='detailform-each'>
                                 <p className='fileform-title'>실행 파일 다운로드</p>
                                 <button className='file-button' type='button'

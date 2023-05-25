@@ -15,7 +15,7 @@ const NaviDev = (props) => {
     useEffect(() => {
         if (sessionStorage.getItem('token') != null) {
             setIsLoggedIn(true);
-        } else if (window.localStorage.getItem('userName')!= null) {
+        } else if (window.localStorage.getItem('userName') != null) {
             setIsLoggedIn(true);
         } else {
             setIsLoggedIn(false);
@@ -31,7 +31,7 @@ const NaviDev = (props) => {
     };
 
     const handlerGoMypage = () => {
-        props.history.push(`/mypage`);
+        props.history.push(`/dev/setting`);
     };
 
     const handlerClickLogin = () => {
@@ -46,49 +46,56 @@ const NaviDev = (props) => {
         showToastMessage();
     };
 
+    const handlerClickNotice = () => {
+        props.history.push(`/notice`);
+    };
+
     const showToastMessage = () => {
         toast('Bye Bye~ 👋', {
-            position: "top-center",
-            autoClose: 5000,
+            position: "top-right",
+            autoClose: 500,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
             theme: "light",
-            });
+        });
     };
 
     return (
         <>
-        <ToastContainer />
+            <ToastContainer />
             <Reset />
             <div className='dev-menu'>
                 <h1 onClick={handlerClickComon} className='dev-home'>COM:ON</h1>
                 <ul className='dev-link'>
                     <li>About us</li>
-                    <li onClick={ handlerClickAppList }>Application</li>
-                    <li>Notice</li>
+                    <li onClick={handlerClickAppList}>Application</li>
+                    <li onClick={handlerClickNotice}>Notice</li>
                 </ul>
                 {
                     isLoggedIn
                         ?
                         <>
                             <div id="user-button">
-                                < RiLogoutCircleFill className='logout-navi-icon'               
-                                                    title='로그아웃' 
-                                                    onClick={handlerClickLogout} />
-                                < RiUser5Fill className='mypage-navi-icon' 
-                                            title='마이페이지' 
-                                            onClick={handlerGoMypage} />
+                                < RiLogoutCircleFill className='logout-navi-icon'
+                                    title='로그아웃'
+                                    onClick={handlerClickLogout}
+                                    style={{ color: '#ff9600' }} />
+                                < RiUser5Fill className='mypage-navi-icon'
+                                    title='마이페이지'
+                                    onClick={handlerGoMypage}
+                                    style={{ color: '#ff9600' }} />
                             </div>
                         </>
                         :
                         <>
                             <div id="user-button">
-                                < RiUser5Line className='login-navi-icon' 
-                                            title='로그인'
-                                            onClick={handlerClickLogin} />
+                                < RiUser5Line className='login-navi-icon'
+                                    title='로그인'
+                                    onClick={handlerClickLogin}
+                                    style={{ color: '#ff9600' }} />
                             </div></>
 
                 }

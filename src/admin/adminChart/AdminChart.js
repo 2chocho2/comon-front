@@ -11,10 +11,11 @@ import TotalAppDownload from './TotalAppDownload';
 import MainCount from './MainCount';
 
 const AdminChart = ({ match, history }) => {
+
     const [authYn, setAuthYn] = useState(false);
 
     return (
-        <div>
+        <div id='adminChart-container' >
             <NaviAdmin history={history} />
             <div className='sidemenu_admin-box'>
                 <div className='admin_logo'></div>
@@ -25,9 +26,10 @@ const AdminChart = ({ match, history }) => {
                     <li id='admin-setting'><Link to='/admin/chart'>통계</Link></li>
                 </ul>
             </div>
-            <div className='body'>
-                <p className='body_title'>앱 관리</p>
-                <p className='body_subtitle'>앱 세부 정보</p>
+            
+            <div className='adminChart-box'>
+                <p className='body_title'>통계</p>
+                <p className='body_subtitle'></p>
                 <div className='detailform'>
                     <span className='TotalAppCount'>
                         <MainCount />
@@ -40,7 +42,9 @@ const AdminChart = ({ match, history }) => {
                             <PieChart />
                             <AppRankingList history={history} />
                         </div>
-                        <MonthlyCount />
+                        <div className='chartBox1'>
+                            <MonthlyCount />
+                        </div>
                     </div>
                 </div>
             </div>

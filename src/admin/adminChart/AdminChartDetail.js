@@ -46,7 +46,6 @@ function AdminChartDetail({ match }) {
 
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/user/applist/detail/${imageIdx}`)
             .then(response => {
-                console.log(response.data.reviewList);
                 setName(response.data.imageDto.imageName);
                 setUsername(response.data.imageDto.userName);
                 setRegistDt(response.data.imageDto.registDt.substring(0, 10))
@@ -54,7 +53,6 @@ function AdminChartDetail({ match }) {
                 setDetail(response.data.imageDto.imageDetail);
                 setDownloadCount(response.data.imageDto.downloadCount);
                 setReviewList(response.data.reviewList);
-
             })
             .catch(error => {
                 console.log(error);
@@ -68,36 +66,37 @@ function AdminChartDetail({ match }) {
                 <div className='sidemenu_admin-box'>
                     <div className='admin_logo'></div>
                     <ul className='sidemenu_admin'>
-
                         <li><Link to='/admin/setting'>회원 관리</Link></li>
                         <li><Link to='/admin'>모든 앱</Link></li>
                         <li><Link to='/admin/judge'>심사</Link></li>
                         <li id='admin-setting'><Link to='/admin/chart'>통계</Link></li>
                     </ul>
                 </div>
+
                 <div className="chartDetail-content">
-                    <p className="app-name"><AiOutlineTags />&nbsp;{name}</p>
+                    <p className="app-name"><AiOutlineTags className="app-name-icon" />&nbsp;{name}</p>
                     <div className="app-content-1">
-                        <p> <FaUserAstronaut className="user-Icon-1" /> &nbsp;개발자 : {username} &emsp;
+                        <p> <FaUserAstronaut className="user-Icon-1" title="개발자" /> &nbsp;{username} &emsp;
                             <BiCalendarExclamation className="regist-Icon" size='40px' /> &nbsp;출시일 : {registDt}
                         </p>
                     </div>
                     <div className="app-content-2">
                         <p className="app-downloadChart">
-                            <AppDownload match={match}
-                                name={name} />
+                            <AppDownload match={match} name={name} />
                         </p>
-                        <p className="total-box">
-                            <MdDownload className="total-Icon" /> &nbsp;총 다운로드 수 : {downloadCount} (건)
+                        <div className="total-container">
+                            <p className="total-box"><MdDownload className="total-Icon" /> &nbsp;총 다운로드 수 : {downloadCount} (건)</p>
+                        </div>
+                    </div>
+                    <div className="appDetail-content">
+                        <p className="appDetail-title">상세 설명</p>
+                        <p className="app-description"><MdOutlineDescription className="description-Icon" />&nbsp;{description}</p>
+                        <p className="app-detail">
+                            <p className="app-detail-content">{detail}</p>
                         </p>
                     </div>
 
-                    <div className="appDetail-content">상세 설명</div>
-                    <p className="app-description"><MdOutlineDescription className="description-Icon" />&nbsp;{description}</p>
-                    <p className="app-detail">{detail}</p>
-
                     <div className="appReviews-content">평가 및 리뷰</div>
-
                     {/*아이디 및 리뷰 리스트*/}
                     <div className="review-box">
                         {
@@ -105,13 +104,15 @@ function AdminChartDetail({ match }) {
                                 ?
                                 reviewList.slice((page - 1) * 5, page * 5).map((review, index) =>
                                     <div className="review-line">
-                                        <div className='app-userName'><RiUser5Line className="user-Icon-2" />&nbsp;{review.userName}</div>
-                                        <div className='app-reviews'>{review.reviewContent}</div>
+                                        <div className='app-reviews-box'>
+                                            <div className='app-userName'><RiUser5Line className="user-Icon-2" />&nbsp;{review.userName}</div>
+                                            <div className='app-review'>{review.reviewContent}</div>
+                                        </div>
                                     </div>
                                 )
                                 :
                                 <>
-                                    <div className='app-reviews'>
+                                    <div className='app-no-reviews-box'>
                                         <p> 아직 작성된 후기가 없습니다</p>
                                     </div>
                                 </>

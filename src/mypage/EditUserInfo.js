@@ -55,12 +55,15 @@ const EditUserInfo = ({ history }) => {
     const handlerChangeEmail = (e) => { setUserEmail(e.target.value) };
 
     const handlerClickEdit = () => {
-        console.log(userId);
         axios.post(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/mypage/edit`,
             { userId, userName, userEmail, userPhoneNumber: userPhoneNumber.replaceAll('-', '') },
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
-                Swal.fire({text:`회원 정보 수정이 완료되었습니다.`});
+                Swal.fire({
+                    text: `회원 정보 수정이 완료되었습니다.`,
+                    showConfirmButton: false,
+                    timer: 800
+                });
                 history.push('/mypage');
             })
             .catch(err => {
@@ -111,6 +114,7 @@ const EditUserInfo = ({ history }) => {
                                     value={userEmail}
                                     className='edit-user-info-form-input' />
                             </div>
+                            
                             <button type='button'
                                 onClick={handlerClickEdit}
                                 className='edit-user-info-submit-button'>회원 정보 변경</button>

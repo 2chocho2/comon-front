@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import NaviAdmin from '../Navi/NaviAdmin';
 import '../css/dev.css';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -15,6 +14,7 @@ const DevSetting = ({ history }) => {
     const [userName, setUserName] = useState('');
     const [userEmail, setUserEmail] = useState('');
     const [authYn, setAuthYn] = useState(false);
+    const [userPhoneNumber, setUserPhoneNumber] = useState('');
 
     useEffect(() => {
         if (sessionStorage.getItem('token') == null) {
@@ -25,27 +25,28 @@ const DevSetting = ({ history }) => {
             setUserId(decode_token.sub);
             let userId = decode_token.sub;
             let authIdx = decode_token.authIdx;
-    
+
             axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/mypage/${userId}`,
-            { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
-            .then(res => {
-                setData(res.data);
-                setUserId(res.data.userId);
-                setUserName(res.data.userName);
-                setUserEmail(res.data.userEmail);
-            })
-            .catch(err => {
-                console.log(err);
-            })
-            
+                { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
+                .then(res => {
+                    setData(res.data);
+                    setUserId(res.data.userId);
+                    setUserName(res.data.userName);
+                    setUserEmail(res.data.userEmail);
+                    setUserPhoneNumber(res.data.userPhoneNumber.substr(0, 3) + '-' +
+                        res.data.userPhoneNumber.substr(3, 4) + '-' +
+                        res.data.userPhoneNumber.substr(7, 4));
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+
             if (authIdx === 3 || authIdx === 2) {
                 setAuthYn(true);
             } else {
                 setAuthYn(false);
             }
         }
-
-        
     }, [])
 
     const handlerChangeUserName = (e) => {
@@ -60,7 +61,8 @@ const DevSetting = ({ history }) => {
         const newData = {
             userId: userId,
             userName: userName,
-            userEmail: userEmail
+            userEmail: userEmail,
+            userPhoneNumber: userPhoneNumber.replaceAll('-', '')
         };
 
         axios({
@@ -70,13 +72,38 @@ const DevSetting = ({ history }) => {
             headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
         })
             .then(res => {
-                Swal.fire({text:`정상적으로 수정되었습니다.`});
+                Swal.fire({
+                    text: `정상적으로 수정되었습니다.`,
+                    showConfirmButton: false,
+                    timer: 800
+                });
                 history.push('/dev/applist');
             })
             .catch(err => {
                 console.log(err);
-                Swal.fire({text:`수정 중 오류가 발생했습니다.`});
+                Swal.fire({
+                    text: `수정 중 오류가 발생했습니다.`,
+                    showConfirmButton: false,
+                    timer: 800
+                });
             })
+    };
+
+    const handlerChangePhoneNumber = (e) => {
+        const before = e.target.value.replaceAll('-', '');
+
+        // 숫자 여부 체크
+        let numberFormat = before.replace(/[^0-9]/g, '');
+
+        // 길이에 따라서 짤라서 포맷팅 
+        if (numberFormat.length < 3) {
+            numberFormat = numberFormat.substr(0, 3);
+        } else if (numberFormat.length > 4 && numberFormat.length < 8) {
+            numberFormat = numberFormat.substr(0, 3) + '-' + numberFormat.substr(3, 4);
+        } else if (numberFormat.length >= 8) {
+            numberFormat = numberFormat.substr(0, 3) + '-' + numberFormat.substr(3, 4) + '-' + numberFormat.substr(7, 4);
+        }
+        setUserPhoneNumber(numberFormat);
     };
 
     return (
@@ -98,9 +125,11 @@ const DevSetting = ({ history }) => {
                             <p className='body_title'>계정 설정</p>
                             <p className='body_subtitle'>개발자 계정 세부 정보</p>
                             <div className='devSetting-container'>
+
+
                                 <div className='devSetting-box'>
                                     <p className='devSetting-title'>아이디</p>
-                                    <input className='devSetting-input' type='text'
+                                    <input className='devSetting-id' type='text'
                                         value={userId}
                                         readOnly />
                                 </div>
@@ -115,6 +144,12 @@ const DevSetting = ({ history }) => {
                                     <input className='devSetting-input' type='text'
                                         value={userEmail}
                                         onChange={handlerChangeUserEmail} />
+                                </div>
+                                <div className='devSetting-box'>
+                                    <p className='devSetting-title'>전화번호</p>
+                                    <input className='devSetting-input' type='text'
+                                        value={userPhoneNumber}
+                                        onChange={handlerChangePhoneNumber} />
                                 </div>
                             </div>
 

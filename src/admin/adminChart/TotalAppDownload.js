@@ -10,7 +10,6 @@ function TotalAppDownload() {
     const [authYn, setAuthYn] = useState(false);
 
     useEffect(() => {
-
         if (sessionStorage.getItem('token') == null) {
             setAuthYn(false);
         } else {
@@ -25,7 +24,7 @@ function TotalAppDownload() {
         }
 
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/chart/totalappcount`,
-        { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
+            { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(response => {
                 setTotalCount(response.data.totalCount);
             })
@@ -39,35 +38,31 @@ function TotalAppDownload() {
         xData.push(_t.downloadDate);
         yData.push(_t.downloadCount);
     }
+
     const options = {
         chart: {
-            type: 'column'
+            type: 'column',
+            height: "340px",
         },
-
         credits: {
             enabled: false,
         },
-
         title: {
             text: null
         },
-
         subtitle: {
             text: '(회)',
-            align: 'left'
+            align: 'left',
         },
-
         xAxis: {
             categories: xData,
             crosshair: true,
         },
-
         yAxis: {
             title: {
                 text: null
             },
         },
-
         tooltip: {
             crosshairs: true,
             shared: true,
@@ -76,11 +71,9 @@ function TotalAppDownload() {
                 'font-family': 'TheJamsil5Bold'
             }
         },
-
         legend: {
             enabled: false
         },
-
         plotOptions: {
             column: {
                 pointPadding: 0.2,
@@ -88,14 +81,18 @@ function TotalAppDownload() {
                 cursor: 'pointer',
                 dataLabels: {
                     enabled: true,
-                    format: '{y} 회'
+                    format: '{y} 회',
+                    style: {
+                        'font-family': 'SUITE-Regular',
+                        'font-size': '18px'
+                    }
                 }
             }
         },
         series: [{
             name: '전체 앱 다운로드 수',
             data: yData,
-            color: '#FFBA4A'
+            color: '#74a1f3'
         }],
     };
 
@@ -104,7 +101,9 @@ function TotalAppDownload() {
             <div className="totalAppDownload-title">
                 <p>전체 앱 다운로드 수</p>
             </div>
-            <HighchartsReact highcharts={Highcharts} options={options} />
+            <div className="totalAppDownloadChart-box">
+                <HighchartsReact highcharts={Highcharts} options={options} />
+            </div>
         </div>
     )
 }

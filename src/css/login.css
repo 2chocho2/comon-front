@@ -144,35 +144,30 @@
 
 @keyframes colorLogo {
     0% {
-        /* background-size: 150px; */
         background-position: center;
         background-repeat: no-repeat;
         background-image: url('../img/login-logo5.png');
     }
 
     25% {
-        /* background-size: 150px; */
         background-position: center;
         background-repeat: no-repeat;
         background-image: url('../img/login-logo2.png');
     }
 
     50% {
-        /* background-size: 150px; */
         background-position: center;
         background-repeat: no-repeat;
         background-image: url('../img/login-logo3.png');
     }
 
     75% {
-        /* background-size: 150px; */
         background-position: center;
         background-repeat: no-repeat;
         background-image: url('../img/login-logo4.png');
     }
 
     100% {
-        /* background-size: 150px; */
         background-position: center;
         background-repeat: no-repeat;
         background-image: url('../img/login-logo5.png');
@@ -694,6 +689,7 @@
 }
 
 /* 인풋박스 */
+.input-register-id,
 .input-register,
 .input-pwdChecked,
 .input-email {
@@ -706,6 +702,31 @@
 
 .input-email {
     margin-bottom: 20px;
+}
+
+.input-register-id>input {
+    display: inline-block;
+    border: 3px solid black;
+    padding: 10px;
+    width: 80%;
+    height: 40px;
+    line-height: 34px;
+    margin-bottom: 15px;
+    font-family: 'SUITE-Regular';
+    font-weight: bold;
+    font-size: 1em;
+}
+
+#doublecheck-btn {
+    width: 20%;
+    height: 40px;
+    color: white;
+    background-color: black;
+    border: none;
+    font-family: 'SUITE-Regular';
+    font-weight: bold;
+    font-size: 1em;
+    cursor: pointer;
 }
 
 .input-register>input {
@@ -740,6 +761,7 @@ input::placeholder {
     font-size: 0.8em;
 }
 
+.input-register-id label,
 .input-register label,
 .input-pwdChecked label,
 .input-email label {

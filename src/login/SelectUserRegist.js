@@ -12,7 +12,7 @@ const SelectUserRegist = ({ history }) => {
     return (
         <>
             <div id="my-container">
-                <NaviDefault history={history}/>
+                <NaviDefault history={history} />
                 <div className='select-register-bg' />
                 <div className='select-register-container'>
                     <div className="select-register-box">
@@ -37,7 +37,7 @@ const SelectUserRegist = ({ history }) => {
                                     <span>네이버 회원가입</span>
                                 </div>
                             </div>
-                            
+
                             <div className="register-kakao-btn-box">
                                 <div className="select-kakao-btn"><KakaoLogin /></div>
                                 <div className="select-kakao-tag">

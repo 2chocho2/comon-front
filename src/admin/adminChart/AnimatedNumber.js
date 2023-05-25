@@ -10,9 +10,9 @@ function AnimatedNumber({ value }) {
   });
 
   return (
-  <div className="total-Data" id="total-Data">
-    <animated.span>{number.to((n) => n.toFixed(0))}</animated.span>
-  </div> 
+    <div className="total-Data" id="total-Data">
+      <animated.span>{number.to((n) => n.toFixed(0))}</animated.span>
+    </div>
   );
 }
 

@@ -1,12 +1,12 @@
-import React, { useEffect, useState }  from "react";
+import React, { useEffect, useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 
-const AppDownload = ({match, name}) => {
-    const[count, setCount] = useState('');
-    const{imageIdx} = match.params;
+const AppDownload = ({ match, name }) => {
+    const [count, setCount] = useState('');
+    const { imageIdx } = match.params;
     const [authYn, setAuthYn] = useState(false);
 
     useEffect(() => {
@@ -25,16 +25,16 @@ const AppDownload = ({match, name}) => {
         }
 
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/chart/count/${imageIdx}`,
-            { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } }) 
-        .then(response => {
-            setCount(response.data.count);
-        })
-        .catch(error => {
-            console.log(error);
-        });
-    },[]);
+            { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
+            .then(response => {
+                setCount(response.data.count);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, []);
 
-    var xData = [], yData= [];
+    var xData = [], yData = [];
     for (const _c of count) {
         xData.push(_c.downloadDate);
         yData.push(_c.downloadCount);
@@ -44,11 +44,9 @@ const AppDownload = ({match, name}) => {
         chart: {
             type: 'column'
         },
-
         credits: {
             enabled: false,
         },
-     
         title: {
             margin: 45,
             text: name + ' 월간 차트 ',
@@ -59,7 +57,6 @@ const AppDownload = ({match, name}) => {
                 'fontSize': '25px'
             }
         },
-
         subtitle: {
             text: '(건)',
             align: 'left',
@@ -76,10 +73,9 @@ const AppDownload = ({match, name}) => {
             labels: {
                 style: {
                     'fontFamily': 'TheJamsil5Bold'
-                } 
+                }
             }
         },
-
         yAxis: {
             title: {
                 text: null
@@ -87,10 +83,9 @@ const AppDownload = ({match, name}) => {
             labels: {
                 style: {
                     'fontFamily': 'TheJamsil5Bold'
-                } 
+                }
             }
         },
-
         tooltip: {
             crosshairs: true,
             shared: true,
@@ -99,7 +94,6 @@ const AppDownload = ({match, name}) => {
                 'fontFamily': 'TheJamsil5Bold'
             }
         },
-      
         plotOptions: {
             column: {
                 pointPadding: 0.2,
@@ -117,19 +111,18 @@ const AppDownload = ({match, name}) => {
             font: 'TheJamsil5Bold',
             color: '#609AF0'
         }],
-        legend : {
+        legend: {
             itemStyle: {
                 'fontFamily': 'TheJamsil5Bold',
                 'fontWeight': 'bold'
             }
         }
-
     };
 
     return (
-        <>  
+        <>
             <div className="chart-container">
-            <HighchartsReact highcharts={Highcharts} options={options}/>     
+                <HighchartsReact highcharts={Highcharts} options={options} />
             </div>
         </>
 

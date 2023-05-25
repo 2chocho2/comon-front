@@ -8,10 +8,10 @@ const Auth = ({ history }) => {
             <Reset />
             <div className='auth_body'>
                 <div className='auth-content'>
-                    <p>접근 권한이 없습니다.</p>
-                    <button type='button' 
-                            onClick={() => history.push('/')}
-                            className='auth-btn'>뒤로 가기</button>
+                    <p className='auth-title'>⛔접근 권한이 없습니다.⛔</p>
+                    <button type='button'
+                        onClick={() => history.push('/')}
+                        className='auth-btn'>메인으로</button>
                 </div>
             </div>
         </>
