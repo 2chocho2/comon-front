@@ -21,10 +21,6 @@ const NaviMain = (props) => {
             setIsLoggedIn(true);
             setUserName(decode_token.name);
             setAuthIdx(decode_token.authIdx);
-            
-        } else if (window.localStorage.getItem('userName') != null) {
-            setIsLoggedIn(true);
-            setUserName(window.localStorage.getItem('userName'));
         } else {
             setIsLoggedIn(false);
         }

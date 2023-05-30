@@ -85,6 +85,7 @@ function App() {
       <Route path='/userlogin' render={(props) => <Login {...props} />} exact={true} />
       <Route path='/userregist' render={(props) => <Regist {...props} />} exact={true} />
       <Route path="/kakaologin" component={KakaoLogin} exact={true} />
+      
       <Route path='/selectuserregist' render={(props) => <SelectUserRegist {...props} />} exact={true} />
 
       {/* 개발자용 로그인 */}

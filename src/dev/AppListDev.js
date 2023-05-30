@@ -47,7 +47,7 @@ const AppListDev = ({ history }) => {
 
         new Swal({
             title: "정말 삭제하시겠습니까?",
-            text: "한 번 삭제하면 복구가 불가능합니다.",
+            text: "한 번 삭제하면 취소가 불가능하며, 관리자의 승인 후 최종 삭제 처리됩니다.",
             showCancelButton: true,
             confirmButtonText: 'OK',
             cancelButtonText: 'Cancel',
@@ -57,14 +57,15 @@ const AppListDev = ({ history }) => {
             .then((result) => {
                 if (result.isConfirmed) {
                     axios.put(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/registdelete/${i}`,
-                        { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
+                        '', { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
                         .then(res => {
                             Swal.fire({
                                 text: '삭제 요청이 완료되었습니다.',
                                 showConfirmButton: false,
-                                time: 800
-                            });
-                            history.push('/dev/applist');
+                                timer: 800
+                            }).then(() => {
+                                window.location.reload();
+                            })
                         })
                         .catch(err => {
                             console.log(err);
@@ -85,6 +86,8 @@ const AppListDev = ({ history }) => {
                 statusName = '심사 거절';
             } else if (d.statusIdx == '4') {
                 statusName = '출시';
+            } else if (d.statusIdx == '5') {
+                statusName = '삭제 신청됨';
             }
 
             let denyName = '';

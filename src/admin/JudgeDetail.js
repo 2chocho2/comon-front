@@ -91,7 +91,7 @@ const JudgeDetail = ({ match, history }) => {
 
     // 모달에서 선택된 값과 함께 심사 거절 처리
     const handlerSubmitDeny = () => {
-        axios.put(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/deny/${imageidx}/${denyIdx}`,
+        axios.put(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/admin/deny/${imageidx}/${denyIdx}`, '',
             { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` } })
             .then(res => {
                 Swal.fire({ text: `심사 거절 처리가 완료되었습니다.` });

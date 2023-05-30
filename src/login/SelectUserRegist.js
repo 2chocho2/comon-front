@@ -3,6 +3,7 @@ import NaverLogin from "./NaverLogin";
 import NaviDefault from "../Navi/NaviDefault";
 import { SiNaver } from "react-icons/si";
 import { RiKakaoTalkFill } from "react-icons/ri";
+import NaverRegist from "./NaverRegist";
 
 const SelectUserRegist = ({ history }) => {
 

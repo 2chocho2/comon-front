@@ -344,46 +344,51 @@
     margin-right: 5px;
 }
 
+.swal2-title,
+.swal2-html-container {
+    font-family: 'GyeonggiTitleM' !important;
+}
+
 /* 알럿 */
 .swal2-popup {
-    display: none;
-    position: relative;
-    box-sizing: border-box;
-    grid-template-columns: minmax(0, 100%);
-    width: 25em;
-    max-width: 100%;
-    padding: 0 0 1.25em;
-    border: solid 3px black;
-    background: #fff;
-    color: black;
-    font-family: 'GyeonggiTitleM';
-    font-size: 1.2rem;
+    /* display: none !important; */
+    /* position: relative !important; */
+    /* box-sizing: border-box !important; */
+    /* grid-template-columns: minmax(0, 100%) !important; */
+    width: 25em !important;
+    /* max-width: 100% !important; */
+    /* padding: 0 0 1.25em !important; */
+    border: solid 3px black !important;
+    background: #fff !important; 
+    color: black !important;
+    font-family: 'GyeonggiTitleM' !important;
+    font-size: 1.2rem !important;
 }
 
 /* swal 알럿창 확인 버튼 */
 .swal2-styled.swal2-confirm,
 .swal2-styled.swal2-cancel {
-    width: 7em;
-    border: none;
-    border-radius: none;
-    background: initial;
-    background-color: black;
-    color: #fff;
-    font-family: 'GyeonggiTitleM';
-    font-size: 16px;
-    box-sizing: border-box;
+    width: 7em !important;
+    border: none !important;
+    border-radius: none !important;
+    background: initial !important;
+    background-color: black !important;
+    color: #fff !important;
+    font-family: 'GyeonggiTitleM' !important;
+    font-size: 16px !important;
+    box-sizing: border-box !important;
 }
 
 .swal2-styled.swal2-cancel {
-    background-color: white;
-    color: black;
-    border: 2px solid black;
-    box-sizing: border-box;
+    background-color: white !important;
+    color: black !important;
+    border: 2px solid black !important;
+    box-sizing: border-box !important;
 }
 
 .swal2-icon.swal2-warning {
-    border-color: gray;
-    color: black;
+    border-color: gray !important;
+    color: black !important;
 }
 
 /* 클리어 */

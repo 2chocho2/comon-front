@@ -42,7 +42,7 @@ const RunModal = (props) => {
                             </>
                             :
                             <>
-                                <p className="run-ok-text">🎠 준비 끝 {props.port} 🎠</p>
+                                <p className="run-ok-text">🎠 준비 끝 🎠</p>
                                 <button type='button'
                                     className="run_modalBtn"
                                     onClick={handlerClickGo} >이동하기</button>

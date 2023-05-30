@@ -35,7 +35,19 @@ const Login = ({ history }) => {
         // 이미 로그인한 경우 홈(/)으로 이동
         const isLogin = !!window.localStorage.getItem('userName');
         if (isLogin) {
-            window.location.href = '/';
+            
+            console.log("I'm here !!!!!!!!!!!!!!!!!!!!!!!!!!")
+
+            const userName = window.localStorage.getItem('userName')
+            axios.post(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/checkUserExistence`, { userName })
+                 .then(response => {
+                    if (response.data.exists) {
+                        window.opener.location.href = "/";
+                    } else {
+                        window.opener.location.href = "/userregist";
+                    }
+                 })
+                 .catch(error => console.log(error));
         }
     }, []);
 

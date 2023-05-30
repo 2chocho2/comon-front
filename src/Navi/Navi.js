@@ -19,8 +19,6 @@ const Navi = (props) => {
             const decode_token = jwtDecode(token);
             setIsLoggedIn(true);
             setAuthIdx(decode_token.authIdx);
-        } else if (window.localStorage.getItem('userName') != null) {
-            setIsLoggedIn(true);
         } else {
             setIsLoggedIn(false);
         }

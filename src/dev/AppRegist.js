@@ -203,6 +203,7 @@ const AppRegist = ({ history }) => {
     Object.values(yamlFile).forEach(file => formData.append('yamlFile', file));
 
     const handlerOnSubmit = () => {
+        console.log(formData);
         axios({
             method: 'POST',
             url: `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/dev/registapp`,

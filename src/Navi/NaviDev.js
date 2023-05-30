@@ -15,8 +15,6 @@ const NaviDev = (props) => {
     useEffect(() => {
         if (sessionStorage.getItem('token') != null) {
             setIsLoggedIn(true);
-        } else if (window.localStorage.getItem('userName') != null) {
-            setIsLoggedIn(true);
         } else {
             setIsLoggedIn(false);
         }

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useEffect } from "react";
 import kakaoIcon from '../img/kakao.png'
 import '../css/login.css'
+import Swal from 'sweetalert2';
 
 const KakaoLogin = ({history}) => {
     const { Kakao } = window;
@@ -17,7 +18,7 @@ const KakaoLogin = ({history}) => {
         // 간편 로그인을 요청
         // 인증 성공 시 redirectUri 주소로 인가 코드를 전달
         Kakao.Auth.authorize({
-            redirectUri: 'http://localhost:3000/kakaoLogin'
+            redirectUri: 'http://com0n.com/kakaoLogin'
         });
     };
 
@@ -34,7 +35,7 @@ const KakaoLogin = ({history}) => {
                 'https://kauth.kakao.com/oauth/token', {
                     grant_type: 'authorization_code',                   // 고정
                     client_id: JAVASCRIPT_APP_KEY,                      // 앱 REST API 키
-                    redirect_uri: 'http://localhost:3000/kakaoLogin',   // 인가 코드가 리다이렉트된 URI
+                    redirect_uri: 'http://com0n.com/kakaoLogin',   // 인가 코드가 리다이렉트된 URI
                     code: code                                          // 인가 코드 받기 요청으로 얻은 인가 코드
                 }, {
                     headers: {
@@ -72,7 +73,7 @@ const KakaoLogin = ({history}) => {
                                         sessionStorage.setItem('userName', userName);
                                         // 홈(/) 화면으로 이동
                                         history.push('/');
-                                        alert("정상적으로 로그인되었습니다. 메인화면으로 돌아갑니다.");
+                                        // alert("정상적으로 로그인되었습니다. 메인화면으로 돌아갑니다.");
                                     }
                                 })
                                 .catch(error => {
@@ -82,12 +83,13 @@ const KakaoLogin = ({history}) => {
                         } else {
                             // 소셜 첫 로그인시 소셜 회원가입 화면으로 이동
                             window.location.href = "/userregist";
-                            alert("첫 방문이시군요! 사용자 회원가입화면으로 이동합니다.");
+                            Swal.fire({text: `첫 방문이시군요! 사용자 회원가입화면으로 이동합니다.`})
                             history.push('/userregist');
                         }
                         // 홈(/) 화면으로 이동
                         history.push('/');
-                        alert("정상적으로 로그인되었습니다. 메인화면으로 돌아갑니다.");
+                        Swal.fire({text: `정상적으로 로그인되었습니다. 메인화면으로 돌아갑니다.`})
+                        // alert("정상적으로 로그인되었습니다. 메인화면으로 돌아갑니다.");
                     })
                     .catch(error => {
                         console.log(error);
