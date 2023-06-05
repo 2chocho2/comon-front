@@ -8,38 +8,74 @@ const api = {
     base: "https://api.openweathermap.org/data/2.5/",
 };
 
-function Weather({ setCold }) {
-
+function Weather() {
     const city = "seoul";
-    const url = `${api.base}weather?q=${city}&appid=${api.key}`;
+    const url = `${api.base}weather?q=${city}&lang=kr&appid=${api.key}`;
     const [weather, setWeather] = useState({
         id: 0,
+        description: "",
     });
+    const [showWeather, setShowWeather] = useState(false);
+    const [temperature, setTemperature] = useState("");
 
     useEffect(() => {
-        // 날씨 가져오기
         axios.get(url).then((responseData) => {
             const data = responseData.data;
             setWeather({
                 id: data.weather[0].id,
+                description: data.weather[0].description,
             });
         });
     }, [url]);
 
     function selectIcon() {
-        let iconId = weather.id === 800 ? 0 : (parseInt(weather.id) / 100).toFixed(0);
-
-        if (iconId === 0) return <TiWeatherSunny size="2rem" />;
-        else if (iconId === 2) return <TiWeatherStormy size="2rem" />;
-        else if (iconId === 3) return <TiWeatherShower size="2rem" />;
-        else if (iconId === 5) return <TiWeatherDownpour size="2rem" />;
-        else if (iconId === 6) return <TiWeatherSnow size="2rem" />;
-        else if (iconId === 7) return <BsCloudFog size="2rem" />;
-        else if (iconId === 8) return <TiWeatherCloudy size="2rem" />;
-        else return <TiWeatherSunny size="2rem" />;
+        const iconCode = weather.id.toString();
+        const isDayTime = iconCode.endsWith("d");
+      
+        if (iconCode === "800") {
+          return isDayTime ? <TiWeatherSunny size="2rem" /> : <TiWeatherSunny size="2rem" />;
+        } else if (iconCode.startsWith("2")) {
+          return <TiWeatherStormy size="2rem" />;
+        } else if (iconCode.startsWith("3")) {
+          return <TiWeatherShower size="2rem" />;
+        } else if (iconCode.startsWith("5")) {
+          return <TiWeatherDownpour size="2rem" />;
+        } else if (iconCode.startsWith("6")) {
+          return <TiWeatherSnow size="2rem" />;
+        } else if (iconCode.startsWith("7")) {
+          return <BsCloudFog size="2rem" />;
+        } else if (iconCode.startsWith("8")) {
+          return <TiWeatherCloudy size="2rem" />;
+        } else {
+          return <TiWeatherSunny size="2rem" />;
+        }
+      }
+      
+    function handleMouseEnter() {
+        setShowWeather(true);
+        axios.get(url).then((responseData) => {
+            const data = responseData.data;
+            const temperatureCelsius = Math.round(data.main.temp - 273.15);
+            setTemperature(temperatureCelsius);
+        });
     }
+
+    function handleMouseLeave() {
+        setShowWeather(false);
+        setTemperature("");
+    }
+
     return (
-        <div className="weathericon">{selectIcon()}</div>
+        <div className="weathericon" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            {selectIcon()}
+            {showWeather && (
+                <div className="weather-detail">
+                    <div className="weather-temperature">{temperature}°C</div>
+                    <div className="weather-description">{weather.description}</div>
+                </div>
+            )}
+        </div>
     );
 }
+
 export default Weather;

@@ -74,8 +74,14 @@ const MyService = ({ history }) => {
             if (result.data.exitCode != '0') {
                 setTimeout(() => handlerRunApp(index), 10000);
             } else {
-                setPort(result.data.endpointPort);
-                setTimeout(() => checkServerHealth(result.data.endpointPort), 10000);
+                
+                if (index == 20) {
+                    setTimeout(() => checkServerHealth(65535), 10000);
+                    setPort(65535);
+                } else {
+                    setPort(result.data.endpointPort);
+                    setTimeout(() => checkServerHealth(result.data.endpointPort), 10000);
+                }
             }
         } catch (err) {
             console.log(err);

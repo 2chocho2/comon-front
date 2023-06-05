@@ -4,11 +4,16 @@ import NaviDefault from "../Navi/NaviDefault";
 import { SiNaver } from "react-icons/si";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import NaverRegist from "./NaverRegist";
+import Swal from "sweetalert2";
 
 const SelectUserRegist = ({ history }) => {
 
     // 사용자 회원가입
     const handlerUserRegist = e => { history.push('/userregist') };
+
+    const handlerClickSocial = () => {
+        Swal.fire({text: '현재 소셜 로그인 사용이 불가합니다. 사이트 회원 가입을 이용해 주세요.'})
+    };
 
     return (
         <>
@@ -31,16 +36,20 @@ const SelectUserRegist = ({ history }) => {
 
                             <div className='user-register-btn' onClick={handlerUserRegist} >사용자 회원가입</div>
 
-                            <div className="register-naver-btn-box">
-                                <div className="select-naver-btn"><NaverLogin /></div>
-                                <div className="select-naver-tag">
+                            <div className="register-naver-btn-box" onClick={handlerClickSocial}>
+                                <div className="select-naver-btn">
+                                    {/* <NaverLogin /> */}
+                                    </div>
+                                <div className="select-naver-tag" >
                                     <SiNaver className="select-naver-icon" />
                                     <span>네이버 회원가입</span>
                                 </div>
                             </div>
 
-                            <div className="register-kakao-btn-box">
-                                <div className="select-kakao-btn"><KakaoLogin /></div>
+                            <div className="register-kakao-btn-box" onClick={handlerClickSocial}>
+                                <div className="select-kakao-btn" >
+                                    {/* <KakaoLogin /> */}
+                                    </div>
                                 <div className="select-kakao-tag">
                                     <RiKakaoTalkFill className="select-kakao-icon" />
                                     <span>카카오 회원가입</span>

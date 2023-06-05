@@ -1,30 +1,38 @@
-.side-box {
+* {
+	box-sizing: border-box;
+   }
+   
+ 
+ .side-box {
 	position: fixed;
 	bottom: 120px;
 	right: 30px;
-}
-
-.side-chat {
+ }
+ 
+ .side-chat {
 	position: relative;
 	cursor: pointer;
-	box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.2);
+	box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.16);
 	background-color: #FEE500;
+	text-align: center;
 	border-radius: 50%;
 	width: 50px;
 	height: 50px;
 	margin-bottom: 10px;
-}
-
-.chat-img {
+ }
+ 
+ .chat-img {
 	position: absolute;
-	top: 52%;
+	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+	z-index: 1;
 	width: 26px;
 	height: 26px;
-}
-
-.topBtn {
+ }
+ 
+ .topBtn {
+	position: relative;
 	background-image: url("./totop.png");
 	background-repeat: no-repeat;
 	background-position: center;
@@ -33,30 +41,71 @@
 	height: 50px;
 	border-radius: 50%;
 	border: none;
+	font-size: 14px;
+	font-weight: bold;
+	letter-spacing: -0.28px;
+	text-align: center;
 	background-color: gray;
 	color: #fff;
-	box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.2);
+	box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.16);
 	cursor: pointer;
 	z-index: 99999;
-}
-
-.weathericon {
+ }
+ 
+ .weathericon {
 	position: relative;
+	padding-top: 7px;
+	text-align: center;
 	width: 50px;
 	height: 50px;
 	color: white;
 	background-color: #609AF0;
 	border-radius: 100%;
 	border: none;
-	box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.2);
+	box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.16);
+	cursor: pointer;
 	z-index: 99999;
 	margin-bottom: 10px;
 	cursor: default;
-}
-
-.weathericon svg {
+ }
+ 
+ .weathericon:hover .weather-detail {
+	opacity: 1;
+	visibility: visible;
+ }
+ 
+ .weather-detail {
+	position: absolute;
+	width: 70px;
+	top: 1%;
+	right: 1%;
+	transform: translateX(-100%);
+	background-color: #609AF0;
+	color: #fff;
+	padding: 8px;
+	border-radius: 8px;
+	font-size: 14px;
+	pointer-events: none;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.3s, visibility 0.3s;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+ }
+ 
+ .weather-temperature {
+	font-weight: bold;
+	font-size: 16px;
+ }
+ 
+ .weather-detail::before {
+	content: "";
 	position: absolute;
 	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
+	left: calc(100% - 1px);
+	transform: translateY(-50%) rotateY(180deg);
+	border-width: 8px;
+	border-style: solid;
+	border-color: transparent #609AF0 transparent transparent;
+ }

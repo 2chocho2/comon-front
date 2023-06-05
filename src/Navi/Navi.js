@@ -70,7 +70,11 @@ const Navi = (props) => {
             theme: "light",
         });
     };
-
+    
+    const handlerClickAboutUs = () => {
+        props.history.push(`/user/aboutus`);
+    };
+    
     return (
         <>
             <ToastContainer />
@@ -79,7 +83,7 @@ const Navi = (props) => {
                 <div className='user-navi'>
                     <h1 onClick={handlerClickComon} className='user-home'>COM:ON</h1>
                     <ul className='user-link'>
-                        <li>About us</li>
+                        <li onClick={handlerClickAboutUs}>About us</li>
                         <li onClick={handlerClickAppList}>Application</li>
                         <li onClick={handlerClickNotice}>Notice</li>
                     </ul>

@@ -960,6 +960,10 @@ input:focus,
     color: white;
 }
 
+.home {
+    cursor: pointer;
+}
+
 /* 클리어 */
 #applist-description-box::after,
 .applist-each-icon::after,

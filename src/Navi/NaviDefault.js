@@ -21,6 +21,14 @@ const NaviDefault = (props) => {
         props.history.push(`/mypage`);
     };
 
+    const handlerClickNotice = () => {
+        props.history.push(`/notice`);
+    };
+
+    const handlerClickAboutUs = () => {
+        props.history.push(`/user/aboutus`);
+    };
+
     return (
         <>
             <Reset />
@@ -28,9 +36,9 @@ const NaviDefault = (props) => {
                 <div className='default-navi'>
                     <h1 onClick={handlerClickComon} className='default-home'>COM:ON</h1>
                     <ul className='default-link'>
-                        <li>About us</li>
+                        <li onClick={handlerClickAboutUs}>About us</li>
                         <li onClick={handlerClickAppList}>Application</li>
-                        <li>Notice</li>
+                        <li onClick={handlerClickNotice}>Notice</li>
                     </ul>
                     <div id="default-button">
                         < RiLogoutCircleFill className='logout-navi-icon' title='로그아웃' />

@@ -1,0 +1,113 @@
+
+
+/* 사이드 바 */
+.sidemenu_aboutus_box {
+    width: 17%;
+    height: 93.6vh;
+    float: left;
+    clear: both;
+    padding: 80px 25px;
+    background: linear-gradient(to top, #0f0f0f13, #00000071, #000000);
+    font-family: 'TheJamsil5Bold';
+}
+
+.sidemenu_aboutus li {
+    line-height: 70px;
+    text-align: center;
+    width: 250px;
+    margin: auto;
+}
+
+.sidemenu_aboutus_box .sidemenu_aboutus li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    padding: 5px 0px;
+    transition: all .1s ease;
+    display: inline-block;
+    width: 250px;
+}
+
+.sidemenu_aboutus_box .sidemenu_aboutus li a:hover {
+    background-color: rgb(0, 0, 0, 0.5);
+    color: white;
+}
+
+.sidemenu_aboutus li:first-child {
+    border-top: 3px solid white;
+}
+
+.sidemenu_aboutus li:last-child {
+    border-bottom: 3px solid white;
+}
+
+
+/* 로고 */
+.about_logo {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 130px;
+    margin-bottom: 50px;
+    cursor: pointer;
+}
+
+.about_logo {
+    background-image: url('../img/logoW_main.png');
+}
+
+/* 기능 설명 */
+
+.about_container img {
+    width: 100%;
+  }
+
+  .about_container hr {
+    margin-top: 7%;
+    margin-bottom: 7%;
+    width: 100%;
+  }
+
+  .about_img {
+    margin-top: 10%;
+  }
+
+/* 드롭다운 */
+.about_drop_store, .about_drop_app {
+    float: left;
+    margin-right: 1%;
+    /* margin-bottom: 10%; */
+    width: 20%;
+    height: 40px;
+    line-height: 40px;
+    background-color: #000000;
+    color: #FFFFFF;
+    border-radius: 5px;
+    box-shadow: 0 4px 5px 0 #00000026;
+    position: relative;
+    z-index: 10;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .about_drop_list {
+    border: 2px solid #000000;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    box-shadow: 0 4px 5px 0 #00000026;
+  }
+
+.about_drop_list li a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    padding: 5px 0px;
+    transition: all .1s ease;
+    display: inline-block;
+    width: 100%;
+}
+
+.about_drop_list li a:hover {
+    background-color: rgb(0, 0, 0, 0.5);
+    color: white;
+}

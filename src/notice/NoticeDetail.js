@@ -17,15 +17,21 @@ const NoticeDetail = ({ match, history }) => {
     const [authYn, setAuthYn] = useState(false);
 
     useEffect(() => {
-        const token = sessionStorage.getItem('token');
-        const decode_token = jwtDecode(token);
-        let authIdx = decode_token.authIdx;
-
-        if (authIdx === 3) {
-            setAuthYn(true);
+        if(sessionStorage.getItem('token') != null) {
+            const token = sessionStorage.getItem('token');
+            const decode_token = jwtDecode(token);
+            let authIdx = decode_token.authIdx;
+    
+            if (authIdx === 3) {
+                setAuthYn(true);
+            } else {
+                setAuthYn(false);
+            }
         } else {
-            setAuthYn(false);
+            Swal.fire({ text: `로그인 후 사용이 가능합니다.` });
+            history.push(`/login`);
         }
+        
 
         axios.get(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/notice/detail/${noticeIdx}`)
             .then(res => {
@@ -116,12 +122,14 @@ const NoticeDetail = ({ match, history }) => {
                     <>
                         {
                             authYn
-                            &&
+                            ?
                             <div>
                                 <BiListCheck className="back-list-btn" title="목록으로" onClick={handlerClickList} />
                                 <input type="button" id="edit" className="edit-btn" value="수정" onClick={handlerClickUpdate} />
                                 <input type="button" id="delete" className="detail-btn" value="삭제" onClick={handlerClickDelete} />
                             </div>
+                            :
+                            <BiListCheck className="back-list-btn" title="목록으로" onClick={handlerClickList} />
                         }
                     </>
                 </div>

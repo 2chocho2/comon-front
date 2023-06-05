@@ -48,6 +48,10 @@ const NaviDev = (props) => {
         props.history.push(`/notice`);
     };
 
+    const handlerClickAboutUs = () => {
+        props.history.push(`/user/aboutus`);
+    };
+
     const showToastMessage = () => {
         toast('Bye Bye~ 👋', {
             position: "top-right",
@@ -68,7 +72,7 @@ const NaviDev = (props) => {
             <div className='dev-menu'>
                 <h1 onClick={handlerClickComon} className='dev-home'>COM:ON</h1>
                 <ul className='dev-link'>
-                    <li>About us</li>
+                    <li onClick={handlerClickAboutUs}>About us</li>
                     <li onClick={handlerClickAppList}>Application</li>
                     <li onClick={handlerClickNotice}>Notice</li>
                 </ul>

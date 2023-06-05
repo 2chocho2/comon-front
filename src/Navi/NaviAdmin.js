@@ -11,10 +11,14 @@ import 'react-toastify/dist/ReactToastify.css';
 const NaviAdmin = (props) => {
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [authIdx, setAuthIdx] = useState(1);
 
     useEffect(() => {
         if (sessionStorage.getItem('token') != null) {
+            const token = sessionStorage.getItem('token');
+            const decode_token = jwtDecode(token);
             setIsLoggedIn(true);
+            setAuthIdx(decode_token.authIdx);
         } else {
             setIsLoggedIn(false);
         }
@@ -61,13 +65,17 @@ const NaviAdmin = (props) => {
         });
     };
 
+    const handlerClickAboutUs = () => {
+        props.history.push(`/user/aboutus`);
+    };
+
     return (
         <>
             <Reset />
             <div className='menu'>
                 <h1 onClick={handlerClickComon} className='home'>COM:ON</h1>
                 <ul className='link'>
-                    <li>About us</li>
+                    <li onClick={handlerClickAboutUs}>About us</li>
                     <li onClick={handlerClickAppList}>Application</li>
                     <li onClick={handlerClickNotice}>Notice</li>
                 </ul>

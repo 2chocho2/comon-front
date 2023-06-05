@@ -36,13 +36,54 @@ import NoticeWrite from './notice/NoticeWrite';
 import SelectUserRegist from './login/SelectUserRegist';
 import AdminChartDetail from './admin/adminChart/AdminChartDetail';
 import AdminChart from './admin/adminChart/AdminChart';
+import AboutUs from './aboutUs/AboutUs';
+import AboutTeam from './aboutUs/AboutTeam';
+import AboutSkill from './aboutUs/AboutSkill';
+import AboutProject from './aboutUs/AboutProject';
+import AboutSchedule from './aboutUs/AboutSchedule';
 
+import HabitTracker from './aboutUs/app/HabitTracker';
+import ComPlace from './aboutUs/app/ComPlace';
+import Cal from './aboutUs/app/Cal';
+import Logon from './aboutUs/app/Logon';
+import Tetris from './aboutUs/app/Tetris';
+import Dictionary from './aboutUs/app/Dictionary';
+import News from './aboutUs/app/News';
+import Onday from './aboutUs/app/Onday';
+import SpellCheck from './aboutUs/app/SpellCheck';
+
+import AboutAppDetail from './aboutUs/store/AboutAppDetail';
+import AboutAppLogin from './aboutUs/store/AboutAppLogin';
+import AboutAppRegist from './aboutUs/store/AboutAppRegist';
+import AboutRunApp from './aboutUs/store/AboutRunApp';
 
 function App() {
   return (
     <>
+      {/* {어바웃어스} */}
+      <Route path='/user/aboutus' render={(props) => <AboutUs {...props} />} exact={true} />
+      <Route path='/user/about/schedule' render={(props) => <AboutSchedule {...props} />} exact={true} />
+      <Route path='/user/about/team' render={(props) => <AboutTeam {...props} />} exact={true} />
+      <Route path='/user/about/skill' render={(props) => <AboutSkill {...props} />} exact={true} />
+      <Route path='/user/about/project' render={(props) => <AboutProject {...props} />} exact={true} />
 
-      
+      {/* 스토어 */}
+      <Route path='/user/about/login' render={(props) => <AboutAppLogin {...props} />} exact={true} />
+      <Route path='/user/about/appdetail' render={(props) => <AboutAppDetail {...props} />} exact={true} />
+      <Route path='/user/about/runapp' render={(props) => <AboutRunApp {...props} />} exact={true} />
+      <Route path='/user/about/appregist' render={(props) => <AboutAppRegist {...props} />} exact={true} />
+
+      {/* 앱 */}
+      <Route path='/user/about/habittracker' render={(props) => <HabitTracker {...props} />} exact={true} />
+      <Route path='/user/about/calculator' render={(props) => <Cal {...props} />} exact={true} />
+      <Route path='/user/about/complace' render={(props) => <ComPlace {...props} />} exact={true} />
+      <Route path='/user/about/logon' render={(props) => <Logon {...props} />} exact={true} />
+      <Route path='/user/about/tetris' render={(props) => <Tetris {...props} />} exact={true} />
+      <Route path='/user/about/dictionary' render={(props) => <Dictionary {...props} />} exact={true} />
+      <Route path='/user/about/news' render={(props) => <News {...props} />} exact={true} />
+      <Route path='/user/about/onday' render={(props) => <Onday {...props} />} exact={true} />
+      <Route path='/user/about/spellcheck' render={(props) => <SpellCheck {...props} />} exact={true} />
+
       {/* 관리자용 */}
       <Route path="/admin" render={(props) => <AppListAdmin {...props} />} exact={true} />
       <Route path="/admin/judge" render={(props) => <Judge {...props} />} exact={true} />
@@ -85,7 +126,7 @@ function App() {
       <Route path='/userlogin' render={(props) => <Login {...props} />} exact={true} />
       <Route path='/userregist' render={(props) => <Regist {...props} />} exact={true} />
       <Route path="/kakaologin" component={KakaoLogin} exact={true} />
-      
+
       <Route path='/selectuserregist' render={(props) => <SelectUserRegist {...props} />} exact={true} />
 
       {/* 개발자용 로그인 */}

@@ -90,6 +90,7 @@ const AppDetail = ({ match, history }) => {
                 Swal.fire({ text: `다운로드 중 오류가 발생했습니다☠️` });
             } else if (result.data.downloadCount == '1' || result.data.updateCount == '1') {
                 Swal.fire({ text: `앱 다운로드가 완료되었습니다.📂` });
+                history.push(`/mypage`);
             } else {
                 Swal.fire({
                     text: `이미 다운받은 앱입니다🗂️`,

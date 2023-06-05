@@ -56,6 +56,10 @@ const NaviMain = (props) => {
         props.history.push(`/notice`)
     };
 
+    const handlerClickAboutUs = () => {
+        props.history.push(`/user/aboutus`);
+    };
+
     const handlerClickLogout = () => {
         setIsLoggedIn(false);
         sessionStorage.clear();
@@ -99,7 +103,7 @@ const NaviMain = (props) => {
 
                 <h1 onClick={handlerClickComon} className='main-home'>COM:ON</h1>
                 <ul className='main-link'>
-                    <li>About us</li>
+                    <li onClick={handlerClickAboutUs}>About us</li>
                     <li onClick={handlerClickAppList}>Application</li>
                     <li onClick={handlerClickNotice}>Notice</li>
                 </ul>

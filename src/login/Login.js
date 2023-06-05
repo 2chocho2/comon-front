@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Swal from "sweetalert2";
 import { SiNaver } from "react-icons/si";
 import { RiKakaoTalkFill } from "react-icons/ri";
+import jwtDecode from "jwt-decode";
 
 const Login = ({ history }) => {
 
@@ -54,10 +55,23 @@ const Login = ({ history }) => {
     const handlerOnClick = e => {
         axios.post(`http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/login`, { userId, userPassword })
             .then(response => {
-                if (response.data) {
-                    sessionStorage.setItem("token", response.data);
-                    history.push('/');
+                const token = response.data;
+                const decode_token = jwtDecode(token);
 
+                console.log(decode_token);
+                if (response.data) {
+                    if(decode_token.deleteYn == 'Y') {
+                        Swal.fire({ text: `탈퇴한 경우 접속이 불가합니다.` });
+                        sessionStorage.clear();
+                        localStorage.clear();
+                        setUserId('');
+                        setUserPassword('');
+                        return;
+                    } else {
+                        sessionStorage.setItem("token", response.data);
+                        history.push('/');
+                    }
+                
                 } else {
                     Swal.fire({ text: `ID, PW가 일치하지 않습니다. 확인 후 다시 시도해주세요.` });
                     sessionStorage.clear();
@@ -68,6 +82,10 @@ const Login = ({ history }) => {
                 Swal.fire({ text: `ID, PW가 일치하지 않습니다. 확인 후 다시 시도해주세요.` });
                 sessionStorage.clear();
             });
+    };
+
+    const handlerClickSocial = () => {
+        Swal.fire({text: '현재 소셜 로그인 사용이 불가합니다. 사이트 회원 가입을 이용해 주세요.'})
     };
 
     return (
@@ -137,15 +155,15 @@ const Login = ({ history }) => {
                                     <p>소셜 로그인</p>
                                     {/* 다양한 방식의 로그인 컴포넌트를 추가 */}
                                     <div className="login-btn-box">
-                                        <div className="naver-btn">
-                                            <NaverLogin />
+                                        <div className="naver-btn" onClick={handlerClickSocial}>
+                                            {/* <NaverLogin /> */}
                                             <div className="naver-btn-bg">
                                                 <SiNaver className="user-naver-icon" />
                                             </div>
                                         </div>
 
-                                        <div className="kakao-btn">
-                                            <KakaoLogin />
+                                        <div className="kakao-btn" onClick={handlerClickSocial}>
+                                            {/* <KakaoLogin /> */}
                                             <div className="kakao-btn-bg">
                                                 <RiKakaoTalkFill className="user-kakao-icon" />
                                             </div>

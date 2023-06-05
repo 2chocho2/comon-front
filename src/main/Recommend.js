@@ -34,7 +34,7 @@ const Recommend = ({ recommendList, history }) => {
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
-        speed: 2,
+        speed: 500,
         autoplaySpeed: 3000,
         nextArrow: <SampleNextArrow />,
         prevArrow: <SamplePrevArrow />
